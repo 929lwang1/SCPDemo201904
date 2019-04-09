@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2019/04/09 17:05:08.195,=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2019/04/09 17:05:22.604,C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Project3.dproj</Transaction>
+    <Transaction>2019/04/09 17:05:36.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.dfm</Transaction>
+    <Transaction>2019/04/09 17:05:36.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2019/04/09 17:05:45.788,D:\GitHub\Ross\Client\uResourceGroupClient.pas=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas</Transaction>
+    <Transaction>2019/04/09 17:05:45.788,D:\GitHub\Ross\Client\uResourceGroupClient.dfm=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm</Transaction>
+    <Transaction>2019/04/09 17:05:59.788,D:\GitHub\Ross\Client\ResourceGroupClient.dproj=C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
