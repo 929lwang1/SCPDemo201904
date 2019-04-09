@@ -98,18 +98,10 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.pas">
+        <DCCReference Include="uResourceGroupServer.pas">
             <Form>Form7</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="ResourceGroupServer_TLB.pas"/>
-        <DCCReference Include="C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupModule.pas">
-            <Form>ResourceGroup</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TRemoteDataModule</DesignClass>
-            <CoClasses>ResourceGroup</CoClasses>
-        </DCCReference>
-        <RidlCompile Include="C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer.ridl"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -132,12 +124,6 @@
                 </Source>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="ResourceGroupServer.ridl" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\ResourceGroupServer.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>ResourceGroupServer.exe</RemoteName>
@@ -617,9 +603,6 @@
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
-            <ActiveXProjectInfo>
-                <version>1</version>
-            </ActiveXProjectInfo>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

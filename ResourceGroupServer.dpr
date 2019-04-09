@@ -2,11 +2,7 @@ program ResourceGroupServer;
 
 uses
   Vcl.Forms,
-  uResourceGroupServer in 'C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.pas' {Form7},
-  ResourceGroupServer_TLB in 'ResourceGroupServer_TLB.pas',
-  uResourceGroupModule in 'C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupModule.pas' {ResourceGroup: TRemoteDataModule} {ResourceGroup: CoClass};
-
-{$R *.TLB}
+  uResourceGroupServer in 'uResourceGroupServer.pas' {Form7};
 
 {$R *.res}
 
