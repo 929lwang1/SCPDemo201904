@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2019/04/09 14:55:15.209,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2019/04/09 14:55:53.365,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.dfm=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.dfm</Transaction>
+    <Transaction>2019/04/09 14:55:53.365,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.pas=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2019/04/09 14:56:03.242,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer.dproj=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Project3.dproj</Transaction>
+    <Transaction>2019/04/09 14:56:29.846,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer.ridl</Transaction>
+    <Transaction>2019/04/09 14:56:29.873,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer_TLB.pas</Transaction>
+    <Transaction>2019/04/09 14:56:29.968,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/04/09 14:57:14.614,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupBuild.dfm=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2019/04/09 14:57:14.614,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupBuild.pas=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/04/09 14:57:32.402,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupModule.dfm=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupBuild.dfm</Transaction>
+    <Transaction>2019/04/09 14:57:32.402,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupModule.pas=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupBuild.pas</Transaction>
+    <Transaction>2019/04/09 16:21:55.320,C:\RossDemo\SCPDemo201904\ResourceGroupServer_TLB.pas=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer_TLB.pas</Transaction>
+    <Transaction>2019/04/09 16:22:05.541,C:\RossDemo\SCPDemo201904\ResourceGroupServer.dproj=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
