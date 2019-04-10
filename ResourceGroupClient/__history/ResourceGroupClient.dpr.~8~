@@ -1,0 +1,15 @@
+program ResourceGroupClient;
+
+uses
+  Vcl.Forms,
+  uResourceGroupClient in 'uResourceGroupClient.pas' {fResGroup},
+  Unit8 in 'C:\Users\tcai\Desktop\tina\Unit8.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfResGroup, fResGroup);
+  Application.Run;
+end.

@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Menus,
   Vcl.ExtCtrls, Vcl.DBCtrls, Datasnap.Provider, Data.DB, Data.Win.ADODB,
-  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient;
+  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids,
+  Vcl.Samples.Spin;
 
 type
   TfResGroup = class(TForm)
@@ -36,12 +37,12 @@ type
     dspRES_GRP_MSTR: TDataSetProvider;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
+    btnDelete: TToolButton;
     ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
+    btnSave: TToolButton;
+    btnCancel: TToolButton;
     ToolButton6: TToolButton;
-    ToolButton7: TToolButton;
+    btnExit: TToolButton;
     ToolButton8: TToolButton;
     Panel1: TPanel;
     Label1: TLabel;
@@ -50,16 +51,8 @@ type
     DBEdit2: TDBEdit;
     Label3: TLabel;
     Panel2: TPanel;
-    Label6: TLabel;
-    Label4: TLabel;
-    DBComboBox1: TDBComboBox;
-    Defaults: TLabel;
-    Label5: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
-    qryUTL_TYPE_MSTR: TADOQuery;
     actNew: TAction;
     actDelete: TAction;
     actSave: TAction;
@@ -74,6 +67,70 @@ type
     actPrior: TAction;
     actNext: TAction;
     actLast: TAction;
+    dsUTL_TYPE_MSTR_cds: TDataSource;
+    dspRES_MSTR: TDataSetProvider;
+    qryRES_MSTR: TADOQuery;
+    qryRES_GRP: TADOQuery;
+    cdsRES_GRP: TClientDataSet;
+    qryUTL_TYPE_MSTR: TADOQuery;
+    DBLookupComboBox1: TDBLookupComboBox;
+    DBGrid1: TDBGrid;
+    dsRES_GRP_cds: TDataSource;
+    qryRES_GRPRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRPRESOURCE_ID: TIntegerField;
+    qryRES_GRPUSE_GROUP_SETTINGS_IND: TWideStringField;
+    qryRES_GRPPRIORITY_INDEX: TIntegerField;
+    cdsRES_GRPRESOURCE_GROUP_ID: TIntegerField;
+    cdsRES_GRPRESOURCE_ID: TIntegerField;
+    cdsRES_GRPResouceName: TStringField;
+    cdsRES_GRPUSE_GROUP_SETTINGS_IND2: TWideStringField;
+    cdsRES_GRPPRIORITY_INDEX: TIntegerField;
+    cdsRES_GRPResourceDescription: TStringField;
+    GroupBox1: TGroupBox;
+    Label5: TLabel;
+    Label4: TLabel;
+    dbeditPRE_TIME: TDBEdit;
+    Label6: TLabel;
+    dbeditCLEANUP_TIME: TDBEdit;
+    dbeditDAILY_PRE_TIME: TDBEdit;
+    Label8: TLabel;
+    dbeditDAILY_CLEANUP_TIME: TDBEdit;
+    seditOPER_COST: TSpinEdit;
+    btnFirst: TToolButton;
+    btnPrior: TToolButton;
+    btnNext: TToolButton;
+    btnLast: TToolButton;
+    ToolButton13: TToolButton;
+    MainMenu2: TMainMenu;
+    OrderBy1: TMenuItem;
+    N1Name1: TMenuItem;
+    N2Description1: TMenuItem;
+    StatusBar1: TStatusBar;
+    DBNavigator1: TDBNavigator;
+    dsRES_GRP_MSTR: TDataSource;
+    qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
+    qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
+    qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTROPERATION_COST: TFMTBCDField;
+    qryRES_GRP_MSTRPREP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
+    cdsRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
+    cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
+    cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField;
+    cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
+    btnSearch: TToolButton;
+    ToolButton15: TToolButton;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -90,6 +147,7 @@ type
     procedure actNextExecute(Sender: TObject);
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
+    procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -181,6 +239,13 @@ end;
 procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
    //ShowMessage('Set when Save button is enabled.');
+end;
+
+procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+begin
+  if qryRES_GRP.Active then qryRES_GRP.Close;
+  qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+  qryRES_GRP.Open;
 end;
 
 end.
