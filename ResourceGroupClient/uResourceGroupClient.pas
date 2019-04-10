@@ -7,28 +7,28 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Menus,
   Vcl.ExtCtrls, Vcl.DBCtrls, Datasnap.Provider, Data.DB, Data.Win.ADODB,
-  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
+  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient;
 
 type
-  TForm7 = class(TForm)
+  TfResGroup = class(TForm)
     MainMenu1: TMainMenu;
     File1: TMenuItem;
-    New1: TMenuItem;
-    Delete1: TMenuItem;
+    menuNew: TMenuItem;
+    menuDelete: TMenuItem;
     N1: TMenuItem;
-    Save1: TMenuItem;
-    Cancel1: TMenuItem;
+    menuSave: TMenuItem;
+    menuCancel: TMenuItem;
     N2: TMenuItem;
-    Exit1: TMenuItem;
+    menuExit: TMenuItem;
     Search1: TMenuItem;
-    Find1: TMenuItem;
+    menuFind: TMenuItem;
     N3: TMenuItem;
-    OrderBy1: TMenuItem;
-    Goto1: TMenuItem;
-    First1: TMenuItem;
-    Prior1: TMenuItem;
-    Next1: TMenuItem;
-    Last1: TMenuItem;
+    menuOrderBy: TMenuItem;
+    menuGoto: TMenuItem;
+    menuFirst: TMenuItem;
+    menuPrior: TMenuItem;
+    menuNext: TMenuItem;
+    menuLast: TMenuItem;
     ActionList1: TActionList;
     ImageList1: TImageList;
     qryRES_GRP_MSTR: TADOQuery;
@@ -52,6 +52,7 @@ type
     Panel2: TPanel;
     Label6: TLabel;
     Label4: TLabel;
+    DBComboBox1: TDBComboBox;
     Defaults: TLabel;
     Label5: TLabel;
     Label7: TLabel;
@@ -59,13 +60,36 @@ type
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
     qryUTL_TYPE_MSTR: TADOQuery;
-    DBLookupComboBox1: TDBLookupComboBox;
-    dsUTL_TYPE_MSTR_cds: TDataSource;
-    DBGrid1: TDBGrid;
-    qryRES_GRP: TADOQuery;
-    qryRES_MSTR: TADOQuery;
-    cdsRES_GRP: TClientDataSet;
-    dspRES_GRP: TDataSetProvider;
+    actNew: TAction;
+    actDelete: TAction;
+    actSave: TAction;
+    actCancel: TAction;
+    actExit: TAction;
+    menuName: TMenuItem;
+    menuDesc: TMenuItem;
+    actFind: TAction;
+    actOrdByName: TAction;
+    actOrdByDesc: TAction;
+    actFirst: TAction;
+    actPrior: TAction;
+    actNext: TAction;
+    actLast: TAction;
+    procedure actNewExecute(Sender: TObject);
+    procedure actNewUpdate(Sender: TObject);
+    procedure actDeleteExecute(Sender: TObject);
+    procedure actDeleteUpdate(Sender: TObject);
+    procedure actSaveExecute(Sender: TObject);
+    procedure actSaveUpdate(Sender: TObject);
+    procedure actCancelExecute(Sender: TObject);
+    procedure actCancelUpdate(Sender: TObject);
+    procedure actExitExecute(Sender: TObject);
+    procedure actFindExecute(Sender: TObject);
+    procedure actOrdByNameExecute(Sender: TObject);
+    procedure actOrdByDescExecute(Sender: TObject);
+    procedure actLastExecute(Sender: TObject);
+    procedure actNextExecute(Sender: TObject);
+    procedure actPriorExecute(Sender: TObject);
+    procedure actFirstExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -73,10 +97,90 @@ type
   end;
 
 var
-  Form7: TForm7;
+  fResGroup: TfResGroup;
 
 implementation
 
 {$R *.dfm}
+
+procedure TfResGroup.actCancelExecute(Sender: TObject);
+begin
+   ShowMessage('Cancel update.');
+end;
+
+procedure TfResGroup.actCancelUpdate(Sender: TObject);
+begin
+   //ShowMessage('Set when Cancel button is enabled.');
+end;
+
+procedure TfResGroup.actDeleteExecute(Sender: TObject);
+begin
+   ShowMessage('prepare to delete a record.');
+end;
+
+procedure TfResGroup.actDeleteUpdate(Sender: TObject);
+begin
+   //ShowMessage('Set when DELETE button is enabled.');
+end;
+
+procedure TfResGroup.actExitExecute(Sender: TObject);
+begin
+   fResGroup.Close;
+end;
+
+procedure TfResGroup.actFindExecute(Sender: TObject);
+begin
+   ShowMessage('Go to a subscreen to search a record.');
+end;
+
+procedure TfResGroup.actFirstExecute(Sender: TObject);
+begin
+   ShowMessage('Find FIRST record.');
+end;
+
+procedure TfResGroup.actLastExecute(Sender: TObject);
+begin
+   ShowMessage('Find last record.');
+end;
+
+procedure TfResGroup.actNewExecute(Sender: TObject);
+begin
+   ShowMessage('Create a new record.');
+end;
+
+procedure TfResGroup.actNewUpdate(Sender: TObject);
+begin
+   //ShowMessage('Set when New button is enabled.');
+end;
+
+procedure TfResGroup.actNextExecute(Sender: TObject);
+begin
+   ShowMessage('Find NEXT record.');
+end;
+
+procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
+begin
+   ShowMessage('set query order by Descrition for navigation');
+end;
+
+procedure TfResGroup.actOrdByNameExecute(Sender: TObject);
+begin
+   ShowMessage('set query order by name for navigation');
+end;
+
+procedure TfResGroup.actPriorExecute(Sender: TObject);
+begin
+   ShowMessage('Find PRIOR record.');
+end;
+
+procedure TfResGroup.actSaveExecute(Sender: TObject);
+begin
+   ShowMessage('Save update.');
+end;
+
+procedure TfResGroup.actSaveUpdate(Sender: TObject);
+begin
+   //ShowMessage('Set when Save button is enabled.');
+end;
 
 end.

@@ -1,7 +1,7 @@
-object Form7: TForm7
+object fResGroup: TfResGroup
   Left = 0
   Top = 0
-  Caption = 'Form7'
+  Caption = 'Resource Group'
   ClientHeight = 526
   ClientWidth = 765
   Color = clBtnFace
@@ -155,6 +155,13 @@ object Form7: TForm7
       DataSource = dsRES_GRP_MSTR_cds
       TabOrder = 1
     end
+    object DBComboBox1: TDBComboBox
+      Left = 560
+      Top = 13
+      Width = 145
+      Height = 21
+      TabOrder = 2
+    end
   end
   object Panel2: TPanel
     Left = 0
@@ -228,80 +235,62 @@ object Form7: TForm7
       ParentFont = False
     end
   end
-  object DBLookupComboBox1: TDBLookupComboBox
-    Left = 568
-    Top = 35
-    Width = 189
-    Height = 21
-    DataField = 'UTILIZATION_TYPE_CD'
-    DataSource = dsRES_GRP_MSTR_cds
-    KeyField = 'UTILIZATION_TYPE_CD'
-    ListField = 'UTILIZATION_TYPE_DESC'
-    ListSource = dsUTL_TYPE_MSTR_cds
-    TabOrder = 3
-  end
-  object DBGrid1: TDBGrid
-    Left = 0
-    Top = 200
-    Width = 757
-    Height = 225
-    TabOrder = 4
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-  end
   object MainMenu1: TMainMenu
     Left = 112
     Top = 480
     object File1: TMenuItem
       Caption = '&File'
-      object New1: TMenuItem
-        Caption = '&New'
+      object menuNew: TMenuItem
+        Action = actNew
       end
-      object Delete1: TMenuItem
-        Caption = '&Delete'
+      object menuDelete: TMenuItem
+        Action = actDelete
       end
       object N1: TMenuItem
         Caption = '-'
       end
-      object Save1: TMenuItem
-        Caption = '&Save'
+      object menuSave: TMenuItem
+        Action = actSave
       end
-      object Cancel1: TMenuItem
-        Caption = '&Cancel'
+      object menuCancel: TMenuItem
+        Action = actCancel
       end
       object N2: TMenuItem
         Caption = '-'
       end
-      object Exit1: TMenuItem
-        Caption = 'E&xit'
+      object menuExit: TMenuItem
+        Action = actExit
       end
     end
     object Search1: TMenuItem
       Caption = '&Search'
-      object Find1: TMenuItem
+      object menuFind: TMenuItem
         Caption = '&Find'
       end
       object N3: TMenuItem
         Caption = '-'
       end
-      object OrderBy1: TMenuItem
+      object menuOrderBy: TMenuItem
         Caption = '&Order By'
+        object menuName: TMenuItem
+          Caption = '&Name'
+        end
+        object menuDesc: TMenuItem
+          Caption = '&Description'
+        end
       end
-      object Goto1: TMenuItem
+      object menuGoto: TMenuItem
         Caption = '&Goto'
-        object First1: TMenuItem
+        object menuFirst: TMenuItem
           Caption = '&First'
         end
-        object Prior1: TMenuItem
+        object menuPrior: TMenuItem
           Caption = '&Prior'
         end
-        object Next1: TMenuItem
+        object menuNext: TMenuItem
           Caption = '&Next'
         end
-        object Last1: TMenuItem
+        object menuLast: TMenuItem
           Caption = '&Last'
         end
       end
@@ -309,12 +298,76 @@ object Form7: TForm7
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 72
-    Top = 480
+    Left = 168
+    Top = 200
+    object actNew: TAction
+      Category = 'File'
+      Caption = '&New'
+      OnExecute = actNewExecute
+      OnUpdate = actNewUpdate
+    end
+    object actDelete: TAction
+      Category = 'File'
+      Caption = '&Delete'
+      OnExecute = actDeleteExecute
+      OnUpdate = actDeleteUpdate
+    end
+    object actSave: TAction
+      Category = 'File'
+      Caption = '&Save'
+      OnExecute = actSaveExecute
+      OnUpdate = actSaveUpdate
+    end
+    object actCancel: TAction
+      Category = 'File'
+      Caption = '&Cancel'
+      OnExecute = actCancelExecute
+      OnUpdate = actCancelUpdate
+    end
+    object actExit: TAction
+      Category = 'File'
+      Caption = '&Exit'
+      OnExecute = actExitExecute
+    end
+    object actFind: TAction
+      Category = 'Search'
+      Caption = '&Find'
+      OnExecute = actFindExecute
+    end
+    object actOrdByName: TAction
+      Category = 'Search'
+      Caption = '&Name'
+      OnExecute = actOrdByNameExecute
+    end
+    object actOrdByDesc: TAction
+      Category = 'Search'
+      Caption = '&Description'
+      OnExecute = actOrdByDescExecute
+    end
+    object actFirst: TAction
+      Category = 'Search'
+      Caption = '&First'
+      OnExecute = actFirstExecute
+    end
+    object actPrior: TAction
+      Category = 'Search'
+      Caption = '&Prior'
+      OnExecute = actPriorExecute
+    end
+    object actNext: TAction
+      Category = 'Search'
+      Caption = '&Next'
+      OnExecute = actNextExecute
+    end
+    object actLast: TAction
+      Category = 'Search'
+      Caption = '&Last'
+      OnExecute = actLastExecute
+    end
   end
   object ImageList1: TImageList
-    Left = 40
-    Top = 480
+    Left = 104
+    Top = 192
     Bitmap = {
       494C010106000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
@@ -588,7 +641,6 @@ object Form7: TForm7
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -598,15 +650,14 @@ object Form7: TForm7
     Top = 456
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-GHVVPN2\SQLEXPRESS'
+      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=192.1' +
+      '68.172.77'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
-    Left = 8
-    Top = 480
+    Left = 32
+    Top = 192
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
@@ -614,7 +665,6 @@ object Form7: TForm7
     Top = 456
   end
   object cdsRES_GRP_MSTR: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
@@ -627,51 +677,10 @@ object Form7: TForm7
     Top = 456
   end
   object qryUTL_TYPE_MSTR: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 256
-    Top = 448
-  end
-  object dsUTL_TYPE_MSTR_cds: TDataSource
-    DataSet = qryUTL_TYPE_MSTR
-    Left = 208
-    Top = 448
-  end
-  object qryRES_GRP: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from RESOURCE_GROUPS')
-    Left = 672
-    Top = 264
-  end
-  object qryRES_MSTR: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from RESOURCE_MSTR')
-    Left = 576
-    Top = 264
-  end
-  object cdsRES_GRP: TClientDataSet
-    Active = True
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspRES_GRP'
-    Left = 416
-    Top = 272
-  end
-  object dspRES_GRP: TDataSetProvider
-    DataSet = qryRES_GRP
-    Left = 344
-    Top = 272
+    Left = 648
+    Top = 320
   end
 end

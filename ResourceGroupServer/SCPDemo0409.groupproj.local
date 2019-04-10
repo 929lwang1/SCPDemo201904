@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/04/09 17:46:14.000.592,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ProjectGroup2.groupproj=C:\RossDemo\SCPDemo201904\ResourceGroupServer\SCPDemo0409.groupproj</Transaction>
+  </Transactions>
+	<Default.Personality>
+		<Projects ActiveProject="C:\RossDemo\SCPDemo201904\ResourceGroupClient\ResourceGroupClient.dproj"/>
+	</Default.Personality>
+</BorlandProject>

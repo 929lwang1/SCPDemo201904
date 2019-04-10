@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2019/04/09 14:55:15.000.209,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
-    <Transaction>2019/04/09 14:55:53.000.365,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.dfm=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.dfm</Transaction>
-    <Transaction>2019/04/09 14:55:53.000.365,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit7.pas=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\uResourceGroupServer.pas</Transaction>
-    <Transaction>2019/04/09 14:56:03.000.242,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\ResourceGroupServer.dproj</Transaction>
-    <Transaction>2019/04/09 17:00:22.042,=C:\RossDemo\SCPDemo201904\ResourceGroupServer_TLB.pas</Transaction>
-    <Transaction>2019/04/09 17:00:22.130,=C:\RossDemo\SCPDemo201904\uResourceGroupBuild.pas</Transaction>
+    <Transaction>2019/04/09 17:44:20.000.447,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2019/04/09 17:45:13.000.827,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uResourceGroupServer.pas</Transaction>
+    <Transaction>2019/04/09 17:45:13.000.828,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uResourceGroupServer.dfm</Transaction>
+    <Transaction>2019/04/09 17:45:29.000.645,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\RossDemo\SCPDemo201904\ResourceGroupServer\ResourceGroupServer.dproj</Transaction>
+    <Transaction>2019/04/09 17:46:51.000.171,=C:\RossDemo\SCPDemo201904\ResourceGroupServer\ResourceGroupServer.ridl</Transaction>
+    <Transaction>2019/04/09 17:46:51.000.196,=C:\RossDemo\SCPDemo201904\ResourceGroupServer\ResourceGroupServer_TLB.pas</Transaction>
+    <Transaction>2019/04/09 17:46:54.000.491,=C:\RossDemo\SCPDemo201904\ResourceGroupServer\Unit1.pas</Transaction>
+    <Transaction>2019/04/09 17:48:13.000.381,C:\RossDemo\SCPDemo201904\ResourceGroupServer\Unit1.dfm=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uResourceGroupModule.dfm</Transaction>
+    <Transaction>2019/04/09 17:48:13.000.381,C:\RossDemo\SCPDemo201904\ResourceGroupServer\Unit1.pas=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uResourceGroupModule.pas</Transaction>
   </Transactions>
 </BorlandProject>
