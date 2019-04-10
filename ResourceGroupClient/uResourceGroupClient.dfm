@@ -37,7 +37,6 @@ object Form7: TForm7
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 0
-    ExplicitWidth = 966
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -156,13 +155,6 @@ object Form7: TForm7
       DataSource = dsRES_GRP_MSTR_cds
       TabOrder = 1
     end
-    object DBComboBox1: TDBComboBox
-      Left = 560
-      Top = 13
-      Width = 145
-      Height = 21
-      TabOrder = 2
-    end
   end
   object Panel2: TPanel
     Left = 0
@@ -235,6 +227,30 @@ object Form7: TForm7
       Font.Style = []
       ParentFont = False
     end
+  end
+  object DBLookupComboBox1: TDBLookupComboBox
+    Left = 568
+    Top = 35
+    Width = 189
+    Height = 21
+    DataField = 'UTILIZATION_TYPE_CD'
+    DataSource = dsRES_GRP_MSTR_cds
+    KeyField = 'UTILIZATION_TYPE_CD'
+    ListField = 'UTILIZATION_TYPE_DESC'
+    ListSource = dsUTL_TYPE_MSTR_cds
+    TabOrder = 3
+  end
+  object DBGrid1: TDBGrid
+    Left = 0
+    Top = 200
+    Width = 757
+    Height = 225
+    TabOrder = 4
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
   end
   object MainMenu1: TMainMenu
     Left = 112
@@ -611,10 +627,51 @@ object Form7: TForm7
     Top = 456
   end
   object qryUTL_TYPE_MSTR: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 648
-    Top = 320
+    Left = 256
+    Top = 448
+  end
+  object dsUTL_TYPE_MSTR_cds: TDataSource
+    DataSet = qryUTL_TYPE_MSTR
+    Left = 208
+    Top = 448
+  end
+  object qryRES_GRP: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from RESOURCE_GROUPS')
+    Left = 672
+    Top = 264
+  end
+  object qryRES_MSTR: TADOQuery
+    Active = True
+    Connection = ADOConnection1
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from RESOURCE_MSTR')
+    Left = 576
+    Top = 264
+  end
+  object cdsRES_GRP: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRES_GRP'
+    Left = 416
+    Top = 272
+  end
+  object dspRES_GRP: TDataSetProvider
+    DataSet = qryRES_GRP
+    Left = 344
+    Top = 272
   end
 end

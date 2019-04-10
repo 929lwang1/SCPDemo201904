@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Menus,
   Vcl.ExtCtrls, Vcl.DBCtrls, Datasnap.Provider, Data.DB, Data.Win.ADODB,
-  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient;
+  Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
 
 type
   TForm7 = class(TForm)
@@ -52,7 +52,6 @@ type
     Panel2: TPanel;
     Label6: TLabel;
     Label4: TLabel;
-    DBComboBox1: TDBComboBox;
     Defaults: TLabel;
     Label5: TLabel;
     Label7: TLabel;
@@ -60,6 +59,13 @@ type
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
     qryUTL_TYPE_MSTR: TADOQuery;
+    DBLookupComboBox1: TDBLookupComboBox;
+    dsUTL_TYPE_MSTR_cds: TDataSource;
+    DBGrid1: TDBGrid;
+    qryRES_GRP: TADOQuery;
+    qryRES_MSTR: TADOQuery;
+    cdsRES_GRP: TClientDataSet;
+    dspRES_GRP: TDataSetProvider;
   private
     { Private declarations }
   public
