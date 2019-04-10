@@ -166,6 +166,8 @@ implementation
 
 {$R *.dfm}
 
+uses ResourceGroupFind;
+
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
    ShowMessage('Cancel update.');
@@ -194,6 +196,7 @@ end;
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
    ShowMessage('Go to a subscreen to search a record.');
+   fResGrpSearch.Show;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);

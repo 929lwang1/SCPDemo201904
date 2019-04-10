@@ -138,7 +138,7 @@ object fResGroup: TfResGroup
     object btnSearch: TToolButton
       Left = 403
       Top = 0
-      Caption = 'Search'
+      Action = actFind
       ImageIndex = 9
     end
     object ToolButton4: TToolButton
@@ -457,7 +457,7 @@ object fResGroup: TfResGroup
     object Search1: TMenuItem
       Caption = '&Search'
       object menuFind: TMenuItem
-        Caption = '&Find'
+        Action = actFind
       end
       object N3: TMenuItem
         Caption = '-'
@@ -490,8 +490,8 @@ object fResGroup: TfResGroup
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 32
-    Top = 496
+    Left = 40
+    Top = 448
     object actNew: TAction
       Category = 'File'
       Caption = '&New'
