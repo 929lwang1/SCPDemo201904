@@ -153,6 +153,8 @@ type
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
     procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+    procedure menuNameClick(Sender: TObject);
+    procedure menuDescClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -249,6 +251,19 @@ begin
    //ShowMessage('Set when Save button is enabled.');
 end;
 
+
+procedure TfResGroup.menuDescClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+   cdsRES_GRP_MSTR.Open;
+end;
+procedure TfResGroup.menuNameClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+   cdsRES_GRP_MSTR.Open;
+end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
 begin

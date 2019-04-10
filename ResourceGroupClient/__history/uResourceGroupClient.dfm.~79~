@@ -83,24 +83,28 @@ object fResGroup: TfResGroup
       Top = 0
       Caption = 'First'
       ImageIndex = 5
+      OnClick = btnFirstClick
     end
     object btnPrior: TToolButton
       Left = 180
       Top = 0
       Caption = 'Prior'
       ImageIndex = 6
+      OnClick = btnPriorClick
     end
     object btnNext: TToolButton
       Left = 206
       Top = 0
       Caption = 'Next'
       ImageIndex = 7
+      OnClick = btnNextClick
     end
     object btnLast: TToolButton
       Left = 232
       Top = 0
       Caption = 'Last'
       ImageIndex = 8
+      OnClick = btnLastClick
     end
     object ToolButton13: TToolButton
       Left = 258
@@ -139,6 +143,7 @@ object fResGroup: TfResGroup
       Left = 403
       Top = 0
       Action = actFind
+      ImageIndex = 9
     end
     object ToolButton4: TToolButton
       Left = 429
@@ -465,9 +470,11 @@ object fResGroup: TfResGroup
         Caption = '&Order By'
         object menuName: TMenuItem
           Caption = '&1 Name'
+          OnClick = menuNameClick
         end
         object menuDesc: TMenuItem
           Caption = '&2 Description'
+          OnClick = menuDescClick
         end
       end
       object menuGoto: TMenuItem

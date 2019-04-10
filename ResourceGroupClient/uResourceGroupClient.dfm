@@ -466,9 +466,11 @@ object fResGroup: TfResGroup
         Caption = '&Order By'
         object menuName: TMenuItem
           Caption = '&1 Name'
+          OnClick = menuNameClick
         end
         object menuDesc: TMenuItem
           Caption = '&2 Description'
+          OnClick = menuDescClick
         end
       end
       object menuGoto: TMenuItem
@@ -965,14 +967,14 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
     Parameters = <>
     SQL.Strings = (
-      'select * from RESOURCE_GROUP_MSTR')
-    Left = 664
+      'select * from RESOURCE_GROUP_MSTR;')
+    Left = 856
+    Top = 224
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1019,8 +1021,10 @@ object fResGroup: TfResGroup
     Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=192.1' +
-      '68.172.77'
+      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
+      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
+      ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 504
@@ -1028,16 +1032,16 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 80
+    Left = 744
+    Top = 224
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
-    Left = 536
-    Top = 288
+    Left = 624
+    Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1085,11 +1089,10 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR_cds: TDataSource
     DataSet = cdsRES_GRP_MSTR
-    Left = 528
-    Top = 352
+    Left = 504
+    Top = 224
   end
   object qryUTL_TYPE_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1109,7 +1112,6 @@ object fResGroup: TfResGroup
     Top = 112
   end
   object qryRES_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1120,7 +1122,6 @@ object fResGroup: TfResGroup
     Top = 65528
   end
   object qryRES_GRP: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1202,8 +1203,8 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 24
+    Left = 416
+    Top = 344
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1

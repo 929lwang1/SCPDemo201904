@@ -24,7 +24,6 @@ object fResGroup: TfResGroup
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 0
-    ExplicitWidth = 1004
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -84,24 +83,28 @@ object fResGroup: TfResGroup
       Top = 0
       Caption = 'First'
       ImageIndex = 5
+      OnClick = btnFirstClick
     end
     object btnPrior: TToolButton
       Left = 180
       Top = 0
       Caption = 'Prior'
       ImageIndex = 6
+      OnClick = btnPriorClick
     end
     object btnNext: TToolButton
       Left = 206
       Top = 0
       Caption = 'Next'
       ImageIndex = 7
+      OnClick = btnNextClick
     end
     object btnLast: TToolButton
       Left = 232
       Top = 0
       Caption = 'Last'
       ImageIndex = 8
+      OnClick = btnLastClick
     end
     object ToolButton13: TToolButton
       Left = 258
@@ -120,19 +123,35 @@ object fResGroup: TfResGroup
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
       TabOrder = 0
     end
-    object ToolButton15: TToolButton
+    object btnOrderBy: TToolButton
       Left = 354
       Top = 0
-      Caption = 'ToolButton15'
+      Caption = 'OrderBy'
       DropdownMenu = PopupMenu1
       ImageIndex = 10
       Style = tbsDropDown
     end
-    object btnSearch: TToolButton
+    object ToolButton2: TToolButton
       Left = 395
       Top = 0
-      Caption = 'Search'
+      Width = 8
+      Caption = 'ToolButton2'
+      ImageIndex = 10
+      Style = tbsSeparator
+    end
+    object btnSearch: TToolButton
+      Left = 403
+      Top = 0
+      Action = actFind
       ImageIndex = 9
+    end
+    object ToolButton4: TToolButton
+      Left = 429
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton4'
+      ImageIndex = 10
+      Style = tbsSeparator
     end
   end
   object Panel1: TPanel
@@ -142,7 +161,6 @@ object fResGroup: TfResGroup
     Height = 49
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 1004
     object Label1: TLabel
       Left = 16
       Top = 13
@@ -201,7 +219,7 @@ object fResGroup: TfResGroup
       TabOrder = 1
     end
     object DBLookupComboBox1: TDBLookupComboBox
-      Left = 568
+      Left = 552
       Top = 12
       Width = 197
       Height = 21
@@ -220,7 +238,6 @@ object fResGroup: TfResGroup
     Height = 111
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 1004
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -229,7 +246,6 @@ object fResGroup: TfResGroup
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
-      ExplicitWidth = 1002
       object Label5: TLabel
         Left = 32
         Top = 26
@@ -347,7 +363,6 @@ object fResGroup: TfResGroup
         Width = 111
         Height = 21
         TabOrder = 5
-        OnChange = cbxPRE_TIMEChange
         Items.Strings = (
           'Minutes'
           'Seconds'
@@ -361,7 +376,6 @@ object fResGroup: TfResGroup
         Width = 111
         Height = 21
         TabOrder = 6
-        OnChange = cbxPRE_TIMEChange
         Items.Strings = (
           'Minutes'
           'Seconds'
@@ -375,7 +389,6 @@ object fResGroup: TfResGroup
         Width = 111
         Height = 21
         TabOrder = 7
-        OnChange = cbxPRE_TIMEChange
         Items.Strings = (
           'Minutes'
           'Seconds'
@@ -405,7 +418,6 @@ object fResGroup: TfResGroup
     Width = 972
     Height = 19
     Panels = <>
-    ExplicitWidth = 1004
   end
   object cbxPRE_TIME: TComboBox
     Left = 243
@@ -413,7 +425,6 @@ object fResGroup: TfResGroup
     Width = 111
     Height = 21
     TabOrder = 5
-    OnChange = cbxPRE_TIMEChange
     Items.Strings = (
       'Minutes'
       'Seconds'
@@ -450,7 +461,7 @@ object fResGroup: TfResGroup
     object Search1: TMenuItem
       Caption = '&Search'
       object menuFind: TMenuItem
-        Caption = '&Find'
+        Action = actFind
       end
       object N3: TMenuItem
         Caption = '-'
@@ -459,9 +470,11 @@ object fResGroup: TfResGroup
         Caption = '&Order By'
         object menuName: TMenuItem
           Caption = '&1 Name'
+          OnClick = menuNameClick
         end
         object menuDesc: TMenuItem
           Caption = '&2 Description'
+          OnClick = menuDescClick
         end
       end
       object menuGoto: TMenuItem
@@ -483,8 +496,8 @@ object fResGroup: TfResGroup
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 32
-    Top = 496
+    Left = 40
+    Top = 448
     object actNew: TAction
       Category = 'File'
       Caption = '&New'
@@ -1021,7 +1034,7 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 560
+    Left = 672
     Top = 80
   end
   object cdsRES_GRP_MSTR: TClientDataSet
@@ -1195,12 +1208,12 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 24
+    Left = 672
+    Top = 152
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1
-    Left = 144
+    Left = 120
     Top = 504
     object btnName: TMenuItem
       Caption = '&1 Name'

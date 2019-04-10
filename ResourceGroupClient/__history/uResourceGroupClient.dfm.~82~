@@ -83,24 +83,28 @@ object fResGroup: TfResGroup
       Top = 0
       Caption = 'First'
       ImageIndex = 5
+      OnClick = btnFirstClick
     end
     object btnPrior: TToolButton
       Left = 180
       Top = 0
       Caption = 'Prior'
       ImageIndex = 6
+      OnClick = btnPriorClick
     end
     object btnNext: TToolButton
       Left = 206
       Top = 0
       Caption = 'Next'
       ImageIndex = 7
+      OnClick = btnNextClick
     end
     object btnLast: TToolButton
       Left = 232
       Top = 0
       Caption = 'Last'
       ImageIndex = 8
+      OnClick = btnLastClick
     end
     object ToolButton13: TToolButton
       Left = 258
@@ -138,7 +142,7 @@ object fResGroup: TfResGroup
     object btnSearch: TToolButton
       Left = 403
       Top = 0
-      Caption = 'Search'
+      Action = actFind
       ImageIndex = 9
     end
     object ToolButton4: TToolButton
@@ -215,7 +219,7 @@ object fResGroup: TfResGroup
       TabOrder = 1
     end
     object DBLookupComboBox1: TDBLookupComboBox
-      Left = 568
+      Left = 552
       Top = 12
       Width = 197
       Height = 21
@@ -421,7 +425,6 @@ object fResGroup: TfResGroup
     Width = 111
     Height = 21
     TabOrder = 5
-    OnChange = cbxPRE_TIMEChange
     Items.Strings = (
       'Minutes'
       'Seconds'
@@ -458,7 +461,7 @@ object fResGroup: TfResGroup
     object Search1: TMenuItem
       Caption = '&Search'
       object menuFind: TMenuItem
-        Caption = '&Find'
+        Action = actFind
       end
       object N3: TMenuItem
         Caption = '-'
@@ -467,9 +470,11 @@ object fResGroup: TfResGroup
         Caption = '&Order By'
         object menuName: TMenuItem
           Caption = '&1 Name'
+          OnClick = menuNameClick
         end
         object menuDesc: TMenuItem
           Caption = '&2 Description'
+          OnClick = menuDescClick
         end
       end
       object menuGoto: TMenuItem
@@ -491,8 +496,8 @@ object fResGroup: TfResGroup
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 32
-    Top = 496
+    Left = 40
+    Top = 448
     object actNew: TAction
       Category = 'File'
       Caption = '&New'
@@ -973,7 +978,8 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 664
+    Left = 880
+    Top = 232
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1029,16 +1035,17 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 80
+    AfterApplyUpdates = dspRES_GRP_MSTRAfterApplyUpdates
+    Left = 768
+    Top = 232
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
-    Left = 536
-    Top = 288
+    Left = 640
+    Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1203,8 +1210,8 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 24
+    Left = 544
+    Top = 224
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1

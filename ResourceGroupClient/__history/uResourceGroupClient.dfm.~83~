@@ -83,24 +83,28 @@ object fResGroup: TfResGroup
       Top = 0
       Caption = 'First'
       ImageIndex = 5
+      OnClick = btnFirstClick
     end
     object btnPrior: TToolButton
       Left = 180
       Top = 0
       Caption = 'Prior'
       ImageIndex = 6
+      OnClick = btnPriorClick
     end
     object btnNext: TToolButton
       Left = 206
       Top = 0
       Caption = 'Next'
       ImageIndex = 7
+      OnClick = btnNextClick
     end
     object btnLast: TToolButton
       Left = 232
       Top = 0
       Caption = 'Last'
       ImageIndex = 8
+      OnClick = btnLastClick
     end
     object ToolButton13: TToolButton
       Left = 258
@@ -466,9 +470,11 @@ object fResGroup: TfResGroup
         Caption = '&Order By'
         object menuName: TMenuItem
           Caption = '&1 Name'
+          OnClick = menuNameClick
         end
         object menuDesc: TMenuItem
           Caption = '&2 Description'
+          OnClick = menuDescClick
         end
       end
       object menuGoto: TMenuItem
@@ -972,7 +978,8 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 664
+    Left = 880
+    Top = 232
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1028,16 +1035,16 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 80
+    Left = 768
+    Top = 232
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
-    Left = 536
-    Top = 288
+    Left = 640
+    Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1202,8 +1209,8 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 24
+    Left = 544
+    Top = 224
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1

@@ -153,7 +153,10 @@ type
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
     procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
-    procedure cbxPRE_TIMEChange(Sender: TObject);
+    procedure menuNameClick(Sender: TObject);
+    procedure menuDescClick(Sender: TObject);
+   // procedure dspRES_GRP_MSTRAfterApplyUpdates(Sender: TObject;
+    //  var OwnerData: OleVariant);
   private
     { Private declarations }
   public
@@ -166,6 +169,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses ResourceGroupFind;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
@@ -195,6 +200,7 @@ end;
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
    ShowMessage('Go to a subscreen to search a record.');
+   fResGrpSearch.Show;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);
@@ -248,9 +254,17 @@ begin
 end;
 
 
-procedure TfResGroup.cbxPRE_TIMEChange(Sender: TObject);
+procedure TfResGroup.menuDescClick(Sender: TObject);
 begin
-  ShowMessage(cbxPRE_TIME.ItemIndex[0]);
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+   cdsRES_GRP_MSTR.Open;
+end;
+procedure TfResGroup.menuNameClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+   cdsRES_GRP_MSTR.Open;
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);

@@ -126,7 +126,7 @@ type
     cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
     cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
     btnSearch: TToolButton;
-    ToolButton15: TToolButton;
+    btnOrderBy: TToolButton;
     cbxPRE_TIME: TComboBox;
     ComboBox2: TComboBox;
     cbxDAILY_CLEANUP_TIME: TComboBox;
@@ -134,6 +134,8 @@ type
     PopupMenu1: TPopupMenu;
     btnName: TMenuItem;
     btnDescription: TMenuItem;
+    ToolButton2: TToolButton;
+    ToolButton4: TToolButton;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -151,7 +153,14 @@ type
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
     procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
-    procedure cbxPRE_TIMEChange(Sender: TObject);
+    procedure menuNameClick(Sender: TObject);
+    procedure menuDescClick(Sender: TObject);
+    procedure btnLastClick(Sender: TObject);
+    procedure btnPriorClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
+    procedure btnFirstClick(Sender: TObject);
+   // procedure dspRES_GRP_MSTRAfterApplyUpdates(Sender: TObject;
+    //  var OwnerData: OleVariant);
   private
     { Private declarations }
   public
@@ -164,6 +173,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses ResourceGroupFind;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
@@ -193,6 +204,7 @@ end;
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
    ShowMessage('Go to a subscreen to search a record.');
+   fResGrpSearch.Show;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);
@@ -245,12 +257,53 @@ begin
    //ShowMessage('Set when Save button is enabled.');
 end;
 
-procedure TfResGroup.cbxPRE_TIMEChange(Sender: TObject);
+
+procedure TfResGroup.btnFirstClick(Sender: TObject);
 begin
-//  ComboBox1.Items.Add('item1');
-//  ComboBox1.Items.Add('item2');
-//  ComboBox1.Items.Add('item3');
-  ShowMessage(ComboBox1.Items[ComboBox1.ItemIndex]);
+   cdsRES_GRP_MSTR.First;
+end;
+
+procedure TfResGroup.btnLastClick(Sender: TObject);
+begin
+  cdsRES_GRP_MSTR.Last;
+end;
+
+procedure TfResGroup.btnNextClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.Next;
+end;
+
+procedure TfResGroup.btnPriorClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.Prior;
+end;
+
+
+procedure TfResGroup.menuDescClick(Sender: TObject);
+Var SQLStr :String;
+begin
+ SQLStr:= 'select * from RESOURCE_GROUP_MSTR order by RESOURCE_GROUP_DESC;' ;
+ qryRES_GRP_MSTR.SQL.Clear ;
+ qryRES_GRP_MSTR.SQL.Add(SQLStr) ;
+ qryRES_GRP_MSTR.Active := TRUE;
+ dspRES_GRP_MSTR.DataSet :=  qryRES_GRP_MSTR;
+ cdsRES_GRP_MSTR.ProviderName :=  dspRES_GRP_MSTR.Name;
+ cdsRES_GRP_MSTR.Active := TRUE;
+ dsRES_GRP_MSTR_cds.DataSet :=  cdsRES_GRP_MSTR;
+ dsRES_GRP_MSTR_cds.Enabled := TRUE;
+end;
+procedure TfResGroup.menuNameClick(Sender: TObject);
+Var SQLStr :String;
+begin
+ qryRES_GRP_MSTR.SQL.Clear ;
+ SQLStr:= 'select * from RESOURCE_GROUP_MSTR order by RESOURCE_GROUP_NAME;' ;
+ qryRES_GRP_MSTR.SQL.Add(SQLStr) ;
+ qryRES_GRP_MSTR.Active := TRUE;
+ dspRES_GRP_MSTR.DataSet :=  qryRES_GRP_MSTR;
+ cdsRES_GRP_MSTR.ProviderName :=  dspRES_GRP_MSTR.Name;
+ cdsRES_GRP_MSTR.Active := TRUE;
+ dsRES_GRP_MSTR_cds.DataSet :=  cdsRES_GRP_MSTR;
+ dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
