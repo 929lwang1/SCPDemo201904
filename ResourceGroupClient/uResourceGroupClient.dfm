@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 615
-  ClientWidth = 1004
+  ClientWidth = 972
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object fResGroup: TfResGroup
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 1004
+    Width = 972
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -119,23 +119,41 @@ object fResGroup: TfResGroup
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
       TabOrder = 0
     end
-    object ToolButton15: TToolButton
+    object btnOrderBy: TToolButton
       Left = 354
       Top = 0
-      Caption = 'ToolButton15'
+      Caption = 'OrderBy'
+      DropdownMenu = PopupMenu1
       ImageIndex = 10
+      Style = tbsDropDown
+    end
+    object ToolButton2: TToolButton
+      Left = 395
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton2'
+      ImageIndex = 10
+      Style = tbsSeparator
     end
     object btnSearch: TToolButton
-      Left = 380
+      Left = 403
       Top = 0
       Caption = 'Search'
       ImageIndex = 9
+    end
+    object ToolButton4: TToolButton
+      Left = 429
+      Top = 0
+      Width = 8
+      Caption = 'ToolButton4'
+      ImageIndex = 10
+      Style = tbsSeparator
     end
   end
   object Panel1: TPanel
     Left = 0
     Top = 25
-    Width = 1004
+    Width = 972
     Height = 49
     Align = alTop
     TabOrder = 1
@@ -197,7 +215,7 @@ object fResGroup: TfResGroup
       TabOrder = 1
     end
     object DBLookupComboBox1: TDBLookupComboBox
-      Left = 568
+      Left = 552
       Top = 12
       Width = 197
       Height = 21
@@ -212,14 +230,14 @@ object fResGroup: TfResGroup
   object Panel2: TPanel
     Left = 0
     Top = 74
-    Width = 1004
+    Width = 972
     Height = 111
     Align = alTop
     TabOrder = 2
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 1002
+      Width = 970
       Height = 105
       Align = alTop
       Caption = 'Defaults'
@@ -335,12 +353,51 @@ object fResGroup: TfResGroup
         TabOrder = 4
         Value = 0
       end
+      object ComboBox2: TComboBox
+        Left = 242
+        Top = 83
+        Width = 111
+        Height = 21
+        TabOrder = 5
+        Items.Strings = (
+          'Minutes'
+          'Seconds'
+          'Hours'
+          'Days'
+          'Weeks')
+      end
+      object cbxDAILY_CLEANUP_TIME: TComboBox
+        Left = 623
+        Top = 83
+        Width = 111
+        Height = 21
+        TabOrder = 6
+        Items.Strings = (
+          'Minutes'
+          'Seconds'
+          'Hours'
+          'Days'
+          'Weeks')
+      end
+      object cbxDAILY_PRE_TIME: TComboBox
+        Left = 623
+        Top = 53
+        Width = 111
+        Height = 21
+        TabOrder = 7
+        Items.Strings = (
+          'Minutes'
+          'Seconds'
+          'Hours'
+          'Days'
+          'Weeks')
+      end
     end
   end
   object DBGrid1: TDBGrid
     Left = 0
     Top = 185
-    Width = 1004
+    Width = 972
     Height = 220
     Align = alTop
     DataSource = dsRES_GRP_cds
@@ -354,9 +411,22 @@ object fResGroup: TfResGroup
   object StatusBar1: TStatusBar
     Left = 0
     Top = 596
-    Width = 1004
+    Width = 972
     Height = 19
     Panels = <>
+  end
+  object cbxPRE_TIME: TComboBox
+    Left = 243
+    Top = 134
+    Width = 111
+    Height = 21
+    TabOrder = 5
+    Items.Strings = (
+      'Minutes'
+      'Seconds'
+      'Hours'
+      'Days'
+      'Weeks')
   end
   object MainMenu1: TMainMenu
     Top = 496
@@ -959,7 +1029,7 @@ object fResGroup: TfResGroup
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
     Left = 560
-    Top = 120
+    Top = 80
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
@@ -1130,22 +1200,20 @@ object fResGroup: TfResGroup
     Left = 672
     Top = 352
   end
-  object MainMenu2: TMainMenu
-    Left = 104
-    Top = 496
-    object OrderBy1: TMenuItem
-      Caption = '&Order By'
-      object N1Name1: TMenuItem
-        Caption = '&1 Name'
-      end
-      object N2Description1: TMenuItem
-        Caption = '&2 Description'
-      end
-    end
-  end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
     Left = 560
     Top = 24
+  end
+  object PopupMenu1: TPopupMenu
+    Images = ImageList1
+    Left = 120
+    Top = 504
+    object btnName: TMenuItem
+      Caption = '&1 Name'
+    end
+    object btnDescription: TMenuItem
+      Caption = '&2 Description'
+    end
   end
 end

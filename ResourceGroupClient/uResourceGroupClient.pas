@@ -101,10 +101,6 @@ type
     btnNext: TToolButton;
     btnLast: TToolButton;
     ToolButton13: TToolButton;
-    MainMenu2: TMainMenu;
-    OrderBy1: TMenuItem;
-    N1Name1: TMenuItem;
-    N2Description1: TMenuItem;
     StatusBar1: TStatusBar;
     DBNavigator1: TDBNavigator;
     dsRES_GRP_MSTR: TDataSource;
@@ -130,7 +126,16 @@ type
     cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
     cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
     btnSearch: TToolButton;
-    ToolButton15: TToolButton;
+    btnOrderBy: TToolButton;
+    cbxPRE_TIME: TComboBox;
+    ComboBox2: TComboBox;
+    cbxDAILY_CLEANUP_TIME: TComboBox;
+    cbxDAILY_PRE_TIME: TComboBox;
+    PopupMenu1: TPopupMenu;
+    btnName: TMenuItem;
+    btnDescription: TMenuItem;
+    ToolButton2: TToolButton;
+    ToolButton4: TToolButton;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -240,6 +245,7 @@ procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
    //ShowMessage('Set when Save button is enabled.');
 end;
+
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
 begin
