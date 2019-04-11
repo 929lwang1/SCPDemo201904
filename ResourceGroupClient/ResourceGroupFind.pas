@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.FileCtrl,
   Vcl.ComCtrls, Data.DB, Data.Win.ADODB, Vcl.Grids, Vcl.DBGrids, System.Actions,
-  Vcl.ActnList, Datasnap.DBClient, Datasnap.Provider, Datasnap.Win.MConnect;
+  Vcl.ActnList, Datasnap.DBClient, Datasnap.Provider;
 
 type
   TfResGrpSearch = class(TForm)
@@ -21,14 +21,17 @@ type
     cbxFindBy: TComboBox;
     cbxFindCondition: TComboBox;
     ComboBox1: TComboBox;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    dsRES_GRP_MSTR: TDataSource;
     DBGrid1: TDBGrid;
+    dspRES_GRP_MSTR: TDataSetProvider;
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
     ActionList1: TActionList;
     actSearch: TAction;
     actGo: TAction;
     actClose: TAction;
-    dcomconnMain: TDCOMConnection;
     procedure btnCloseClick(Sender: TObject);
    //procedure FormCreate(Sender: TObject);
     procedure cbxFindByClick(Sender: TObject);

@@ -1,0 +1,54 @@
+object frmAddresource: TfrmAddresource
+  Left = 0
+  Top = 0
+  Caption = 'Add resource'
+  ClientHeight = 299
+  ClientWidth = 635
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbInfor: TLabel
+    Left = 2
+    Top = 0
+    Width = 631
+    Height = 25
+    Caption = 
+      'You must select one resource to select what type of resource gro' +
+      'up this is.'
+    Layout = tlCenter
+  end
+  object dbgrdResource: TDBGrid
+    Left = 2
+    Top = 31
+    Width = 631
+    Height = 226
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object btnOk: TButton
+    Left = 464
+    Top = 266
+    Width = 75
+    Height = 25
+    Caption = 'OK'
+    TabOrder = 1
+  end
+  object btnCancel: TButton
+    Left = 552
+    Top = 266
+    Width = 75
+    Height = 25
+    Caption = 'Cancel'
+    TabOrder = 2
+  end
+end

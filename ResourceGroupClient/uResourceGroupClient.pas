@@ -8,7 +8,7 @@ uses
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Menus,
   Vcl.ExtCtrls, Vcl.DBCtrls, Datasnap.Provider, Data.DB, Data.Win.ADODB,
   Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Samples.Spin, Datasnap.Win.MConnect;
+  Vcl.Samples.Spin;
 
 type
   TfResGroup = class(TForm)
@@ -32,6 +32,9 @@ type
     menuLast: TMenuItem;
     ActionList1: TActionList;
     ImageList1: TImageList;
+    qryRES_GRP_MSTR: TADOQuery;
+    ADOConnection1: TADOConnection;
+    dspRES_GRP_MSTR: TDataSetProvider;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     btnDelete: TToolButton;
@@ -65,10 +68,24 @@ type
     actNext: TAction;
     actLast: TAction;
     dsUTL_TYPE_MSTR_cds: TDataSource;
+    dspRES_MSTR: TDataSetProvider;
+    qryRES_MSTR: TADOQuery;
+    qryRES_GRP: TADOQuery;
     cdsRES_GRP: TClientDataSet;
+    qryUTL_TYPE_MSTR: TADOQuery;
     DBLookupComboBox1: TDBLookupComboBox;
     DBGrid1: TDBGrid;
     dsRES_GRP_cds: TDataSource;
+    qryRES_GRPRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRPRESOURCE_ID: TIntegerField;
+    qryRES_GRPUSE_GROUP_SETTINGS_IND: TWideStringField;
+    qryRES_GRPPRIORITY_INDEX: TIntegerField;
+    cdsRES_GRPRESOURCE_GROUP_ID: TIntegerField;
+    cdsRES_GRPRESOURCE_ID: TIntegerField;
+    cdsRES_GRPResouceName: TStringField;
+    cdsRES_GRPUSE_GROUP_SETTINGS_IND2: TWideStringField;
+    cdsRES_GRPPRIORITY_INDEX: TIntegerField;
+    cdsRES_GRPResourceDescription: TStringField;
     GroupBox1: TGroupBox;
     Label5: TLabel;
     Label4: TLabel;
@@ -86,6 +103,28 @@ type
     ToolButton13: TToolButton;
     StatusBar1: TStatusBar;
     DBNavigator1: TDBNavigator;
+    dsRES_GRP_MSTR: TDataSource;
+    qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
+    qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
+    qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTROPERATION_COST: TFMTBCDField;
+    qryRES_GRP_MSTRPREP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
+    cdsRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
+    cdsRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
+    cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
+    cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField;
+    cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
     btnSearch: TToolButton;
     btnOrderBy: TToolButton;
     cbxPRE_TIME: TComboBox;
@@ -97,40 +136,10 @@ type
     btnDescription: TMenuItem;
     ToolButton2: TToolButton;
     ToolButton4: TToolButton;
-    dcomconnMain: TDCOMConnection;
-    cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
-    cdsRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
-    cdsRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
-    cdsRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
-    cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
-    cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField;
-    cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRqryRES_GRPS: TDataSetField;
-    cdsRES_MSTR: TClientDataSet;
-    cdsRES_MSTRRESOURCE_ID: TIntegerField;
-    cdsRES_MSTRLOC_ID: TIntegerField;
-    cdsRES_MSTRRESOURCE_NAME: TWideStringField;
-    cdsRES_MSTRRESOURCE_TYPE_CD: TSmallintField;
-    cdsRES_MSTRRESOURCE_DESC: TWideStringField;
-    cdsRES_MSTRDISPLAY_COLOR: TIntegerField;
-    cdsRES_MSTROPERATION_COST: TFMTBCDField;
-    cdsRES_MSTRPREP_TIME: TFMTBCDField;
-    cdsRES_MSTRCLEANUP_TIME: TFMTBCDField;
-    cdsRES_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
-    cdsRES_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
-    cdsRES_MSTRCAPACITY_QTY: TFMTBCDField;
-    cdsRES_MSTRMIN_CAPACITY_QTY: TFMTBCDField;
-    cdsRES_MSTRLABOR_AVAILABLE_UNITS: TFMTBCDField;
-    cdsRES_MSTRENFORCE_CAPACITY_CONSTRAINT: TWideStringField;
-    cdsRES_MSTRUOM_GROUP_NAME: TWideStringField;
-    cdsRES_MSTRRUN_RATE_MODIFIER: TFMTBCDField;
-    cdsUTL_TYPE_MSTR: TClientDataSet;
-    cdsUTL_TYPE_MSTRUTILIZATION_TYPE_CD: TSmallintField;
-    cdsUTL_TYPE_MSTRUTILIZATION_TYPE_DESC: TWideStringField;
-    dsRES_MSTR_cds: TDataSource;
+    btnAdd: TButton;
+    btnRemove: TButton;
+    cdsRES_GRPLOC_ID: TIntegerField;
+    cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -147,7 +156,10 @@ type
     procedure actNextExecute(Sender: TObject);
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
-    //procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+    procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+    procedure menuNameClick(Sender: TObject);
+    procedure menuDescClick(Sender: TObject);
+    procedure btnAddClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -160,8 +172,7 @@ var
 implementation
 
 {$R *.dfm}
-
-uses ResourceGroupFind;
+uses AddResource,ResourceGroupFind;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
@@ -244,4 +255,52 @@ begin
    //ShowMessage('Set when Save button is enabled.');
 end;
 
+
+procedure TfResGroup.btnAddClick(Sender: TObject);
+var strResId: TArray<string>;
+    i :Integer;
+begin
+   frmAddresource :=  TfrmAddresource.Create(self);
+   if cdsRES_GRP.RecordCount > 0 then
+   begin
+      frmAddresource.cdsAddResource.Close;
+      frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
+      frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
+      frmAddresource.cdsAddResource.Open;
+   end;
+   try
+      frmAddresource.ShowModal;
+   finally
+      strResId :=  frmAddresource.strResourceId.Split(['^']);
+      for i := 0 to High(strResId) do
+         cdsRES_GRP.AppendRecord(['','','0','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
+      frmAddresource.Free;
+   end;
+end;
+
+procedure TfResGroup.menuDescClick(Sender: TObject);
+var RecNo:Integer;
+begin
+   RecNo := cdsRES_GRP_MSTR.RecNo;
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+   cdsRES_GRP_MSTR.Open;
+   cdsRES_GRP_MSTR.MoveBy(RecNo);
+end;
+procedure TfResGroup.menuNameClick(Sender: TObject);
+var RecNo:Integer;
+begin
+   RecNo := cdsRES_GRP_MSTR.RecNo;
+   cdsRES_GRP_MSTR.Close;
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+   cdsRES_GRP_MSTR.Open;
+   cdsRES_GRP_MSTR.MoveBy(RecNo);
+end;
+
+procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+begin
+  if qryRES_GRP.Active then qryRES_GRP.Close;
+  qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+  qryRES_GRP.Open;
+end;
 end.
