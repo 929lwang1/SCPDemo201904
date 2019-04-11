@@ -3,7 +3,6 @@ object Product: TProduct
   Height = 401
   Width = 766
   object connMain: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -14,7 +13,6 @@ object Product: TProduct
     Top = 16
   end
   object qryRES_GRP_MSTR: TADOQuery
-    Active = True
     Connection = connMain
     CursorType = ctStatic
     Parameters = <>
@@ -22,9 +20,49 @@ object Product: TProduct
       'select * from resource_group_mstr')
     Left = 104
     Top = 64
+    object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
+      FieldName = 'RESOURCE_GROUP_ID'
+    end
+    object qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField
+      FieldName = 'RESOURCE_GROUP_NAME'
+    end
+    object qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField
+      FieldName = 'RESOURCE_TYPE_CD'
+    end
+    object qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField
+      FieldName = 'RESOURCE_GROUP_DESC'
+      Size = 40
+    end
+    object qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
+      FieldName = 'UTILIZATION_TYPE_CD'
+    end
+    object qryRES_GRP_MSTROPERATION_COST: TFMTBCDField
+      FieldName = 'OPERATION_COST'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRPREP_TIME: TFMTBCDField
+      FieldName = 'PREP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+      FieldName = 'CLEANUP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+      FieldName = 'DAILY_STARTUP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+      FieldName = 'DAILY_CLEANUP_TIME'
+      Precision = 38
+      Size = 10
+    end
   end
   object qryRES_GRPS: TADOQuery
-    Active = True
     Connection = connMain
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -42,9 +80,22 @@ object Product: TProduct
         'e_group_id')
     Left = 208
     Top = 64
+    object qryRES_GRPSRESOURCE_GROUP_ID: TIntegerField
+      FieldName = 'RESOURCE_GROUP_ID'
+    end
+    object qryRES_GRPSRESOURCE_ID: TIntegerField
+      FieldName = 'RESOURCE_ID'
+    end
+    object qryRES_GRPSUSE_GROUP_SETTINGS_IND: TWideStringField
+      FieldName = 'USE_GROUP_SETTINGS_IND'
+      FixedChar = True
+      Size = 1
+    end
+    object qryRES_GRPSPRIORITY_INDEX: TIntegerField
+      FieldName = 'PRIORITY_INDEX'
+    end
   end
   object qryRES_MSTR: TADOQuery
-    Active = True
     Connection = connMain
     CursorType = ctStatic
     Parameters = <>
@@ -64,7 +115,6 @@ object Product: TProduct
     Top = 208
   end
   object qryUTL_TYPE_MSTR: TADOQuery
-    Active = True
     Connection = connMain
     CursorType = ctStatic
     Parameters = <>

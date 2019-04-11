@@ -3,7 +3,7 @@ object fResGrpSearch: TfResGrpSearch
   Top = 0
   Caption = 'Search'
   ClientHeight = 313
-  ClientWidth = 703
+  ClientWidth = 527
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,11 +16,11 @@ object fResGrpSearch: TfResGrpSearch
   object panelControl: TPanel
     Left = 0
     Top = 281
-    Width = 703
+    Width = 527
     Height = 44
     Align = alTop
     TabOrder = 1
-    ExplicitTop = 165
+    ExplicitWidth = 703
     object tglCloseOnGo: TCheckBox
       Left = 8
       Top = 6
@@ -49,13 +49,11 @@ object fResGrpSearch: TfResGrpSearch
   object panelFind: TPanel
     Left = 0
     Top = 0
-    Width = 703
+    Width = 527
     Height = 41
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 232
-    ExplicitTop = 152
-    ExplicitWidth = 185
+    ExplicitWidth = 703
     object lblFind: TLabel
       Left = 8
       Top = 14
@@ -113,14 +111,15 @@ object fResGrpSearch: TfResGrpSearch
   object panelResults: TPanel
     Left = 0
     Top = 41
-    Width = 703
+    Width = 527
     Height = 240
     Align = alTop
     TabOrder = 2
+    ExplicitWidth = 703
     object DBGrid1: TDBGrid
       Left = 1
       Top = 1
-      Width = 701
+      Width = 525
       Height = 122
       Align = alTop
       DataSource = dsRES_GRP_MSTR_cds
@@ -132,55 +131,23 @@ object fResGrpSearch: TfResGrpSearch
       TitleFont.Style = []
     end
   end
-  object ADOConnection1: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Data Source=192.168.172.77'
-    LoginPrompt = False
-    Provider = 'SQLOLEDB.1'
-    Left = 400
-    Top = 16
-  end
-  object ADOQuery1: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      
-        'select RESOURCE_GROUP_NAME, RESOURCE_GROUP_DESC from RESOURCE_GR' +
-        'OUP_MSTR where RESOURCE_GROUP_NAME LIKE '#39'%sew%'#39)
-    Left = 376
-    Top = 64
-  end
-  object dsRES_GRP_MSTR: TDataSource
-    DataSet = ADOQuery1
-    Left = 456
-    Top = 64
-  end
-  object dspRES_GRP_MSTR: TDataSetProvider
-    DataSet = ADOQuery1
-    Left = 552
-    Top = 64
-  end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
-    Left = 552
-    Top = 120
+    RemoteServer = dcomconnMain
+    Left = 192
+    Top = 128
   end
   object dsRES_GRP_MSTR_cds: TDataSource
     DataSet = cdsRES_GRP_MSTR
-    Enabled = False
-    Left = 552
-    Top = 184
+    Left = 200
+    Top = 200
   end
   object ActionList1: TActionList
-    Left = 640
-    Top = 8
+    Left = 296
+    Top = 56
     object actSearch: TAction
       AutoCheck = True
       Caption = 'Search'
@@ -194,5 +161,12 @@ object fResGrpSearch: TfResGrpSearch
       Caption = 'Close'
       OnExecute = actCloseExecute
     end
+  end
+  object dcomconnMain: TDCOMConnection
+    ServerGUID = '{A9823DC0-C360-4F91-A42B-E1986C1D2AA2}'
+    ServerName = 'ProductServer.Product'
+    ComputerName = 'APT05-H9CW0N2'
+    Left = 184
+    Top = 56
   end
 end

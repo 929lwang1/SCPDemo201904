@@ -26,6 +26,14 @@ object Form4: TForm4
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
+  object DBNavigator1: TDBNavigator
+    Left = 328
+    Top = 24
+    Width = 240
+    Height = 25
+    DataSource = dsRES_GRP_MSTR_cds
+    TabOrder = 1
+  end
   object dcomconnMain: TDCOMConnection
     Connected = True
     ServerGUID = '{A9823DC0-C360-4F91-A42B-E1986C1D2AA2}'

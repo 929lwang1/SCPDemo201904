@@ -20,6 +20,20 @@ type
     qryUTL_TYPE_MSTR: TADOQuery;
     dspRES_MSTR: TDataSetProvider;
     dspUTL_TYPE_MSTR: TDataSetProvider;
+    qryRES_GRPSRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRPSRESOURCE_ID: TIntegerField;
+    qryRES_GRPSUSE_GROUP_SETTINGS_IND: TWideStringField;
+    qryRES_GRPSPRIORITY_INDEX: TIntegerField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
+    qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
+    qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
+    qryRES_GRP_MSTROPERATION_COST: TFMTBCDField;
+    qryRES_GRP_MSTRPREP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
   private
     { Private declarations }
   protected
