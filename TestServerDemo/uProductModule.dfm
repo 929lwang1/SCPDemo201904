@@ -1,0 +1,136 @@
+object Product: TProduct
+  OldCreateOrder = False
+  Height = 401
+  Width = 766
+  object connMain: TADOConnection
+    ConnectionString = 
+      'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
+      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
+      '-H9CW0N2'
+    LoginPrompt = False
+    Provider = 'SQLOLEDB.1'
+    Left = 40
+    Top = 16
+  end
+  object qryRES_GRP_MSTR: TADOQuery
+    Connection = connMain
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from resource_group_mstr')
+    Left = 104
+    Top = 64
+    object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
+      FieldName = 'RESOURCE_GROUP_ID'
+    end
+    object qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField
+      FieldName = 'RESOURCE_GROUP_NAME'
+    end
+    object qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField
+      FieldName = 'RESOURCE_TYPE_CD'
+    end
+    object qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField
+      FieldName = 'RESOURCE_GROUP_DESC'
+      Size = 40
+    end
+    object qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
+      FieldName = 'UTILIZATION_TYPE_CD'
+    end
+    object qryRES_GRP_MSTROPERATION_COST: TFMTBCDField
+      FieldName = 'OPERATION_COST'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRPREP_TIME: TFMTBCDField
+      FieldName = 'PREP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+      FieldName = 'CLEANUP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+      FieldName = 'DAILY_STARTUP_TIME'
+      Precision = 38
+      Size = 10
+    end
+    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+      FieldName = 'DAILY_CLEANUP_TIME'
+      Precision = 38
+      Size = 10
+    end
+  end
+  object qryRES_GRPS: TADOQuery
+    Connection = connMain
+    CursorType = ctStatic
+    DataSource = dsRES_GRP_MSTR
+    Parameters = <
+      item
+        Name = 'resource_group_id'
+        Attributes = [paSigned]
+        DataType = ftInteger
+        Precision = 10
+        Value = 1
+      end>
+    SQL.Strings = (
+      
+        'select * from resource_groups where resource_group_id = :resourc' +
+        'e_group_id')
+    Left = 208
+    Top = 64
+    object qryRES_GRPSRESOURCE_GROUP_ID: TIntegerField
+      FieldName = 'RESOURCE_GROUP_ID'
+    end
+    object qryRES_GRPSRESOURCE_ID: TIntegerField
+      FieldName = 'RESOURCE_ID'
+    end
+    object qryRES_GRPSUSE_GROUP_SETTINGS_IND: TWideStringField
+      FieldName = 'USE_GROUP_SETTINGS_IND'
+      FixedChar = True
+      Size = 1
+    end
+    object qryRES_GRPSPRIORITY_INDEX: TIntegerField
+      FieldName = 'PRIORITY_INDEX'
+    end
+  end
+  object qryRES_MSTR: TADOQuery
+    Connection = connMain
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from resource_mstr')
+    Left = 312
+    Top = 64
+  end
+  object dsRES_GRP_MSTR: TDataSource
+    DataSet = qryRES_GRP_MSTR
+    Left = 40
+    Top = 136
+  end
+  object dspRES_GRP_MSTR: TDataSetProvider
+    DataSet = qryRES_GRP_MSTR
+    Left = 104
+    Top = 208
+  end
+  object qryUTL_TYPE_MSTR: TADOQuery
+    Connection = connMain
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'select * from utilization_type_mstr')
+    Left = 408
+    Top = 64
+  end
+  object dspRES_MSTR: TDataSetProvider
+    DataSet = qryRES_MSTR
+    Left = 320
+    Top = 208
+  end
+  object dspUTL_TYPE_MSTR: TDataSetProvider
+    DataSet = qryUTL_TYPE_MSTR
+    Left = 424
+    Top = 208
+  end
+end

@@ -2,12 +2,12 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2019/04/09 17:05:08.000.195,=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
-    <Transaction>2019/04/09 17:05:22.000.604,C:\Users\twang\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj</Transaction>
-    <Transaction>2019/04/09 17:05:36.000.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.pas=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas</Transaction>
-    <Transaction>2019/04/09 17:05:36.000.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.dfm=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm</Transaction>
-    <Transaction>2019/04/09 17:05:45.000.788,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas=D:\GitHub\Ross\Client\uResourceGroupClient.pas</Transaction>
-    <Transaction>2019/04/09 17:05:45.000.788,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm=D:\GitHub\Ross\Client\uResourceGroupClient.dfm</Transaction>
-    <Transaction>2019/04/09 17:05:59.000.788,C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj=D:\GitHub\Ross\Client\ResourceGroupClient.dproj</Transaction>
+    <Transaction>2019/04/09 17:05:22.000.604,C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Project3.dproj</Transaction>
+    <Transaction>2019/04/09 17:05:36.000.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2019/04/09 17:05:36.000.418,C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm=C:\Users\twang\Documents\Embarcadero\Studio\Projects\Unit7.dfm</Transaction>
+    <Transaction>2019/04/09 17:05:45.000.788,D:\GitHub\Ross\Client\uResourceGroupClient.pas=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.pas</Transaction>
+    <Transaction>2019/04/09 17:05:45.000.788,D:\GitHub\Ross\Client\uResourceGroupClient.dfm=C:\Users\twang\Documents\Embarcadero\Studio\Projects\uResourceGroupClient.dfm</Transaction>
+    <Transaction>2019/04/09 17:05:59.000.788,D:\GitHub\Ross\Client\ResourceGroupClient.dproj=C:\Users\twang\Documents\Embarcadero\Studio\Projects\ResourceGroupClient.dproj</Transaction>
     <Transaction>2019/04/09 17:37:47.000.939,C:\RossDemo\ResourceGroupClient\uResourceGroupClient.pas=</Transaction>
     <Transaction>2019/04/09 17:38:12.000.354,=C:\RossDemo\ResourceGroupClient\uResourceGroupClient.pas</Transaction>
     <Transaction>2019/04/09 17:47:38.000.757,=C:\Users\tcai\Desktop\tina\Unit8.pas</Transaction>
@@ -22,6 +22,6 @@
     <Transaction>2019/04/10 10:52:45.000.671,C:\Users\tcai\Desktop\tina\Unit8.pas=</Transaction>
     <Transaction>2019/04/10 10:56:54.000.857,=C:\Users\tcai\Desktop\tina\Unit8.pas</Transaction>
     <Transaction>2019/04/10 11:16:00.000.477,C:\Users\tcai\Desktop\tina\Unit8.pas=</Transaction>
-    <Transaction>2019/04/10 16:02:04.736,=C:\RossDemo\SCPDemo201904\ResourceGroupClient\ResourceGroupFind.pas</Transaction>
+    <Transaction>2019/04/10 16:02:04.000.736,=C:\RossDemo\SCPDemo201904\ResourceGroupClient\ResourceGroupFind.pas</Transaction>
   </Transactions>
 </BorlandProject>
