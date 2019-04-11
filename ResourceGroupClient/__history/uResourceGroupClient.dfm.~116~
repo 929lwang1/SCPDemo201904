@@ -411,6 +411,27 @@ object fResGroup: TfResGroup
     OnColEnter = DBGrid1ColEnter
     OnColExit = DBGrid1ColExit
     OnDrawColumnCell = DBGrid1DrawColumnCell
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Resouce Name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Resource Description'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PRIORITY_INDEX'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_SETTINGS_IND'
+        Visible = True
+      end>
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -1039,7 +1060,6 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -1143,7 +1163,6 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryRES_GRP: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
