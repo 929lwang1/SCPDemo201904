@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 615
-  ClientWidth = 972
+  ClientWidth = 1067
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object fResGroup: TfResGroup
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 972
+    Width = 1067
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -83,28 +83,24 @@ object fResGroup: TfResGroup
       Top = 0
       Caption = 'First'
       ImageIndex = 5
-      OnClick = btnFirstClick
     end
     object btnPrior: TToolButton
       Left = 180
       Top = 0
       Caption = 'Prior'
       ImageIndex = 6
-      OnClick = btnPriorClick
     end
     object btnNext: TToolButton
       Left = 206
       Top = 0
       Caption = 'Next'
       ImageIndex = 7
-      OnClick = btnNextClick
     end
     object btnLast: TToolButton
       Left = 232
       Top = 0
       Caption = 'Last'
       ImageIndex = 8
-      OnClick = btnLastClick
     end
     object ToolButton13: TToolButton
       Left = 258
@@ -157,7 +153,7 @@ object fResGroup: TfResGroup
   object Panel1: TPanel
     Left = 0
     Top = 25
-    Width = 972
+    Width = 1067
     Height = 49
     Align = alTop
     TabOrder = 1
@@ -234,14 +230,14 @@ object fResGroup: TfResGroup
   object Panel2: TPanel
     Left = 0
     Top = 74
-    Width = 972
+    Width = 1067
     Height = 111
     Align = alTop
     TabOrder = 2
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 970
+      Width = 1065
       Height = 105
       Align = alTop
       Caption = 'Defaults'
@@ -401,7 +397,7 @@ object fResGroup: TfResGroup
   object DBGrid1: TDBGrid
     Left = 0
     Top = 185
-    Width = 972
+    Width = 1067
     Height = 220
     Align = alTop
     DataSource = dsRES_GRP_cds
@@ -411,11 +407,32 @@ object fResGroup: TfResGroup
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Resouce Name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Resource Description'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PRIORITY_INDEX'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_SETTINGS_IND'
+        Visible = True
+      end>
   end
   object StatusBar1: TStatusBar
     Left = 0
     Top = 596
-    Width = 972
+    Width = 1067
     Height = 19
     Panels = <>
   end
@@ -431,6 +448,23 @@ object fResGroup: TfResGroup
       'Hours'
       'Days'
       'Weeks')
+  end
+  object btnAdd: TButton
+    Left = 842
+    Top = 432
+    Width = 75
+    Height = 25
+    Caption = 'Add'
+    TabOrder = 6
+    OnClick = btnAddClick
+  end
+  object btnRemove: TButton
+    Left = 938
+    Top = 432
+    Width = 75
+    Height = 25
+    Caption = 'Remove'
+    TabOrder = 7
   end
   object MainMenu1: TMainMenu
     Top = 496
@@ -977,8 +1011,9 @@ object fResGroup: TfResGroup
     AfterScroll = qryRES_GRP_MSTRAfterScroll
     Parameters = <>
     SQL.Strings = (
-      'select * from RESOURCE_GROUP_MSTR')
-    Left = 664
+      'select * from RESOURCE_GROUP_MSTR;')
+    Left = 856
+    Top = 224
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1025,8 +1060,10 @@ object fResGroup: TfResGroup
     Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=192.1' +
-      '68.172.77'
+      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
+      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
+      ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 504
@@ -1034,16 +1071,16 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 80
+    Left = 744
+    Top = 224
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
-    Left = 536
-    Top = 288
+    Left = 624
+    Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1091,8 +1128,8 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR_cds: TDataSource
     DataSet = cdsRES_GRP_MSTR
-    Left = 528
-    Top = 352
+    Left = 504
+    Top = 224
   end
   object qryUTL_TYPE_MSTR: TADOQuery
     Active = True
@@ -1101,18 +1138,18 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 936
-    Top = 65528
+    Left = 736
+    Top = 424
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
     DataSet = qryUTL_TYPE_MSTR
-    Left = 848
-    Top = 352
+    Left = 504
+    Top = 416
   end
   object dspRES_MSTR: TDataSetProvider
     DataSet = qryRES_MSTR
-    Left = 792
-    Top = 112
+    Left = 776
+    Top = 352
   end
   object qryRES_MSTR: TADOQuery
     Active = True
@@ -1122,8 +1159,8 @@ object fResGroup: TfResGroup
     SQL.Strings = (
       'select * from RESOURCE_MSTR'
       '')
-    Left = 840
-    Top = 65528
+    Left = 864
+    Top = 352
   end
   object qryRES_GRP: TADOQuery
     Active = True
@@ -1141,7 +1178,8 @@ object fResGroup: TfResGroup
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
       ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
-    Left = 752
+    Left = 864
+    Top = 280
     object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1162,8 +1200,8 @@ object fResGroup: TfResGroup
     Aggregates = <>
     DataSetField = cdsRES_GRP_MSTRqryRES_GRP
     Params = <>
-    Left = 664
-    Top = 288
+    Left = 624
+    Top = 280
     object cdsRES_GRPResouceName: TStringField
       FieldKind = fkLookup
       FieldName = 'Resouce Name'
@@ -1200,16 +1238,36 @@ object fResGroup: TfResGroup
       FieldName = 'RESOURCE_GROUP_ID'
       Visible = False
     end
+    object cdsRES_GRPLOC_ID: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'LOC_ID'
+      LookupDataSet = qryRES_MSTR
+      LookupKeyFields = 'RESOURCE_ID'
+      LookupResultField = 'LOC_ID'
+      KeyFields = 'RESOURCE_ID'
+      Visible = False
+      Lookup = True
+    end
+    object cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'RESOURCE_TYPE_CD'
+      LookupDataSet = qryRES_MSTR
+      LookupKeyFields = 'RESOURCE_ID'
+      LookupResultField = 'RESOURCE_TYPE_CD'
+      KeyFields = 'RESOURCE_ID'
+      Visible = False
+      Lookup = True
+    end
   end
   object dsRES_GRP_cds: TDataSource
     DataSet = cdsRES_GRP
-    Left = 672
-    Top = 352
+    Left = 504
+    Top = 280
   end
   object dsRES_GRP_MSTR: TDataSource
     DataSet = qryRES_GRP_MSTR
-    Left = 560
-    Top = 24
+    Left = 992
+    Top = 224
   end
   object PopupMenu1: TPopupMenu
     Images = ImageList1

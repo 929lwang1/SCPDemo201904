@@ -1005,6 +1005,7 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
@@ -1056,6 +1057,7 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -1130,6 +1132,7 @@ object fResGroup: TfResGroup
     Top = 224
   end
   object qryUTL_TYPE_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1149,6 +1152,7 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryRES_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1159,6 +1163,7 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryRES_GRP: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1168,7 +1173,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 18
+        Value = 1
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
@@ -1191,7 +1196,6 @@ object fResGroup: TfResGroup
     end
   end
   object cdsRES_GRP: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsRES_GRP_MSTRqryRES_GRP
     Params = <>
@@ -1204,6 +1208,7 @@ object fResGroup: TfResGroup
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_NAME'
       KeyFields = 'RESOURCE_ID'
+      LookupCache = True
       Lookup = True
     end
     object cdsRES_GRPResourceDescription: TStringField
@@ -1213,6 +1218,7 @@ object fResGroup: TfResGroup
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_DESC'
       KeyFields = 'RESOURCE_ID'
+      LookupCache = True
       Lookup = True
     end
     object cdsRES_GRPPRIORITY_INDEX: TIntegerField
@@ -1240,6 +1246,7 @@ object fResGroup: TfResGroup
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'LOC_ID'
       KeyFields = 'RESOURCE_ID'
+      LookupCache = True
       Visible = False
       Lookup = True
     end
@@ -1250,6 +1257,7 @@ object fResGroup: TfResGroup
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_TYPE_CD'
       KeyFields = 'RESOURCE_ID'
+      LookupCache = True
       Visible = False
       Lookup = True
     end

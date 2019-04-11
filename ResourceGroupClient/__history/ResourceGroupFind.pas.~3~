@@ -21,7 +21,16 @@ type
     cbxFindBy: TComboBox;
     cbxFindCondition: TComboBox;
     ComboBox1: TComboBox;
+    ADOQuery1: TADOQuery;
+    dsRES_GRP_MSTR: TDataSource;
     DBGrid1: TDBGrid;
+    dspRES_GRP_MSTR: TDataSetProvider;
+    cdsRES_GRP_MSTR: TClientDataSet;
+    dsRES_GRP_MSTR_cds: TDataSource;
+    ActionList1: TActionList;
+    actSearch: TAction;
+    actGo: TAction;
+    actClose: TAction;
     procedure btnCloseClick(Sender: TObject);
    //procedure FormCreate(Sender: TObject);
     procedure cbxFindByClick(Sender: TObject);
@@ -53,7 +62,7 @@ end;
 
 procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
 begin
-   //dsRES_GRP_MSTR_cds.Enabled := TRUE;
+   dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.btnCloseClick(Sender: TObject);

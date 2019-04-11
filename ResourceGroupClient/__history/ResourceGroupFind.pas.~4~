@@ -53,7 +53,7 @@ end;
 
 procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
 begin
-   //dsRES_GRP_MSTR_cds.Enabled := TRUE;
+   dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.btnCloseClick(Sender: TObject);
