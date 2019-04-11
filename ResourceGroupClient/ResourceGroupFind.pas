@@ -21,7 +21,6 @@ type
     cbxFindBy: TComboBox;
     cbxFindCondition: TComboBox;
     ComboBox1: TComboBox;
-    ADOConnection1: TADOConnection;
     ADOQuery1: TADOQuery;
     dsRES_GRP_MSTR: TDataSource;
     DBGrid1: TDBGrid;

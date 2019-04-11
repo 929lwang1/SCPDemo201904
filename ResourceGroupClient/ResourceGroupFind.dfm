@@ -128,20 +128,7 @@ object fResGrpSearch: TfResGrpSearch
       TitleFont.Style = []
     end
   end
-  object ADOConnection1: TADOConnection
-    ConnectionString = 
-      'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
-      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
-      ' for Data=False;Tag with column collation when possible=False'
-    LoginPrompt = False
-    Provider = 'SQLOLEDB.1'
-    Left = 400
-    Top = 16
-  end
   object ADOQuery1: TADOQuery
-    Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (

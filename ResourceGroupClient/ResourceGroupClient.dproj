@@ -106,6 +106,10 @@
             <Form>fResGrpSearch</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="AddResource.pas">
+            <Form>frmAddresource</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

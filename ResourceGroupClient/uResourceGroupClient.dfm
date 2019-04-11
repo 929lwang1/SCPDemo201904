@@ -24,8 +24,6 @@ object fResGroup: TfResGroup
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 0
-    ExplicitLeft = -1
-    ExplicitTop = 6
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -159,7 +157,6 @@ object fResGroup: TfResGroup
     Height = 49
     Align = alTop
     TabOrder = 1
-    ExplicitWidth = 972
     object Label1: TLabel
       Left = 16
       Top = 13
@@ -237,7 +234,6 @@ object fResGroup: TfResGroup
     Height = 111
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 972
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -246,7 +242,6 @@ object fResGroup: TfResGroup
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
-      ExplicitWidth = 970
       object Label5: TLabel
         Left = 32
         Top = 26
@@ -440,7 +435,6 @@ object fResGroup: TfResGroup
     Width = 1067
     Height = 19
     Panels = <>
-    ExplicitWidth = 972
   end
   object cbxPRE_TIME: TComboBox
     Left = 243
@@ -1062,7 +1056,6 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -1156,7 +1149,6 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryRES_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1167,7 +1159,6 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryRES_GRP: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
