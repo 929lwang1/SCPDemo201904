@@ -1,4 +1,4 @@
-unit uResourceGroupClient;
+﻿unit uResourceGroupClient;
 
 interface
 
@@ -30,13 +30,13 @@ type
     menuPrior: TMenuItem;
     menuNext: TMenuItem;
     menuLast: TMenuItem;
-    ActionList1: TActionList;
-    ImageList1: TImageList;
+    actList: TActionList;
+    ImageEnable: TImageList;
     qryRES_GRP_MSTR: TADOQuery;
     ADOConnection1: TADOConnection;
     dspRES_GRP_MSTR: TDataSetProvider;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
+    btnNew: TToolButton;
     btnDelete: TToolButton;
     ToolButton3: TToolButton;
     btnSave: TToolButton;
@@ -102,7 +102,6 @@ type
     btnLast: TToolButton;
     ToolButton13: TToolButton;
     StatusBar1: TStatusBar;
-    DBNavigator1: TDBNavigator;
     dsRES_GRP_MSTR: TDataSource;
     qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
     qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
@@ -141,6 +140,9 @@ type
     cdsRES_GRPLOC_ID: TIntegerField;
     cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField;
     cdsRES_GRPUSE_GROUP_DEFAULTS: TBooleanField;
+    qryRES_GRP_ID: TADOQuery;
+    ImageDisable: TImageList;
+    SpinEdit1: TSpinEdit;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -167,6 +169,10 @@ type
     procedure DBGrid1CellClick(Column: TColumn);
     procedure DBGrid1ColEnter(Sender: TObject);
     procedure DBGrid1ColExit(Sender: TObject);
+    procedure actFirstUpdate(Sender: TObject);
+    procedure actPriorUpdate(Sender: TObject);
+    procedure seditOPER_COSTChange(Sender: TObject);
+    procedure seditOPER_COSTEnter(Sender: TObject);
   private
     { Private declarations }
     OriginalOptions:TDBGridOptions;
@@ -185,17 +191,29 @@ uses AddResource,ResourceGroupFind;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
-   ShowMessage('Cancel update.');
+  cdsRES_GRP_MSTR.Cancel;
+  btnSave.Enabled := false;
+  btnCancel.Enabled := false;
+  btnNew.Enabled := true;
+  btnDelete.Enabled := true;
+  btnFirst.Enabled := true;
+  btnPrior.Enabled := true;
+  btnNext.Enabled := true;
+  btnLast.Enabled := true;
+  btnSearch.Enabled := true;
 end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
 begin
-   //ShowMessage('Set when Cancel button is enabled.');
+  actCancel.Enabled :=cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified;
 end;
 
 procedure TfResGroup.actDeleteExecute(Sender: TObject);
+var
+  idDelete:integer;
 begin
-   ShowMessage('prepare to delete a record.');
+  idDelete := Application.MessageBox(PWideChar('Are you sure you want to delete ' + cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString + '?'), 'Confirm', MB_YESNO);
+  //  YES - 6 NO-7
 end;
 
 procedure TfResGroup.actDeleteUpdate(Sender: TObject);
@@ -205,63 +223,106 @@ end;
 
 procedure TfResGroup.actExitExecute(Sender: TObject);
 begin
-   fResGroup.Close;
+  fResGroup.Close;
 end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
-   ShowMessage('Go to a subscreen to search a record.');
-   fResGrpSearch.Show;
+  ShowMessage('Go to a subscreen to search a record.');
+  fResGrpSearch.Show;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);
 begin
-   ShowMessage('Find FIRST record.');
+  cdsRES_GRP_MSTR.First;
+end;
+
+procedure TfResGroup.actFirstUpdate(Sender: TObject);
+begin
+ // disable
 end;
 
 procedure TfResGroup.actLastExecute(Sender: TObject);
 begin
-   ShowMessage('Find last record.');
+  cdsRES_GRP_MSTR.Last;
 end;
 
 procedure TfResGroup.actNewExecute(Sender: TObject);
+var
+  nextid:integer;
 begin
-   ShowMessage('Create a new record.');
+  btnSave.Enabled := true;
+  btnCancel.Enabled := true;
+  btnNew.Enabled := false;
+  btnDelete.Enabled := false;
+  btnFirst.Enabled := false;
+  btnPrior.Enabled := false;
+  btnNext.Enabled := false;
+  btnLast.Enabled := false;
+  btnSearch.Enabled := false;
+  qryRES_GRP_ID.Last;
+  nextid := qryRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
+  cdsRES_GRP_MSTR.insert;
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger := nextid;
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString := 'New Group ' + inttostr(nextid);
+
 end;
 
 procedure TfResGroup.actNewUpdate(Sender: TObject);
 begin
-   //ShowMessage('Set when New button is enabled.');
+   //
 end;
 
 procedure TfResGroup.actNextExecute(Sender: TObject);
 begin
-   ShowMessage('Find NEXT record.');
+  cdsRES_GRP_MSTR.Next;
 end;
 
 procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
 begin
-   ShowMessage('set query order by Descrition for navigation');
+  ShowMessage('set query order by Descrition for navigation');
 end;
 
 procedure TfResGroup.actOrdByNameExecute(Sender: TObject);
 begin
-   ShowMessage('set query order by name for navigation');
+  ShowMessage('set query order by name for navigation');
 end;
 
 procedure TfResGroup.actPriorExecute(Sender: TObject);
 begin
-   ShowMessage('Find PRIOR record.');
+  cdsRES_GRP_MSTR.Prior;
+end;
+
+procedure TfResGroup.actPriorUpdate(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfResGroup.actSaveExecute(Sender: TObject);
 begin
-   ShowMessage('Save update.');
+  if cdsRES_GRP.RecordCount = 0 then
+  begin
+    ShowMessage('A group mustRecordCount contain at least one resource.');
+  end
+  else if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
+  begin
+    cdsRES_GRP_MSTR.ApplyUpdates(0);
+    btnSave.Enabled := false;
+    btnCancel.Enabled := false;
+    btnNew.Enabled := true;
+    btnDelete.Enabled := true;
+    btnFirst.Enabled := true;
+    btnPrior.Enabled := true;
+    btnNext.Enabled := true;
+    btnLast.Enabled := true;
+    btnSearch.Enabled := true;
+  end;
 end;
 
 procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
-   //ShowMessage('Set when Save button is enabled.');
+  actSave.Enabled :=cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified;
 end;
 
 
@@ -369,4 +430,19 @@ begin
   DBGrid1.SelectedField.AsBoolean := NOT DBGrid1.SelectedField.AsBoolean;
   DBGrid1.SelectedField.DataSet.Post;
 end;
+
+procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
+begin
+//  showmessage(inttostr(seditOPER_COST.Value));
+//  cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').asFloat := seditOPER_COST.Value;
+
+end;
+
+procedure TfResGroup.seditOPER_COSTEnter(Sender: TObject);
+//var
+//  opercost:real;
+begin
+//  showmessage(inttostr(seditOPER_COST.Value));
+end;
+
 end.
