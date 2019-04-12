@@ -299,42 +299,6 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object dbeditPRE_TIME: TDBEdit
-        Left = 152
-        Top = 57
-        Width = 84
-        Height = 21
-        DataField = 'PREP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 0
-      end
-      object dbeditCLEANUP_TIME: TDBEdit
-        Left = 152
-        Top = 84
-        Width = 84
-        Height = 21
-        DataField = 'CLEANUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 1
-      end
-      object dbeditDAILY_PRE_TIME: TDBEdit
-        Left = 533
-        Top = 57
-        Width = 84
-        Height = 21
-        DataField = 'DAILY_STARTUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 2
-      end
-      object dbeditDAILY_CLEANUP_TIME: TDBEdit
-        Left = 533
-        Top = 84
-        Width = 84
-        Height = 21
-        DataField = 'DAILY_CLEANUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 3
-      end
       object seditOPER_COST: TSpinEdit
         Left = 191
         Top = 26
@@ -342,22 +306,22 @@ object fResGroup: TfResGroup
         Height = 22
         MaxValue = 2147483647
         MinValue = 0
-        TabOrder = 4
+        TabOrder = 0
         Value = 0
         OnChange = seditOPER_COSTChange
         OnEnter = seditOPER_COSTEnter
       end
-      object ComboBox2: TComboBox
+      object cbxCLEANUP_TIME: TComboBox
         Left = 242
         Top = 83
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 5
+        TabOrder = 1
         Text = 'Minutes'
+        OnChange = cbxCLEANUP_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
@@ -367,12 +331,12 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 6
+        TabOrder = 2
         Text = 'Minutes'
+        OnChange = cbxDAILY_CLEANUP_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
@@ -382,16 +346,52 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 7
+        TabOrder = 3
         Text = 'Minutes'
+        OnChange = cbxDAILY_PRE_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
       end
+      object txtCLEANUP_TIME: TEdit
+        Left = 153
+        Top = 83
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 4
+      end
+      object txtDAILY_CLEANUP_TIME: TEdit
+        Left = 534
+        Top = 83
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 5
+      end
+    end
+    object txtPREP_TIME: TEdit
+      Left = 154
+      Top = 57
+      Width = 83
+      Height = 21
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 1
+    end
+    object txtDAILY_STARTUP_TIME: TEdit
+      Left = 535
+      Top = 57
+      Width = 83
+      Height = 21
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 2
     end
   end
   object DBGrid1: TDBGrid
@@ -421,15 +421,15 @@ object fResGroup: TfResGroup
   end
   object cbxPRE_TIME: TComboBox
     Left = 243
-    Top = 134
+    Top = 131
     Width = 111
     Height = 21
-    ItemIndex = 0
     TabOrder = 5
     Text = 'Minutes'
+    OnChange = cbxPRE_TIMEChange
     Items.Strings = (
-      'Minutes'
       'Seconds'
+      'Minutes'
       'Hours'
       'Days'
       'Weeks')
@@ -1053,11 +1053,12 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-H9CW0N2'
+      '-H9CW0N2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
+      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
+      'alse;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1073,6 +1074,7 @@ object fResGroup: TfResGroup
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
+    AfterScroll = cdsRES_GRP_MSTRAfterScroll
     Left = 448
     Top = 296
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
@@ -1153,7 +1155,6 @@ object fResGroup: TfResGroup
     Left = 640
   end
   object qryRES_GRP: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1285,7 +1286,6 @@ object fResGroup: TfResGroup
     end
   end
   object qryRES_GRP_ID: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1295,7 +1295,7 @@ object fResGroup: TfResGroup
     Left = 736
   end
   object ImageDisable: TImageList
-    Left = 200
+    Left = 248
     Top = 376
     Bitmap = {
       494C01010A001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600

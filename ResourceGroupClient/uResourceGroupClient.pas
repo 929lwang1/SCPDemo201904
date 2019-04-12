@@ -89,12 +89,8 @@ type
     GroupBox1: TGroupBox;
     Label5: TLabel;
     Label4: TLabel;
-    dbeditPRE_TIME: TDBEdit;
     Label6: TLabel;
-    dbeditCLEANUP_TIME: TDBEdit;
-    dbeditDAILY_PRE_TIME: TDBEdit;
     Label8: TLabel;
-    dbeditDAILY_CLEANUP_TIME: TDBEdit;
     seditOPER_COST: TSpinEdit;
     btnFirst: TToolButton;
     btnPrior: TToolButton;
@@ -127,7 +123,7 @@ type
     btnSearch: TToolButton;
     btnOrderBy: TToolButton;
     cbxPRE_TIME: TComboBox;
-    ComboBox2: TComboBox;
+    cbxCLEANUP_TIME: TComboBox;
     cbxDAILY_CLEANUP_TIME: TComboBox;
     cbxDAILY_PRE_TIME: TComboBox;
     PopupMenu1: TPopupMenu;
@@ -142,6 +138,10 @@ type
     cdsRES_GRPUSE_GROUP_DEFAULTS: TBooleanField;
     qryRES_GRP_ID: TADOQuery;
     ImageDisable: TImageList;
+    txtPREP_TIME: TEdit;
+    txtCLEANUP_TIME: TEdit;
+    txtDAILY_STARTUP_TIME: TEdit;
+    txtDAILY_CLEANUP_TIME: TEdit;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -175,13 +175,22 @@ type
     procedure RepRecs(ipResGrpID: Integer);
     procedure btnNameClick(Sender: TObject);
     procedure btnDescriptionClick(Sender: TObject);
+    procedure cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+    procedure cbxPRE_TIMEChange(Sender: TObject);
+    procedure cbxDAILY_PRE_TIMEChange(Sender: TObject);
+    procedure cbxCLEANUP_TIMEChange(Sender: TObject);
+    procedure cbxDAILY_CLEANUP_TIMEChange(Sender: TObject);
   private
     { Private declarations }
     OriginalOptions:TDBGridOptions;
     procedure SaveBoolean;
+    procedure calPRE_TIME;
+    procedure calDAILY_CLEANUP_TIME;
+    procedure calDAILY_PRE_TIME;
+    procedure calCLEANUP_TIME;
   public
     { Public declarations }
-    procedure refreshrecord;
+     procedure refreshrecord;
   end;
 
 var
@@ -231,7 +240,7 @@ end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
-  //ShowMessage('Go to a subscreen to search a record.');
+  ShowMessage('Go to a subscreen to search a record.');
   fResGrpSearch.Show;
 end;
 
@@ -331,41 +340,41 @@ end;
 
 procedure TfResGroup.btnAddClick(Sender: TObject);
 var strResId: TArray<string>;
-  i :Integer;
+    i :Integer;
 begin
-  frmAddresource :=  TfrmAddresource.Create(self);
-  if cdsRES_GRP.RecordCount > 0 then
-  begin
-    frmAddresource.cdsAddResource.Close;
-    frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
-    frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
-    frmAddresource.cdsAddResource.Open;
-  end
-  else
-  begin
-    frmAddresource.cdsAddResource.Close;
-    frmAddresource.qryAddResource.SQL.Clear;
-    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
-    frmAddresource.cdsAddResource.Open;
-  end;
-  try
-    frmAddresource.ShowModal;
-  finally
-    strResId :=  frmAddresource.strResourceId.Split(['^']);
-    for i := 0 to High(strResId) do
-      cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
-    frmAddresource.Free;
-  end;
+   frmAddresource :=  TfrmAddresource.Create(self);
+   if cdsRES_GRP.RecordCount > 0 then
+   begin
+      frmAddresource.cdsAddResource.Close;
+      frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
+      frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
+      frmAddresource.cdsAddResource.Open;
+   end
+   else
+   begin
+      frmAddresource.cdsAddResource.Close;
+      frmAddresource.qryAddResource.SQL.Clear;
+      frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
+      frmAddresource.cdsAddResource.Open;
+   end;
+   try
+      frmAddresource.ShowModal;
+   finally
+      strResId :=  frmAddresource.strResourceId.Split(['^']);
+      for i := 0 to High(strResId) do
+         cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
+      frmAddresource.Free;
+   end;
 end;
 
 procedure TfResGroup.btnDescriptionClick(Sender: TObject);
 begin
-  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
 end;
 
 procedure TfResGroup.btnNameClick(Sender: TObject);
 begin
-  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -374,6 +383,89 @@ begin
   begin
     if Fields[4].Value = NULL then Fields[4].AsBoolean := Fields[3].AsBoolean;
   end;
+end;
+procedure TfResGroup.calPRE_TIME;
+begin
+  if cbxPRE_TIME.Text = 'Seconds' then
+    txtPREP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value);
+  if cbxPRE_TIME.Text = 'Minutes' then
+    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
+  if cbxPRE_TIME.Text = 'Hours' then
+    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 3600);
+  if cbxPRE_TIME.Text = 'Days' then
+    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 86400);
+  if cbxPRE_TIME.Text = 'Weeks' then
+    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 604800);
+end;
+
+procedure TfResGroup.calDAILY_PRE_TIME;
+begin
+  if cbxDAILY_PRE_TIME.Text = 'Seconds' then
+    txtDAILY_STARTUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').Value);
+  if cbxDAILY_PRE_TIME.Text = 'Minutes' then
+    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 60);
+  if cbxDAILY_PRE_TIME.Text = 'Hours' then
+    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 3600);
+  if cbxDAILY_PRE_TIME.Text = 'Days' then
+    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 86400);
+  if cbxDAILY_PRE_TIME.Text = 'Weeks' then
+    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 604800);
+end;
+
+procedure TfResGroup.calCLEANUP_TIME;
+begin
+  if cbxCLEANUP_TIME.Text = 'Seconds' then
+    txtCLEANUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').Value);
+  if cbxCLEANUP_TIME.Text = 'Minutes' then
+    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 60);
+  if cbxCLEANUP_TIME.Text = 'Hours' then
+    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 3600);
+  if cbxCLEANUP_TIME.Text = 'Days' then
+    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 86400);
+  if cbxCLEANUP_TIME.Text = 'Weeks' then
+    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 604800);
+end;
+
+procedure TfResGroup.calDAILY_CLEANUP_TIME;
+begin
+  if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
+    txtDAILY_CLEANUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').Value);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
+    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 60);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
+    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 3600);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Days' then
+    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 86400);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
+    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 604800);
+end;
+
+procedure TfResGroup.cbxCLEANUP_TIMEChange(Sender: TObject);
+begin
+  calCLEANUP_TIME();
+end;
+
+procedure TfResGroup.cbxDAILY_CLEANUP_TIMEChange(Sender: TObject);
+begin
+  calDAILY_CLEANUP_TIME();
+end;
+
+procedure TfResGroup.cbxDAILY_PRE_TIMEChange(Sender: TObject);
+begin
+  calDAILY_PRE_TIME();
+end;
+
+procedure TfResGroup.cbxPRE_TIMEChange(Sender: TObject);
+begin
+  calPRE_TIME();
+end;
+
+procedure TfResGroup.cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
+begin
+  calPRE_TIME();
+  calCLEANUP_TIME();
+  calDAILY_CLEANUP_TIME();
+  calDAILY_PRE_TIME();
 end;
 
 procedure TfResGroup.DBGrid1CellClick(Column: TColumn);
@@ -456,16 +548,17 @@ begin
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
+
 begin
-  ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
-  if not cdsRES_GRP_MSTR.Active then
+   ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
+   if not cdsRES_GRP_MSTR.Active then
     cdsRES_GRP_MSTR.Open;
    //cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
-  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
+   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
 
-  ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
-  seditOPER_COST.Value := 888;
-  fResGroup.Refresh;
+   ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
+   seditOPER_COST.Value := 888;
+   fResGroup.Refresh;
    //cdsRES_GRP_MSTR.MoveBy(cdsRES_GRP_MSTR.RecNo);
 
    //cdsRES_GRP_MSTR.GotoCurrent();
@@ -476,6 +569,6 @@ begin
   //with cdsRES_GRP_MSTR do
 
   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
-  ShowMessage('call refreshrecord == suceed:');
+   ShowMessage('call refreshrecord == suceed:');
 end;
 end.
