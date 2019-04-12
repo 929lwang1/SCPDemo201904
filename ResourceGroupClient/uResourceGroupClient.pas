@@ -142,7 +142,6 @@ type
     cdsRES_GRPUSE_GROUP_DEFAULTS: TBooleanField;
     qryRES_GRP_ID: TADOQuery;
     ImageDisable: TImageList;
-    SpinEdit1: TSpinEdit;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -173,12 +172,14 @@ type
     procedure actPriorUpdate(Sender: TObject);
     procedure seditOPER_COSTChange(Sender: TObject);
     procedure seditOPER_COSTEnter(Sender: TObject);
+    procedure RepRecs(ipResGrpID: Integer);
   private
     { Private declarations }
     OriginalOptions:TDBGridOptions;
     procedure SaveBoolean;
   public
     { Public declarations }
+     procedure refreshrecord;
   end;
 
 var
@@ -445,4 +446,28 @@ begin
 //  showmessage(inttostr(seditOPER_COST.Value));
 end;
 
+procedure TfResGroup.RepRecs(ipResGrpID: Integer);
+
+begin
+   ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
+   if not cdsRES_GRP_MSTR.Active then
+    cdsRES_GRP_MSTR.Open;
+   //cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
+   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
+
+   ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
+   seditOPER_COST.Value := 888;
+   fResGroup.Refresh;
+   //cdsRES_GRP_MSTR.MoveBy(cdsRES_GRP_MSTR.RecNo);
+
+   //cdsRES_GRP_MSTR.GotoCurrent();
+end;
+
+procedure TfResGroup.refreshrecord();
+begin
+  //with cdsRES_GRP_MSTR do
+
+  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
+   ShowMessage('call refreshrecord == suceed:');
+end;
 end.

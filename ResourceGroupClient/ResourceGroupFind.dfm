@@ -33,9 +33,8 @@ object fResGrpSearch: TfResGrpSearch
       Top = 6
       Width = 75
       Height = 25
-      Caption = 'Go'
+      Action = actGo
       TabOrder = 1
-      OnClick = actGoExecute
     end
     object btnClose: TButton
       Left = 441
@@ -75,11 +74,9 @@ object fResGrpSearch: TfResGrpSearch
       Top = 11
       Width = 80
       Height = 21
-      Enabled = False
       ItemIndex = 0
       TabOrder = 1
       Text = 'Name'
-      OnClick = cbxFindByClick
       Items.Strings = (
         'Name'
         'Description')
@@ -97,7 +94,7 @@ object fResGrpSearch: TfResGrpSearch
         'Contains'
         'Ends With')
     end
-    object ComboBox1: TComboBox
+    object cbxNameDesc: TComboBox
       Left = 223
       Top = 11
       Width = 170
@@ -116,18 +113,75 @@ object fResGrpSearch: TfResGrpSearch
     Height = 240
     Align = alTop
     TabOrder = 2
-    object DBGrid1: TDBGrid
+    object dbgridResults: TDBGrid
       Left = 1
       Top = 1
       Width = 701
       Height = 122
       Align = alTop
+      DataSource = dsRES_GRP_MSTR_cds
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+    end
+  end
+  object cdsRES_GRP_MSTR: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRES_GRP_MSTR'
+    Left = 184
+    Top = 176
+  end
+  object dsRES_GRP_MSTR_cds: TDataSource
+    DataSet = cdsRES_GRP_MSTR
+    Left = 184
+    Top = 232
+  end
+  object qryRES_GRP_MSTR: TADOQuery
+    Connection = fResGroup.ADOConnection1
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'resource_group_name'
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 20
+        Value = Null
+      end
+      item
+        Name = 'resource_group_desc'
+        Attributes = [paNullable]
+        DataType = ftWideString
+        NumericScale = 255
+        Precision = 255
+        Size = 40
+        Value = Null
+      end>
+    SQL.Strings = (
+      
+        'select resource_group_name, resource_group_desc,  resource_group' +
+        '_id from resource_group_mstr WHERE resource_group_name like :res' +
+        'ource_group_name'
+      ' OR resource_group_desc like :resource_group_desc')
+    Left = 544
+  end
+  object dspRES_GRP_MSTR: TDataSetProvider
+    DataSet = qryRES_GRP_MSTR
+    Left = 552
+    Top = 72
+  end
+  object ActionList1: TActionList
+    Left = 296
+    Top = 184
+    object actGo: TAction
+      Caption = 'Go'
+      OnExecute = actGoExecute
+      OnUpdate = actGoUpdate
     end
   end
 end

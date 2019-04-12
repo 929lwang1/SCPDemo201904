@@ -451,16 +451,6 @@ object fResGroup: TfResGroup
     Caption = '&Remove'
     TabOrder = 7
   end
-  object SpinEdit1: TSpinEdit
-    Left = 448
-    Top = 8
-    Width = 121
-    Height = 22
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 8
-    Value = 0
-  end
   object MainMenu1: TMainMenu
     Left = 16
     Top = 376
@@ -1013,7 +1003,6 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
@@ -1064,20 +1053,19 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-GHVVPN2\SQLEXPRESS'
+      '-H9CW0N2'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
-    Left = 448
-    Top = 65528
+    Left = 392
+    Top = 65520
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 744
-    Top = 224
+    Left = 608
+    Top = 208
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
@@ -1155,7 +1143,6 @@ object fResGroup: TfResGroup
     Top = 80
   end
   object qryRES_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1165,7 +1152,6 @@ object fResGroup: TfResGroup
     Left = 640
   end
   object qryRES_GRP: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1295,7 +1281,6 @@ object fResGroup: TfResGroup
     end
   end
   object qryRES_GRP_ID: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
