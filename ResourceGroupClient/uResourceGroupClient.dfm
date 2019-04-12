@@ -1053,6 +1053,7 @@ object fResGroup: TfResGroup
     end
   end
   object ADOConnection1: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -1152,6 +1153,7 @@ object fResGroup: TfResGroup
     Left = 640
   end
   object qryRES_GRP: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1161,7 +1163,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 1
+        Value = 24
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
@@ -1275,12 +1277,15 @@ object fResGroup: TfResGroup
     Top = 376
     object btnName: TMenuItem
       Caption = '&1 Name'
+      OnClick = btnNameClick
     end
     object btnDescription: TMenuItem
       Caption = '&2 Description'
+      OnClick = btnDescriptionClick
     end
   end
   object qryRES_GRP_ID: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR

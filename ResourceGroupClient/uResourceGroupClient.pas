@@ -173,6 +173,8 @@ type
     procedure seditOPER_COSTChange(Sender: TObject);
     procedure seditOPER_COSTEnter(Sender: TObject);
     procedure RepRecs(ipResGrpID: Integer);
+    procedure btnNameClick(Sender: TObject);
+    procedure btnDescriptionClick(Sender: TObject);
   private
     { Private declarations }
     OriginalOptions:TDBGridOptions;
@@ -338,6 +340,13 @@ begin
       frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
       frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
       frmAddresource.cdsAddResource.Open;
+   end
+   else
+   begin
+      frmAddresource.cdsAddResource.Close;
+      frmAddresource.qryAddResource.SQL.Clear;
+      frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
+      frmAddresource.cdsAddResource.Open;
    end;
    try
       frmAddresource.ShowModal;
@@ -347,6 +356,16 @@ begin
          cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
       frmAddresource.Free;
    end;
+end;
+
+procedure TfResGroup.btnDescriptionClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+end;
+
+procedure TfResGroup.btnNameClick(Sender: TObject);
+begin
+   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -391,22 +410,12 @@ begin
 end;
 
 procedure TfResGroup.menuDescClick(Sender: TObject);
-var RecNo:Integer;
 begin
-   RecNo := cdsRES_GRP_MSTR.RecNo;
-   cdsRES_GRP_MSTR.Close;
    cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
-   cdsRES_GRP_MSTR.Open;
-   cdsRES_GRP_MSTR.MoveBy(RecNo);
 end;
 procedure TfResGroup.menuNameClick(Sender: TObject);
-var RecNo:Integer;
 begin
-   RecNo := cdsRES_GRP_MSTR.RecNo;
-   cdsRES_GRP_MSTR.Close;
    cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
-   cdsRES_GRP_MSTR.Open;
-   cdsRES_GRP_MSTR.MoveBy(RecNo);
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
