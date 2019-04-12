@@ -181,7 +181,7 @@ type
     procedure SaveBoolean;
   public
     { Public declarations }
-     procedure refreshrecord;
+    procedure refreshrecord;
   end;
 
 var
@@ -231,7 +231,7 @@ end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
-  ShowMessage('Go to a subscreen to search a record.');
+  //ShowMessage('Go to a subscreen to search a record.');
   fResGrpSearch.Show;
 end;
 
@@ -331,41 +331,41 @@ end;
 
 procedure TfResGroup.btnAddClick(Sender: TObject);
 var strResId: TArray<string>;
-    i :Integer;
+  i :Integer;
 begin
-   frmAddresource :=  TfrmAddresource.Create(self);
-   if cdsRES_GRP.RecordCount > 0 then
-   begin
-      frmAddresource.cdsAddResource.Close;
-      frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
-      frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
-      frmAddresource.cdsAddResource.Open;
-   end
-   else
-   begin
-      frmAddresource.cdsAddResource.Close;
-      frmAddresource.qryAddResource.SQL.Clear;
-      frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
-      frmAddresource.cdsAddResource.Open;
-   end;
-   try
-      frmAddresource.ShowModal;
-   finally
-      strResId :=  frmAddresource.strResourceId.Split(['^']);
-      for i := 0 to High(strResId) do
-         cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
-      frmAddresource.Free;
-   end;
+  frmAddresource :=  TfrmAddresource.Create(self);
+  if cdsRES_GRP.RecordCount > 0 then
+  begin
+    frmAddresource.cdsAddResource.Close;
+    frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
+    frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
+    frmAddresource.cdsAddResource.Open;
+  end
+  else
+  begin
+    frmAddresource.cdsAddResource.Close;
+    frmAddresource.qryAddResource.SQL.Clear;
+    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
+    frmAddresource.cdsAddResource.Open;
+  end;
+  try
+    frmAddresource.ShowModal;
+  finally
+    strResId :=  frmAddresource.strResourceId.Split(['^']);
+    for i := 0 to High(strResId) do
+      cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
+    frmAddresource.Free;
+  end;
 end;
 
 procedure TfResGroup.btnDescriptionClick(Sender: TObject);
 begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
 end;
 
 procedure TfResGroup.btnNameClick(Sender: TObject);
 begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -456,17 +456,16 @@ begin
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
-
 begin
-   ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
-   if not cdsRES_GRP_MSTR.Active then
+  ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
+  if not cdsRES_GRP_MSTR.Active then
     cdsRES_GRP_MSTR.Open;
    //cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
-   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
+  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
 
-   ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
-   seditOPER_COST.Value := 888;
-   fResGroup.Refresh;
+  ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
+  seditOPER_COST.Value := 888;
+  fResGroup.Refresh;
    //cdsRES_GRP_MSTR.MoveBy(cdsRES_GRP_MSTR.RecNo);
 
    //cdsRES_GRP_MSTR.GotoCurrent();
@@ -477,6 +476,6 @@ begin
   //with cdsRES_GRP_MSTR do
 
   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
-   ShowMessage('call refreshrecord == suceed:');
+  ShowMessage('call refreshrecord == suceed:');
 end;
 end.

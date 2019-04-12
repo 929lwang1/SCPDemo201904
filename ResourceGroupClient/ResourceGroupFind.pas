@@ -33,6 +33,7 @@ type
     procedure actGoExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actGoUpdate(Sender: TObject);
+    procedure dbgridResultsCellClick(Column: TColumn);
 //    procedure dbgridResultsCellClick(Column: TColumn);
   private
     { Private declarations }
@@ -51,6 +52,7 @@ uses uResourceGroupClient;
 
 procedure TfResGrpSearch.actCloseExecute(Sender: TObject);
 begin
+   //ShowMessage('abc' + IntToStr(dbgridResults.SelectedRows.Count));
    fResGrpSearch.Close;
 end;
 
@@ -62,11 +64,13 @@ begin
    //fResGroup.Show;
    //fResGroup.Refresh;
 
-   opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+   //if dbgridResults.OnCellClick then ShowMessage('cell clicked');
 
-   if tglCloseOnGo.Checked = TRUE then fResGrpSearch.Close;
-   fResGroup.Show;
-   fResGroup.RepRecs(opResGrpID);
+  opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+
+  if tglCloseOnGo.Checked = TRUE then fResGrpSearch.Close;
+   //fResGroup.Show;
+  fResGroup.RepRecs(opResGrpID);
    // ted fResGroup.refreshrecord;
    //fResGroup.cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',opResGrpID,[]);
 end;
@@ -75,64 +79,44 @@ procedure TfResGrpSearch.actGoUpdate(Sender: TObject);
 begin
    //ShowMessage('abc' + IntToStr(dbgridResults.SelectedRows.Count));
    //if dbgridResults.SelectedRows.Count > 0 then
-   //actGo.Enabled := (dbgridResults.SelectedRows.Count > 0);
-
+  actGo.Enabled := (dbgridResults.SelectedRows.Count > 0);
 end;
 
 procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
+var
+InqStr:String;
 begin
-   var
-   InqStr:String;
-   if cbxFindCondition.Text = 'Starts With' then
-      InqStr := cbxNameDesc.Text + '%'
-   else
-      if cbxFindCondition.Text = 'Contains' then
-         InqStr := '%' + cbxNameDesc.Text + '%'
-      else
-         InqStr := '%' + cbxNameDesc.Text;
-   dsRES_GRP_MSTR_cds.Enabled := FALSE;
-   //ShowMessage(cbxFindBy.Text + '^ val:' + InqStr);
-   cdsRES_GRP_MSTR.Close;
-   if cbxFindBy.Text = 'Name' then
-      qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_NAME').Value := InqStr
-   else
-      qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_DESC').Value := InqStr;
-   cdsRES_GRP_MSTR.Open;
-   dsRES_GRP_MSTR_cds.Enabled := TRUE;
+  if cbxFindCondition.Text = 'Starts With' then
+    InqStr := cbxNameDesc.Text + '%'
+  else
+    if cbxFindCondition.Text = 'Contains' then
+      InqStr := '%' + cbxNameDesc.Text + '%'
+    else
+      InqStr := '%' + cbxNameDesc.Text;
+  dsRES_GRP_MSTR_cds.Enabled := FALSE;
+   //ShowMessage('Search By ' + cbxFindBy.Text + ', ' + cbxFindCondition.Text + ' ' + InqStr);
+  cdsRES_GRP_MSTR.Close;
+  if cbxFindBy.Text = 'Name' then
+    qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_NAME').Value := InqStr
+  else
+    qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_DESC').Value := InqStr;
+  cdsRES_GRP_MSTR.Open;
+  dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.btnCloseClick(Sender: TObject);
 begin
-   fResGrpSearch.Close;
+  fResGrpSearch.Close;
 end;
 
-
-{procedure TfResGrpSearch.dbgridResultsCellClick(Column: TColumn);
+procedure TfResGrpSearch.dbgridResultsCellClick(Column: TColumn);
 begin
-
+   {if cdsRES_GRP_MSTR.RecordCount > 0 then
+      btnGo.Enabled := TRUE
+   else
+      btnGo.Enabled := FALSE;
+   }
+   //dbgridResults.Focused
 end;
-
-procedure TfResGroup.btnAddClick(Sender: TObject);
-var strResId: TArray<string>;
-    i :Integer;
-begin
-   frmAddresource :=  TfrmAddresource.Create(self);
-   if cdsRES_GRP.RecordCount > 0 then
-   begin
-      frmAddresource.cdsAddResource.Close;
-      frmAddresource.qryAddResource.Parameters[0].Value := cdsRES_GRP.FieldByName('LOC_ID').Value;
-      frmAddresource.qryAddResource.Parameters[1].Value := cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
-      frmAddresource.cdsAddResource.Open;
-   end;
-   try
-      frmAddresource.ShowModal;
-   finally
-      strResId :=  frmAddresource.strResourceId.Split(['^']);
-      for i := 0 to High(strResId) do
-         cdsRES_GRP.AppendRecord(['','','0','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
-      frmAddresource.Free;
-   end;
-end; }
-
 
 end.
