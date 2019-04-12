@@ -172,7 +172,7 @@ type
     procedure actPriorUpdate(Sender: TObject);
     procedure seditOPER_COSTChange(Sender: TObject);
     procedure seditOPER_COSTEnter(Sender: TObject);
-    procedure RepRecs(ipResGrpID: Integer);
+    //procedure RepRecs(ipResGrpID: Integer);
     procedure btnNameClick(Sender: TObject);
     procedure btnDescriptionClick(Sender: TObject);
     procedure cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
@@ -190,7 +190,7 @@ type
     procedure calCLEANUP_TIME;
   public
     { Public declarations }
-     procedure refreshrecord;
+     //procedure refreshrecord;
   end;
 
 var
@@ -547,7 +547,7 @@ begin
 //  showmessage(inttostr(seditOPER_COST.Value));
 end;
 
-procedure TfResGroup.RepRecs(ipResGrpID: Integer);
+{procedure TfResGroup.RepRecs(ipResGrpID: Integer);
 
 begin
    ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
@@ -570,5 +570,5 @@ begin
 
   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
    ShowMessage('call refreshrecord == suceed:');
-end;
+end; }
 end.

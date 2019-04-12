@@ -120,12 +120,14 @@ object fResGrpSearch: TfResGrpSearch
       Height = 122
       Align = alTop
       DataSource = dsRES_GRP_MSTR_cds
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgridResultsDblClick
     end
   end
   object cdsRES_GRP_MSTR: TClientDataSet
