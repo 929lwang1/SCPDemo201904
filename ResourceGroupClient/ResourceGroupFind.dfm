@@ -99,11 +99,7 @@ object fResGrpSearch: TfResGrpSearch
       Top = 11
       Width = 170
       Height = 21
-      ItemIndex = 0
       TabOrder = 3
-      Text = 'Sew'
-      Items.Strings = (
-        'Sew')
     end
   end
   object panelResults: TPanel

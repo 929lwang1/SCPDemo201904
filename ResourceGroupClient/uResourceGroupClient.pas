@@ -240,7 +240,6 @@ end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
-  ShowMessage('Go to a subscreen to search a record.');
   fResGrpSearch.Show;
 end;
 
