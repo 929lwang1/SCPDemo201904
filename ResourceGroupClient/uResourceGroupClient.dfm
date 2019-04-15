@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 473
-  ClientWidth = 770
+  ClientWidth = 1029
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object fResGroup: TfResGroup
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 770
+    Width = 1029
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -145,7 +145,7 @@ object fResGroup: TfResGroup
   object Panel1: TPanel
     Left = 0
     Top = 25
-    Width = 770
+    Width = 1029
     Height = 49
     Align = alTop
     TabOrder = 1
@@ -222,14 +222,14 @@ object fResGroup: TfResGroup
   object Panel2: TPanel
     Left = 0
     Top = 74
-    Width = 770
+    Width = 1029
     Height = 111
     Align = alTop
     TabOrder = 2
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 768
+      Width = 1027
       Height = 105
       Align = alTop
       Caption = 'Defaults'
@@ -397,7 +397,7 @@ object fResGroup: TfResGroup
   object DBGrid1: TDBGrid
     Left = 0
     Top = 185
-    Width = 770
+    Width = 1029
     Height = 247
     Align = alTop
     DataSource = dsRES_GRP_cds
@@ -415,7 +415,7 @@ object fResGroup: TfResGroup
   object StatusBar1: TStatusBar
     Left = 0
     Top = 454
-    Width = 770
+    Width = 1029
     Height = 19
     Panels = <>
   end
@@ -1009,7 +1009,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 528
+    Left = 512
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1026,33 +1026,24 @@ object fResGroup: TfResGroup
     object qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
       FieldName = 'UTILIZATION_TYPE_CD'
     end
-    object qryRES_GRP_MSTROPERATION_COST: TFMTBCDField
+    object qryRES_GRP_MSTROPERATION_COST: TFloatField
       FieldName = 'OPERATION_COST'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRPREP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRCLEANUP_TIME: TFloatField
       FieldName = 'CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField
       FieldName = 'DAILY_STARTUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField
       FieldName = 'DAILY_CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
   end
   object ADOConnection1: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
@@ -1066,8 +1057,9 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 608
-    Top = 208
+    Options = [poCascadeDeletes, poUseQuoteChar]
+    Left = 528
+    Top = 80
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
@@ -1093,30 +1085,20 @@ object fResGroup: TfResGroup
     object cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
       FieldName = 'UTILIZATION_TYPE_CD'
     end
-    object cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField
+    object cdsRES_GRP_MSTROPERATION_COST: TFloatField
       FieldName = 'OPERATION_COST'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRCLEANUP_TIME: TFloatField
       FieldName = 'CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField
       FieldName = 'DAILY_STARTUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField
       FieldName = 'DAILY_CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
     object cdsRES_GRP_MSTRqryRES_GRP: TDataSetField
       FieldName = 'qryRES_GRP'
@@ -1133,7 +1115,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 696
+    Left = 808
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
     DataSet = qryUTL_TYPE_MSTR
@@ -1152,9 +1134,10 @@ object fResGroup: TfResGroup
     SQL.Strings = (
       'select * from RESOURCE_MSTR'
       '')
-    Left = 640
+    Left = 696
   end
   object qryRES_GRP: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
@@ -1164,12 +1147,12 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 24
+        Value = 30
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
       ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
-    Left = 584
+    Left = 616
     object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1286,13 +1269,14 @@ object fResGroup: TfResGroup
     end
   end
   object qryRES_GRP_ID: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     DataSource = dsRES_GRP_MSTR
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR ORDER BY resource_group_id;')
-    Left = 736
+    Left = 904
   end
   object ImageDisable: TImageList
     Left = 248

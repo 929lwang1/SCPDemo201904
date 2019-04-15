@@ -104,21 +104,21 @@ type
     qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
     qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
     qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
-    qryRES_GRP_MSTROPERATION_COST: TFMTBCDField;
-    qryRES_GRP_MSTRPREP_TIME: TFMTBCDField;
-    qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
-    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
-    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    qryRES_GRP_MSTROPERATION_COST: TFloatField;
+    qryRES_GRP_MSTRPREP_TIME: TFloatField;
+    qryRES_GRP_MSTRCLEANUP_TIME: TFloatField;
+    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField;
+    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField;
     cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
     cdsRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
     cdsRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
     cdsRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
     cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
-    cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField;
-    cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField;
-    cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField;
+    cdsRES_GRP_MSTROPERATION_COST: TFloatField;
+    cdsRES_GRP_MSTRPREP_TIME: TFloatField;
+    cdsRES_GRP_MSTRCLEANUP_TIME: TFloatField;
+    cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField;
+    cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField;
     cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
     btnSearch: TToolButton;
     btnOrderBy: TToolButton;
@@ -221,11 +221,19 @@ begin
 end;
 
 procedure TfResGroup.actDeleteExecute(Sender: TObject);
-var
-  idDelete:integer;
 begin
-  idDelete := Application.MessageBox(PWideChar('Are you sure you want to delete ' + cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString + '?'), 'Confirm', MB_YESNO);
-  //  YES - 6 NO-7
+  case MessageDlg('Are you sure you want to delete ' + cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString + '?', mtConfirmation, [mbYes, mbNo], 0) of
+  mrYes:
+    begin
+      cdsRES_GRP_MSTR.Delete;
+      cdsRES_GRP_MSTR.ApplyUpdates(0);
+      ShowMessage('Record is deleted successfully.');
+    end;
+  mrNo:
+    begin
+      ShowMessage('Delete operation is cancelled.');
+    end;
+  end;
 end;
 
 procedure TfResGroup.actDeleteUpdate(Sender: TObject);
