@@ -309,6 +309,8 @@ begin
 end;
 
 procedure TfResGroup.actSaveExecute(Sender: TObject);
+var
+  i:integer;
 begin
    ShowMessage(cdsRES_GRP_MSTR.Modified.ToString());
   if cdsRES_GRP.RecordCount = 0 then
@@ -317,6 +319,17 @@ begin
   end
   else if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
   begin
+    if NOT (cdsRES_GRP_MSTR.State IN [dsEdit,dsInsert]) then
+       cdsRES_GRP_MSTR.Edit;
+    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+    for i := 1 to dbgridResource.DataSource.DataSet.RecordCount do
+    begin
+      dbgridResource.Fields[3].DataSet.edit;
+      if dbgridResource.Fields[4].AsBoolean then dbgridResource.Fields[3].AsString := 'Y'
+      else dbgridResource.Fields[3].AsString := 'N';
+      dbgridResource.Fields[3].DataSet.Post;
+      dbgridResource.DataSource.DataSet.Next;
+    end;
     cdsRES_GRP_MSTR.ApplyUpdates(0);
     btnSave.Enabled := false;
     btnCancel.Enabled := false;
@@ -426,7 +439,13 @@ procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
 begin
   with cdsRES_GRP do
   begin
-    if Fields[4].Value = NULL then Fields[4].AsBoolean := Fields[3].AsBoolean;
+    if Fields[4].Value = NULL then
+    begin
+      if Fields[3].AsString = 'Y' then
+         Fields[4].AsBoolean := True
+      else
+         Fields[4].AsBoolean := False;
+    end;
   end;
 end;
 procedure TfResGroup.calPRE_TIME;
@@ -511,6 +530,8 @@ begin
   calCLEANUP_TIME();
   calDAILY_CLEANUP_TIME();
   calDAILY_PRE_TIME();
+  if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
+  else seditOPER_COST.Value := 0;
 end;
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);

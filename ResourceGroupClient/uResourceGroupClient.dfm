@@ -412,6 +412,52 @@ object fResGroup: TfResGroup
     OnColEnter = dbgridResourceColEnter
     OnColExit = dbgridResourceColExit
     OnDrawColumnCell = dbgridResourceDrawColumnCell
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Resource Name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Resource Description'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PRIORITY_INDEX'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_SETTINGS_IND'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_DEFAULTS'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_GROUP_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'LOC_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_TYPE_CD'
+        Visible = False
+      end>
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -1003,6 +1049,7 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
@@ -1047,9 +1094,9 @@ object fResGroup: TfResGroup
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
-      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
-      ' for Data=False;Tag with column collation when possible=False'
+      '-23RTPN2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
+      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
+      'alse;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1129,6 +1176,7 @@ object fResGroup: TfResGroup
     Top = 80
   end
   object qryRES_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1148,7 +1196,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 18
+        Value = 1
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
@@ -1175,6 +1223,7 @@ object fResGroup: TfResGroup
     DataSetField = cdsRES_GRP_MSTRqryRES_GRP
     Filtered = True
     Params = <>
+    OnCalcFields = cdsRES_GRPCalcFields
     Left = 536
     Top = 296
     object cdsRES_GRPResouceName: TStringField
