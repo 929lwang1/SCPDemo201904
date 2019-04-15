@@ -36,11 +36,14 @@ type
     cdsAddResourceRUN_RATE_MODIFIER: TFMTBCDField;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure dbgrdResourceCellClick(Column: TColumn);
   private
     { Private declarations }
+
   public
+    strResourceId: String;
     { Public declarations }
-    var strResourceId:String;
   end;
 
 var
@@ -50,6 +53,7 @@ implementation
 
 {$R *.dfm}
 uses uResourceGroupClient;
+
 procedure TfrmAddresource.btnCancelClick(Sender: TObject);
 begin
    frmAddresource.Close;
@@ -58,25 +62,48 @@ end;
 procedure TfrmAddresource.btnOkClick(Sender: TObject);
 var i:Integer;
 begin
-   if dbgrdResource.SelectedRows.Count > 0 then
-   begin
-      strResourceId := '';
-      with dbgrdResource.DataSource.DataSet do
+  if dbgrdResource.SelectedRows.Count > 0 then
+  begin
+    strResourceId := '';
+    with dbgrdResource.DataSource.DataSet do
+    begin
+      for i:=0 to dbgrdResource.SelectedRows.Count-1 do
       begin
-         for i:=0 to dbgrdResource.SelectedRows.Count-1 do
-         begin
-            GotoBookmark(dbgrdResource.SelectedRows.Items[i]);
-            if strResourceId = '' then
-            begin
-               strResourceId := strResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
-            end
-            else
-            begin
-               strResourceId := strResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
-            end;
-         end;
+        GotoBookmark(dbgrdResource.SelectedRows.Items[i]);
+        if strResourceId = '' then
+        begin
+          strResourceId := strResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+        end
+        else
+        begin
+          strResourceId := strResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+        end;
       end;
-   end;
-   frmAddresource.Close;
+    end;
+  end
+  else
+  begin
+    strResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+  end;
+  frmAddresource.Close;
+end;
+
+
+procedure TfrmAddresource.dbgrdResourceCellClick(Column: TColumn);
+begin
+    frmAddresource.btnOk.Enabled := True;
+end;
+
+procedure TfrmAddresource.FormActivate(Sender: TObject);
+begin
+  if fResGroup.allowMultiSelect then
+  begin
+    dbgrdResource.Options:=dbgrdResource.Options + [dgMultiSelect];
+    frmAddresource.btnOk.Enabled := False;
+  end
+  else
+  begin
+    dbgrdResource.Options:=dbgrdResource.Options - [dgMultiSelect];
+  end;
 end;
 end.

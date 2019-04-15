@@ -394,23 +394,24 @@ object fResGroup: TfResGroup
       TabOrder = 2
     end
   end
-  object DBGrid1: TDBGrid
+  object dbgridResource: TDBGrid
     Left = 0
     Top = 185
     Width = 1029
     Height = 247
     Align = alTop
     DataSource = dsRES_GRP_cds
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-    OnCellClick = DBGrid1CellClick
-    OnColEnter = DBGrid1ColEnter
-    OnColExit = DBGrid1ColExit
-    OnDrawColumnCell = DBGrid1DrawColumnCell
+    OnCellClick = dbgridResourceCellClick
+    OnColEnter = dbgridResourceColEnter
+    OnColExit = dbgridResourceColExit
+    OnDrawColumnCell = dbgridResourceDrawColumnCell
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -450,6 +451,7 @@ object fResGroup: TfResGroup
     Height = 25
     Caption = '&Remove'
     TabOrder = 7
+    OnClick = btnRemoveClick
   end
   object MainMenu1: TMainMenu
     Left = 16
@@ -561,12 +563,10 @@ object fResGroup: TfResGroup
     object actOrdByName: TAction
       Category = 'Search'
       Caption = '&Name'
-      OnExecute = actOrdByNameExecute
     end
     object actOrdByDesc: TAction
       Category = 'Search'
       Caption = '&Description'
-      OnExecute = actOrdByDescExecute
     end
     object actFirst: TAction
       Category = 'Search'
@@ -1009,7 +1009,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 512
+    Left = 480
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1047,9 +1047,9 @@ object fResGroup: TfResGroup
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-H9CW0N2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
-      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
-      'alse;Tag with column collation when possible=False'
+      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
+      ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1110,6 +1110,7 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryUTL_TYPE_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1147,12 +1148,12 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 30
+        Value = 18
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
       ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
-    Left = 616
+    Left = 560
     object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1178,7 +1179,7 @@ object fResGroup: TfResGroup
     Top = 296
     object cdsRES_GRPResouceName: TStringField
       FieldKind = fkLookup
-      FieldName = 'Resouce Name'
+      FieldName = 'Resource Name'
       LookupDataSet = qryRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_NAME'

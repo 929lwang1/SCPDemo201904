@@ -11,13 +11,14 @@ object frmAddresource: TfrmAddresource
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object lbInfor: TLabel
     Left = 2
     Top = 0
-    Width = 631
-    Height = 25
+    Width = 360
+    Height = 13
     Caption = 
       'You must select one resource to select what type of resource gro' +
       'up this is.'
@@ -29,13 +30,14 @@ object frmAddresource: TfrmAddresource
     Width = 631
     Height = 226
     DataSource = dsAddResource_cds
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = dbgrdResourceCellClick
     Columns = <
       item
         Expanded = False
