@@ -1,10 +1,13 @@
 object fResGrpSearch: TfResGrpSearch
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = 'Search'
-  ClientHeight = 313
-  ClientWidth = 703
+  ClientHeight = 361
+  ClientWidth = 606
   Color = clBtnFace
+  Constraints.MinHeight = 300
+  Constraints.MinWidth = 490
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -15,56 +18,71 @@ object fResGrpSearch: TfResGrpSearch
   TextHeight = 13
   object panelControl: TPanel
     Left = 0
-    Top = 281
-    Width = 703
-    Height = 44
-    Align = alTop
+    Top = 325
+    Width = 606
+    Height = 36
+    Align = alBottom
     TabOrder = 1
+    ExplicitTop = 269
+    DesignSize = (
+      606
+      36)
     object tglCloseOnGo: TCheckBox
-      Left = 8
-      Top = 6
+      Left = 4
+      Top = 3
       Width = 209
-      Height = 17
+      Height = 25
+      Anchors = [akLeft]
       Caption = 'Close Window On Go'
       TabOrder = 0
+      ExplicitTop = 6
     end
     object btnGo: TButton
-      Left = 360
-      Top = 6
+      Left = 446
+      Top = 3
       Width = 75
       Height = 25
       Action = actGo
+      Anchors = [akRight]
       TabOrder = 1
     end
     object btnClose: TButton
-      Left = 441
-      Top = 6
+      Left = 527
+      Top = 3
       Width = 75
       Height = 25
+      Anchors = [akRight]
       Caption = 'Close'
       TabOrder = 2
       OnClick = actCloseExecute
+      ExplicitTop = 6
     end
   end
   object panelFind: TPanel
     Left = 0
     Top = 0
-    Width = 703
+    Width = 606
     Height = 41
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 703
+    DesignSize = (
+      606
+      41)
     object lblFind: TLabel
       Left = 8
       Top = 14
       Width = 27
-      Height = 13
+      Height = 25
+      Anchors = [akLeft]
       Caption = 'Find: '
     end
     object btnSearch: TButton
-      Left = 441
+      Left = 527
       Top = 9
       Width = 75
       Height = 25
+      Anchors = [akRight]
       Caption = 'Search'
       TabOrder = 0
       OnClick = actSearchExecute
@@ -105,18 +123,21 @@ object fResGrpSearch: TfResGrpSearch
   object panelResults: TPanel
     Left = 0
     Top = 41
-    Width = 703
-    Height = 240
-    Align = alTop
+    Width = 606
+    Height = 284
+    Align = alClient
     TabOrder = 2
+    ExplicitWidth = 703
+    ExplicitHeight = 240
     object dbgridResults: TDBGrid
-      Left = 1
-      Top = 1
-      Width = 701
-      Height = 122
-      Align = alTop
+      AlignWithMargins = True
+      Left = 4
+      Top = 4
+      Width = 598
+      Height = 276
+      Align = alClient
       DataSource = dsRES_GRP_MSTR_cds
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -124,6 +145,19 @@ object fResGrpSearch: TfResGrpSearch
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       OnDblClick = dbgridResultsDblClick
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'resource_group_name'
+          Title.Caption = 'Name'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'resource_group_desc'
+          Title.Caption = 'Description'
+          Visible = True
+        end>
     end
   end
   object cdsRES_GRP_MSTR: TClientDataSet
@@ -166,12 +200,13 @@ object fResGrpSearch: TfResGrpSearch
         '_id from resource_group_mstr WHERE resource_group_name like :res' +
         'ource_group_name'
       ' OR resource_group_desc like :resource_group_desc')
-    Left = 544
+    Left = 400
+    Top = 88
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 552
-    Top = 72
+    Left = 400
+    Top = 144
   end
   object ActionList1: TActionList
     Left = 296
