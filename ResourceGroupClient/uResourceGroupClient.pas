@@ -204,9 +204,6 @@ type
 
 var
   fResGroup: TfResGroup;
-  currentid:integer;
-  priorid:integer;
-  nextid:integer;
 
 implementation
 
@@ -216,18 +213,11 @@ uses AddResource,ResourceGroupFind;
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.Cancel;
-  actNew.Enabled :=true;
-  actDelete.Enabled :=true;
-  actFirst.Enabled :=true;
-  actPrior.Enabled := true;
-  actNext.Enabled := true;
-  actLast.Enabled :=true;
 end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actCancel.Enabled :=true;
+  actCancel.Enabled := (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
 end;
 
 procedure TfResGroup.actDeleteExecute(Sender: TObject);
@@ -248,15 +238,14 @@ end;
 
 procedure TfResGroup.actDeleteUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actDelete.Enabled :=False;
+  actDelete.Enabled := (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.actExitExecute(Sender: TObject);
 var
   idexit:integer;
 begin
-  if cdsRES_GRP_MSTR.Modified then
+  if (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
   begin
     idexit := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL OR MB_ICONQUESTION);
     case idexit of
@@ -285,17 +274,11 @@ end;
 procedure TfResGroup.actFirstExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.First;
-  actFirst.Enabled :=false;
-  actPrior.Enabled := false;
-  actLast.Enabled := true;
-  actNext.Enabled := true;
-  currentid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
 end;
 
 procedure TfResGroup.actFirstUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actFirst.Enabled :=false;
+  actFirst.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse);
 end;
 
 procedure TfResGroup.actAddExecute(Sender: TObject);
@@ -351,17 +334,11 @@ end;
 procedure TfResGroup.actLastExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.Last;
-  actLast.Enabled :=false;
-  actNext.Enabled := false;
-  actFirst.Enabled :=true;
-  actPrior.Enabled := true;
-  currentid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
 end;
 
 procedure TfResGroup.actLastUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actLast.Enabled :=false;
+  actLast.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse);
 end;
 
 procedure TfResGroup.actNewExecute(Sender: TObject);
@@ -374,41 +351,21 @@ begin
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger := nextid;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString := 'New Group ' + inttostr(nextid);
-  actFirst.Enabled :=false;
-  actPrior.Enabled := false;
-  actNext.Enabled := false;
-  actLast.Enabled :=false;
 end;
 
 procedure TfResGroup.actNewUpdate(Sender: TObject);
 begin
-   if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-   actNew.Enabled :=False;
+  actNew.Enabled := (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.actNextExecute(Sender: TObject);
 begin
-  currentid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
   cdsRES_GRP_MSTR.Next;
-  nextid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
-  if nextid <> currentid then
-  begin
-    actLast.Enabled :=true;
-    actNext.Enabled := true;
-  end
-  else
-  begin
-    actLast.Enabled :=false;
-    actNext.Enabled := false;
-  end;
-  actFirst.Enabled :=true;
-  actPrior.Enabled :=true;
 end;
 
 procedure TfResGroup.actNextUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actNext.Enabled :=false;
+  actNext.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse);
 end;
 
 procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
@@ -427,27 +384,12 @@ end;
 
 procedure TfResGroup.actPriorExecute(Sender: TObject);
 begin
-  priorid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
   cdsRES_GRP_MSTR.Prior;
-  currentid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
-  if priorid <> currentid then
-  begin
-    actFirst.Enabled :=true;
-    actPrior.Enabled := true;
-  end
-  else
-  begin
-    actFirst.Enabled :=false;
-    actPrior.Enabled := false;
-  end;
-  actNext.Enabled := true;
-  actLast.Enabled :=true;
 end;
 
 procedure TfResGroup.actPriorUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
-    actPrior.Enabled :=false;
+  actPrior.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse);
 end;
 
 procedure TfResGroup.SetallowMultiSelect(Value: boolean);
@@ -506,9 +448,6 @@ begin
   end
   else //if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
   begin
-    if NOT (cdsRES_GRP_MSTR.State IN [dsEdit,dsInsert]) then
-       cdsRES_GRP_MSTR.Edit;
-    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
     for i := 1 to dbgridResource.DataSource.DataSet.RecordCount do
     begin
       dbgridResource.Fields[3].DataSet.edit;
@@ -518,21 +457,12 @@ begin
       dbgridResource.DataSource.DataSet.Next;
     end;
     cdsRES_GRP_MSTR.ApplyUpdates(0);
-    actNew.Enabled :=true;
-    actDelete.Enabled :=true;
-    actFirst.Enabled :=true;
-    actPrior.Enabled :=true;
-    actNext.Enabled :=true;
-    actLast.Enabled :=true;
-    actSave.Enabled :=false;
-    actCancel.Enabled :=false;
   end;
 end;
 
 procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
-  if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.modified then
-    actSave.Enabled := true;
+  actSave.Enabled := (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -630,9 +560,11 @@ begin
   calCLEANUP_TIME();
   calDAILY_CLEANUP_TIME();
   calDAILY_PRE_TIME();
-  if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
+  if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then
+    seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
 end;
+
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);
 begin
@@ -671,7 +603,7 @@ procedure TfResGroup.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   idexitform:integer;
 begin
-  if cdsRES_GRP_MSTR.Modified then
+  if (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
   begin
     idexitform := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL OR MB_ICONQUESTION);
     case idexitform of
@@ -726,9 +658,14 @@ end;
 
 procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
-if seditOPER_COST.Value > seditOPER_COST.MaxValue
-  then seditOPER_COST.Value:= seditOPER_COST.MaxValue;
-
+  if seditOPER_COST.Value > seditOPER_COST.MaxValue
+    then seditOPER_COST.Value :=seditOPER_COST.MaxValue;
+  if seditOPER_COST.Value <> cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat then
+  begin
+    if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+      cdsRES_GRP_MSTR.Edit;
+    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+  end;
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
