@@ -1095,7 +1095,7 @@ object fResGroup: TfResGroup
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-GHVVPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
       'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
       ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
@@ -1196,7 +1196,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 52
+        Value = 18
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'

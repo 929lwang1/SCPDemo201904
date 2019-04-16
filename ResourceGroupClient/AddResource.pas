@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids,
-  Vcl.DBGrids, Datasnap.Provider, Datasnap.DBClient, Data.Win.ADODB;
+  Vcl.DBGrids, Datasnap.Provider, Datasnap.DBClient, Data.Win.ADODB,
+  System.Actions, Vcl.ActnList, Vcl.ExtCtrls;
 
 type
   TfrmAddresource = class(TForm)
@@ -34,15 +35,21 @@ type
     cdsAddResourceENFORCE_CAPACITY_CONSTRAINT: TWideStringField;
     cdsAddResourceUOM_GROUP_NAME: TWideStringField;
     cdsAddResourceRUN_RATE_MODIFIER: TFMTBCDField;
+    actAddResource: TActionList;
+    actOK: TAction;
+    actCancel: TAction;
+    panButton: TPanel;
+    panLabel: TPanel;
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure dbgrdResourceCellClick(Column: TColumn);
   private
+    FstrResourceId: String;
+    procedure SetstrResourceId(Value: String);
     { Private declarations }
-
   public
-    strResourceId: String;
+    property strResourceId: string read FstrResourceId write SetstrResourceId;
     { Public declarations }
   end;
 
@@ -58,32 +65,41 @@ procedure TfrmAddresource.btnCancelClick(Sender: TObject);
 begin
    frmAddresource.Close;
 end;
-
+procedure TfrmAddresource.SetstrResourceId(Value: String);
+begin
+  if FstrResourceId <> Value then
+  begin
+    FstrResourceId := Value;
+  // Repaint;    // update user interface to reflect new value
+  end;
+end;
 procedure TfrmAddresource.btnOkClick(Sender: TObject);
 var i:Integer;
 begin
   if dbgrdResource.SelectedRows.Count > 0 then
   begin
-    strResourceId := '';
+    FstrResourceId := '';
     with dbgrdResource.DataSource.DataSet do
     begin
       for i:=0 to dbgrdResource.SelectedRows.Count-1 do
       begin
         GotoBookmark(dbgrdResource.SelectedRows.Items[i]);
-        if strResourceId = '' then
+        if FstrResourceId = '' then
         begin
-          strResourceId := strResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+          FstrResourceId := FstrResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
         end
         else
         begin
-          strResourceId := strResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+          FstrResourceId := FstrResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
         end;
       end;
     end;
+    frmAddresource.SetstrResourceId(FstrResourceId);
   end
   else
   begin
-    strResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+    FstrResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+    frmAddresource.SetstrResourceId(FstrResourceId);
   end;
   frmAddresource.Close;
 end;

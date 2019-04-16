@@ -183,15 +183,17 @@ type
 	procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    FallowMultiSelect: boolean;
     OriginalOptions:TDBGridOptions;
     procedure SaveBoolean;
     procedure calPRE_TIME;
     procedure calDAILY_CLEANUP_TIME;
     procedure calDAILY_PRE_TIME;
     procedure calCLEANUP_TIME;
+    procedure SetallowMultiSelect(Value: boolean);
   public
     { Public declarations }
-   var allowMultiSelect: boolean;
+    property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
      //procedure refreshrecord;
   end;
 
@@ -379,6 +381,15 @@ begin
     actPrior.Enabled :=false;
 end;
 
+procedure TfResGroup.SetallowMultiSelect(Value: boolean);
+begin
+  if FallowMultiSelect <> Value then
+  begin
+    FallowMultiSelect := Value;
+  // Repaint;    // update user interface to reflect new value
+  end;
+end;
+
 procedure TfResGroup.actSaveExecute(Sender: TObject);
 var
   i:integer;
@@ -442,7 +453,7 @@ begin
     frmAddresource.qryAddResource.SQL.Clear;
     frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
      +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
-    allowMultiSelect := True;
+    FallowMultiSelect := True;
     frmAddresource.cdsAddResource.Open;
   end
   else
@@ -450,7 +461,7 @@ begin
     frmAddresource.cdsAddResource.Close;
     frmAddresource.qryAddResource.SQL.Clear;
     frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
-    allowMultiSelect := False;
+    FallowMultiSelect := False;
     frmAddresource.cdsAddResource.Open;
   end;
   try

@@ -2,8 +2,8 @@ object frmAddresource: TfrmAddresource
   Left = 0
   Top = 0
   Caption = 'Add resource'
-  ClientHeight = 299
-  ClientWidth = 760
+  ClientHeight = 328
+  ClientWidth = 488
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,21 +14,12 @@ object frmAddresource: TfrmAddresource
   OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
-  object lbInfor: TLabel
-    Left = 2
-    Top = 0
-    Width = 360
-    Height = 13
-    Caption = 
-      'You must select one resource to select what type of resource gro' +
-      'up this is.'
-    Layout = tlCenter
-  end
   object dbgrdResource: TDBGrid
-    Left = 2
-    Top = 31
-    Width = 631
-    Height = 226
+    Left = 0
+    Top = 41
+    Width = 488
+    Height = 237
+    Align = alClient
     DataSource = dsAddResource_cds
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
@@ -38,6 +29,7 @@ object frmAddresource: TfrmAddresource
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnCellClick = dbgrdResourceCellClick
+    OnDblClick = btnOkClick
     Columns = <
       item
         Expanded = False
@@ -50,23 +42,63 @@ object frmAddresource: TfrmAddresource
         Visible = True
       end>
   end
-  object btnOk: TButton
-    Left = 464
-    Top = 266
-    Width = 75
-    Height = 25
-    Caption = 'OK'
+  object panButton: TPanel
+    Left = 0
+    Top = 278
+    Width = 488
+    Height = 50
+    Align = alBottom
     TabOrder = 1
-    OnClick = btnOkClick
+    ExplicitLeft = 2
+    ExplicitTop = 359
+    ExplicitWidth = 881
+    DesignSize = (
+      488
+      50)
+    object btnCancel: TButton
+      Left = 382
+      Top = 14
+      Width = 75
+      Height = 25
+      Action = actCancel
+      Anchors = [akRight]
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 0
+      ExplicitLeft = 785
+    end
+    object btnOk: TButton
+      Left = 285
+      Top = 14
+      Width = 75
+      Height = 25
+      Action = actOK
+      Anchors = [akRight]
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 1
+      ExplicitLeft = 688
+    end
   end
-  object btnCancel: TButton
-    Left = 552
-    Top = 266
-    Width = 75
-    Height = 25
-    Caption = 'Cancel'
+  object panLabel: TPanel
+    Left = 0
+    Top = 0
+    Width = 488
+    Height = 41
+    Align = alTop
     TabOrder = 2
-    OnClick = btnCancelClick
+    ExplicitWidth = 883
+    object lbInfor: TLabel
+      Left = 18
+      Top = 13
+      Width = 360
+      Height = 13
+      Alignment = taCenter
+      Caption = 
+        'You must select one resource to select what type of resource gro' +
+        'up this is.'
+      Layout = tlCenter
+    end
   end
   object qryAddResource: TADOQuery
     Connection = fResGroup.ADOConnection1
@@ -92,7 +124,7 @@ object frmAddresource: TfrmAddresource
       'SELECT * from RESOURCE_MSTR where LOC_ID=:LOC_ID and '
       'RESOURCE_TYPE_CD=:RESOURCE_TYPE_CD;')
     Left = 680
-    Top = 40
+    Top = 64
   end
   object cdsAddResource: TClientDataSet
     Active = True
@@ -184,5 +216,17 @@ object frmAddresource: TfrmAddresource
     DataSet = cdsAddResource
     Left = 688
     Top = 248
+  end
+  object actAddResource: TActionList
+    Left = 680
+    Top = 16
+    object actOK: TAction
+      Caption = 'OK'
+      OnExecute = btnOkClick
+    end
+    object actCancel: TAction
+      Caption = 'Cancel'
+      OnExecute = btnCancelClick
+    end
   end
 end
