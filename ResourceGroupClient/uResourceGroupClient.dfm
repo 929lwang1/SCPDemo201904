@@ -309,7 +309,6 @@ object fResGroup: TfResGroup
         TabOrder = 0
         Value = 0
         OnChange = seditOPER_COSTChange
-        OnEnter = seditOPER_COSTEnter
       end
       object cbxCLEANUP_TIME: TComboBox
         Left = 242
@@ -495,6 +494,7 @@ object fResGroup: TfResGroup
     Top = 431
     Width = 75
     Height = 25
+    Align = alCustom
     Caption = '&Remove'
     TabOrder = 7
     OnClick = btnRemoveClick
@@ -633,12 +633,14 @@ object fResGroup: TfResGroup
       Caption = '&Next'
       ShortCut = 32807
       OnExecute = actNextExecute
+      OnUpdate = actNextUpdate
     end
     object actLast: TAction
       Category = 'Search'
       Caption = '&Last'
       ShortCut = 16423
       OnExecute = actLastExecute
+      OnUpdate = actLastUpdate
     end
   end
   object ImageEnable: TImageList
@@ -1049,7 +1051,6 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
@@ -1094,9 +1095,9 @@ object fResGroup: TfResGroup
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-23RTPN2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
-      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
-      'alse;Tag with column collation when possible=False'
+      '-GHVVPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
+      ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1134,6 +1135,7 @@ object fResGroup: TfResGroup
     end
     object cdsRES_GRP_MSTROPERATION_COST: TFloatField
       FieldName = 'OPERATION_COST'
+      MaxValue = 2147483647.000000000000000000
     end
     object cdsRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
@@ -1157,7 +1159,6 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryUTL_TYPE_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1176,7 +1177,6 @@ object fResGroup: TfResGroup
     Top = 80
   end
   object qryRES_MSTR: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -1196,7 +1196,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 1
+        Value = 52
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'

@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 473
-  ClientWidth = 770
+  ClientWidth = 1029
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object fResGroup: TfResGroup
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 770
+    Width = 1029
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -145,7 +145,7 @@ object fResGroup: TfResGroup
   object Panel1: TPanel
     Left = 0
     Top = 25
-    Width = 770
+    Width = 1029
     Height = 49
     Align = alTop
     TabOrder = 1
@@ -222,14 +222,14 @@ object fResGroup: TfResGroup
   object Panel2: TPanel
     Left = 0
     Top = 74
-    Width = 770
+    Width = 1029
     Height = 111
     Align = alTop
     TabOrder = 2
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 768
+      Width = 1027
       Height = 105
       Align = alTop
       Caption = 'Defaults'
@@ -299,42 +299,6 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object dbeditPRE_TIME: TDBEdit
-        Left = 152
-        Top = 57
-        Width = 84
-        Height = 21
-        DataField = 'PREP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 0
-      end
-      object dbeditCLEANUP_TIME: TDBEdit
-        Left = 152
-        Top = 84
-        Width = 84
-        Height = 21
-        DataField = 'CLEANUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 1
-      end
-      object dbeditDAILY_PRE_TIME: TDBEdit
-        Left = 533
-        Top = 57
-        Width = 84
-        Height = 21
-        DataField = 'DAILY_STARTUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 2
-      end
-      object dbeditDAILY_CLEANUP_TIME: TDBEdit
-        Left = 533
-        Top = 84
-        Width = 84
-        Height = 21
-        DataField = 'DAILY_CLEANUP_TIME'
-        DataSource = dsRES_GRP_MSTR_cds
-        TabOrder = 3
-      end
       object seditOPER_COST: TSpinEdit
         Left = 191
         Top = 26
@@ -342,22 +306,21 @@ object fResGroup: TfResGroup
         Height = 22
         MaxValue = 2147483647
         MinValue = 0
-        TabOrder = 4
+        TabOrder = 0
         Value = 0
         OnChange = seditOPER_COSTChange
-        OnEnter = seditOPER_COSTEnter
       end
-      object ComboBox2: TComboBox
+      object cbxCLEANUP_TIME: TComboBox
         Left = 242
         Top = 83
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 5
+        TabOrder = 1
         Text = 'Minutes'
+        OnChange = cbxCLEANUP_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
@@ -367,12 +330,12 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 6
+        TabOrder = 2
         Text = 'Minutes'
+        OnChange = cbxDAILY_CLEANUP_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
@@ -382,54 +345,137 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 111
         Height = 21
-        ItemIndex = 0
-        TabOrder = 7
+        TabOrder = 3
         Text = 'Minutes'
+        OnChange = cbxDAILY_PRE_TIMEChange
         Items.Strings = (
-          'Minutes'
           'Seconds'
+          'Minutes'
           'Hours'
           'Days'
           'Weeks')
       end
+      object txtCLEANUP_TIME: TEdit
+        Left = 153
+        Top = 83
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 4
+      end
+      object txtDAILY_CLEANUP_TIME: TEdit
+        Left = 534
+        Top = 83
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 5
+      end
+    end
+    object txtPREP_TIME: TEdit
+      Left = 154
+      Top = 57
+      Width = 83
+      Height = 21
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 1
+    end
+    object txtDAILY_STARTUP_TIME: TEdit
+      Left = 535
+      Top = 57
+      Width = 83
+      Height = 21
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 2
     end
   end
-  object DBGrid1: TDBGrid
+  object dbgridResource: TDBGrid
     Left = 0
     Top = 185
-    Width = 770
+    Width = 1029
     Height = 247
     Align = alTop
     DataSource = dsRES_GRP_cds
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-    OnCellClick = DBGrid1CellClick
-    OnColEnter = DBGrid1ColEnter
-    OnColExit = DBGrid1ColExit
-    OnDrawColumnCell = DBGrid1DrawColumnCell
+    OnCellClick = dbgridResourceCellClick
+    OnColEnter = dbgridResourceColEnter
+    OnColExit = dbgridResourceColExit
+    OnDrawColumnCell = dbgridResourceDrawColumnCell
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Resource Name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Resource Description'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PRIORITY_INDEX'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_SETTINGS_IND'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'USE_GROUP_DEFAULTS'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_GROUP_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'LOC_ID'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'RESOURCE_TYPE_CD'
+        Visible = False
+      end>
   end
   object StatusBar1: TStatusBar
     Left = 0
     Top = 454
-    Width = 770
+    Width = 1029
     Height = 19
     Panels = <>
   end
   object cbxPRE_TIME: TComboBox
     Left = 243
-    Top = 134
+    Top = 131
     Width = 111
     Height = 21
-    ItemIndex = 0
     TabOrder = 5
     Text = 'Minutes'
+    OnChange = cbxPRE_TIMEChange
     Items.Strings = (
-      'Minutes'
       'Seconds'
+      'Minutes'
       'Hours'
       'Days'
       'Weeks')
@@ -441,24 +487,17 @@ object fResGroup: TfResGroup
     Height = 25
     Caption = '&Add'
     TabOrder = 6
+    OnClick = btnAddClick
   end
   object btnRemove: TButton
     Left = 641
     Top = 431
     Width = 75
     Height = 25
+    Align = alCustom
     Caption = '&Remove'
     TabOrder = 7
-  end
-  object SpinEdit1: TSpinEdit
-    Left = 448
-    Top = 8
-    Width = 121
-    Height = 22
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 8
-    Value = 0
+    OnClick = btnRemoveClick
   end
   object MainMenu1: TMainMenu
     Left = 16
@@ -570,12 +609,10 @@ object fResGroup: TfResGroup
     object actOrdByName: TAction
       Category = 'Search'
       Caption = '&Name'
-      OnExecute = actOrdByNameExecute
     end
     object actOrdByDesc: TAction
       Category = 'Search'
       Caption = '&Description'
-      OnExecute = actOrdByDescExecute
     end
     object actFirst: TAction
       Category = 'Search'
@@ -596,12 +633,14 @@ object fResGroup: TfResGroup
       Caption = '&Next'
       ShortCut = 32807
       OnExecute = actNextExecute
+      OnUpdate = actNextUpdate
     end
     object actLast: TAction
       Category = 'Search'
       Caption = '&Last'
       ShortCut = 16423
       OnExecute = actLastExecute
+      OnUpdate = actLastUpdate
     end
   end
   object ImageEnable: TImageList
@@ -1018,7 +1057,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 528
+    Left = 480
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1035,52 +1074,46 @@ object fResGroup: TfResGroup
     object qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
       FieldName = 'UTILIZATION_TYPE_CD'
     end
-    object qryRES_GRP_MSTROPERATION_COST: TFMTBCDField
+    object qryRES_GRP_MSTROPERATION_COST: TFloatField
       FieldName = 'OPERATION_COST'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRPREP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRCLEANUP_TIME: TFloatField
       FieldName = 'CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField
       FieldName = 'DAILY_STARTUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField
       FieldName = 'DAILY_CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
   end
   object ADOConnection1: TADOConnection
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-GHVVPN2\SQLEXPRESS'
+      '-GHVVPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
+      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
+      ' for Data=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
-    Left = 448
-    Top = 65528
+    Left = 392
+    Top = 65520
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Left = 744
-    Top = 224
+    Options = [poCascadeDeletes, poUseQuoteChar]
+    Left = 528
+    Top = 80
   end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
+    AfterScroll = cdsRES_GRP_MSTRAfterScroll
     Left = 448
     Top = 296
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
@@ -1099,30 +1132,21 @@ object fResGroup: TfResGroup
     object cdsRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
       FieldName = 'UTILIZATION_TYPE_CD'
     end
-    object cdsRES_GRP_MSTROPERATION_COST: TFMTBCDField
+    object cdsRES_GRP_MSTROPERATION_COST: TFloatField
       FieldName = 'OPERATION_COST'
-      Precision = 38
-      Size = 10
+      MaxValue = 2147483647.000000000000000000
     end
-    object cdsRES_GRP_MSTRPREP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRCLEANUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRCLEANUP_TIME: TFloatField
       FieldName = 'CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField
       FieldName = 'DAILY_STARTUP_TIME'
-      Precision = 38
-      Size = 10
     end
-    object cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFMTBCDField
+    object cdsRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField
       FieldName = 'DAILY_CLEANUP_TIME'
-      Precision = 38
-      Size = 10
     end
     object cdsRES_GRP_MSTRqryRES_GRP: TDataSetField
       FieldName = 'qryRES_GRP'
@@ -1139,7 +1163,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 696
+    Left = 808
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
     DataSet = qryUTL_TYPE_MSTR
@@ -1158,7 +1182,7 @@ object fResGroup: TfResGroup
     SQL.Strings = (
       'select * from RESOURCE_MSTR'
       '')
-    Left = 640
+    Left = 696
   end
   object qryRES_GRP: TADOQuery
     Connection = ADOConnection1
@@ -1170,12 +1194,12 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 35
+        Value = 1
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
       ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
-    Left = 584
+    Left = 560
     object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1195,12 +1219,14 @@ object fResGroup: TfResGroup
     Active = True
     Aggregates = <>
     DataSetField = cdsRES_GRP_MSTRqryRES_GRP
+    Filtered = True
     Params = <>
+    OnCalcFields = cdsRES_GRPCalcFields
     Left = 536
     Top = 296
     object cdsRES_GRPResouceName: TStringField
       FieldKind = fkLookup
-      FieldName = 'Resouce Name'
+      FieldName = 'Resource Name'
       LookupDataSet = qryRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_NAME'
@@ -1215,6 +1241,7 @@ object fResGroup: TfResGroup
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_DESC'
       KeyFields = 'RESOURCE_ID'
+      LookupCache = True
       Size = 30
       Lookup = True
     end
@@ -1233,6 +1260,7 @@ object fResGroup: TfResGroup
       DisplayLabel = 'Use Group Defaults'
       FieldKind = fkInternalCalc
       FieldName = 'USE_GROUP_DEFAULTS'
+      DisplayValues = ';'
     end
     object cdsRES_GRPRESOURCE_ID: TIntegerField
       FieldName = 'RESOURCE_ID'
@@ -1281,9 +1309,11 @@ object fResGroup: TfResGroup
     Top = 376
     object btnName: TMenuItem
       Caption = '&1 Name'
+      OnClick = btnNameClick
     end
     object btnDescription: TMenuItem
       Caption = '&2 Description'
+      OnClick = btnDescriptionClick
     end
   end
   object qryRES_GRP_ID: TADOQuery
@@ -1293,10 +1323,10 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR ORDER BY resource_group_id;')
-    Left = 736
+    Left = 904
   end
   object ImageDisable: TImageList
-    Left = 200
+    Left = 248
     Top = 376
     Bitmap = {
       494C01010A001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
