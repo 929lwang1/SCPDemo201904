@@ -1,7 +1,7 @@
 program ResourceGroupClient;
 
 uses
-  Vcl.Forms,
+  Vcl.Forms, MidasLib,
   uResourceGroupClient in 'uResourceGroupClient.pas' {fResGroup},
   ResourceGroupFind in 'ResourceGroupFind.pas' {fResGrpSearch},
   AddResource in 'AddResource.pas' {frmAddresource};
