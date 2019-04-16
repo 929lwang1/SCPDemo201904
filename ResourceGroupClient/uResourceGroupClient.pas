@@ -560,9 +560,11 @@ begin
   calCLEANUP_TIME();
   calDAILY_CLEANUP_TIME();
   calDAILY_PRE_TIME();
+  seditOPER_COST.OnChange :=nil;
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
+  seditOPER_COST.OnChange :=seditOPER_COSTChange;
 end;
 
 
@@ -660,12 +662,9 @@ procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
   if seditOPER_COST.Value > seditOPER_COST.MaxValue
     then seditOPER_COST.Value :=seditOPER_COST.MaxValue;
-  if seditOPER_COST.Value <> cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat then
-  begin
-    if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
-      cdsRES_GRP_MSTR.Edit;
-    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
-  end;
+  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+    cdsRES_GRP_MSTR.Edit;
+  cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
