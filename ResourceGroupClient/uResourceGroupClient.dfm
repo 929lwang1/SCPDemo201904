@@ -2,9 +2,11 @@ object fResGroup: TfResGroup
   Left = 0
   Top = 0
   Caption = 'Resource Group'
-  ClientHeight = 473
-  ClientWidth = 1029
+  ClientHeight = 520
+  ClientWidth = 784
   Color = clBtnFace
+  Constraints.MinHeight = 500
+  Constraints.MinWidth = 780
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -14,14 +16,14 @@ object fResGroup: TfResGroup
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object ToolBar1: TToolBar
+  object tbarTop: TToolBar
     Left = 0
     Top = 0
-    Width = 1029
+    Width = 784
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
-    Caption = 'ToolBar1'
+    Caption = 'tbarTop'
     DisabledImages = ImageDisable
     Images = ImageEnable
     TabOrder = 0
@@ -37,119 +39,119 @@ object fResGroup: TfResGroup
       Action = actDelete
       ImageIndex = 1
     end
-    object ToolButton3: TToolButton
+    object separator1: TToolButton
       Left = 52
       Top = 0
-      Width = 8
-      Caption = 'ToolButton3'
+      Width = 6
+      Caption = 'separator1'
       ImageIndex = 2
       Style = tbsSeparator
     end
     object btnSave: TToolButton
-      Left = 60
+      Left = 58
       Top = 0
       Action = actSave
       ImageIndex = 2
     end
     object btnCancel: TToolButton
-      Left = 86
+      Left = 84
       Top = 0
       Action = actCancel
       ImageIndex = 3
     end
-    object ToolButton6: TToolButton
-      Left = 112
+    object separator2: TToolButton
+      Left = 110
       Top = 0
       Width = 8
-      Caption = 'ToolButton6'
+      Caption = 'separator2'
       ImageIndex = 4
       Style = tbsSeparator
     end
     object btnExit: TToolButton
-      Left = 120
+      Left = 118
       Top = 0
       Action = actExit
       ImageIndex = 4
     end
-    object ToolButton8: TToolButton
-      Left = 146
+    object separator3: TToolButton
+      Left = 144
       Top = 0
       Width = 8
-      Caption = 'ToolButton8'
+      Caption = 'separator3'
       ImageIndex = 5
       Style = tbsSeparator
     end
     object btnFirst: TToolButton
-      Left = 154
+      Left = 152
       Top = 0
       Action = actFirst
       ImageIndex = 5
     end
     object btnPrior: TToolButton
-      Left = 180
+      Left = 178
       Top = 0
       Action = actPrior
       ImageIndex = 6
     end
     object btnNext: TToolButton
-      Left = 206
+      Left = 204
       Top = 0
       Action = actNext
       ImageIndex = 7
     end
     object btnLast: TToolButton
-      Left = 232
+      Left = 230
       Top = 0
       Action = actLast
       ImageIndex = 8
     end
-    object ToolButton13: TToolButton
-      Left = 258
+    object separator4: TToolButton
+      Left = 256
       Top = 0
       Width = 8
-      Caption = 'ToolButton13'
-      ImageIndex = 9
+      Caption = 'separator4'
+      ImageIndex = 11
       Style = tbsSeparator
     end
     object btnOrderBy: TToolButton
-      Left = 266
+      Left = 264
       Top = 0
       Caption = 'OrderBy'
-      DropdownMenu = PopupMenu1
+      DropdownMenu = pMenuOrdBy
       ImageIndex = 10
       Style = tbsDropDown
     end
-    object ToolButton2: TToolButton
-      Left = 307
+    object separator5: TToolButton
+      Left = 305
       Top = 0
       Width = 8
-      Caption = 'ToolButton2'
-      ImageIndex = 10
+      Caption = 'separator5'
+      ImageIndex = 11
       Style = tbsSeparator
     end
     object btnSearch: TToolButton
-      Left = 315
+      Left = 313
       Top = 0
       Action = actFind
       ImageIndex = 9
     end
-    object ToolButton4: TToolButton
-      Left = 341
+    object separator6: TToolButton
+      Left = 339
       Top = 0
       Width = 8
-      Caption = 'ToolButton4'
+      Caption = 'separator6'
       ImageIndex = 10
       Style = tbsSeparator
     end
   end
-  object Panel1: TPanel
+  object panelMainDesc: TPanel
     Left = 0
     Top = 25
-    Width = 1029
+    Width = 784
     Height = 49
     Align = alTop
     TabOrder = 1
-    object Label1: TLabel
+    object lblName: TLabel
       Left = 16
       Top = 13
       Width = 42
@@ -162,7 +164,7 @@ object fResGroup: TfResGroup
       Font.Style = []
       ParentFont = False
     end
-    object Label2: TLabel
+    object lblDesc: TLabel
       Left = 217
       Top = 13
       Width = 72
@@ -175,7 +177,7 @@ object fResGroup: TfResGroup
       Font.Style = []
       ParentFont = False
     end
-    object Label3: TLabel
+    object lblUtilType: TLabel
       Left = 484
       Top = 13
       Width = 64
@@ -188,7 +190,7 @@ object fResGroup: TfResGroup
       Font.Style = []
       ParentFont = False
     end
-    object DBEdit1: TDBEdit
+    object dbeName: TDBEdit
       Left = 60
       Top = 13
       Width = 121
@@ -197,7 +199,7 @@ object fResGroup: TfResGroup
       DataSource = dsRES_GRP_MSTR_cds
       TabOrder = 0
     end
-    object DBEdit2: TDBEdit
+    object dbeDesc: TDBEdit
       Left = 288
       Top = 12
       Width = 177
@@ -206,7 +208,7 @@ object fResGroup: TfResGroup
       DataSource = dsRES_GRP_MSTR_cds
       TabOrder = 1
     end
-    object DBLookupComboBox1: TDBLookupComboBox
+    object dblkcbxUtilType: TDBLookupComboBox
       Left = 552
       Top = 12
       Width = 197
@@ -219,22 +221,22 @@ object fResGroup: TfResGroup
       TabOrder = 2
     end
   end
-  object Panel2: TPanel
+  object panelTimeParam: TPanel
     Left = 0
     Top = 74
-    Width = 1029
+    Width = 784
     Height = 111
     Align = alTop
     TabOrder = 2
-    object GroupBox1: TGroupBox
+    object grpbxTimeParam: TGroupBox
       Left = 1
       Top = 1
-      Width = 1027
-      Height = 105
+      Width = 782
+      Height = 104
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
-      object Label5: TLabel
+      object lblOperCost: TLabel
         Left = 32
         Top = 26
         Width = 153
@@ -247,7 +249,7 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object Label4: TLabel
+      object lblPrepTime: TLabel
         Left = 33
         Top = 58
         Width = 108
@@ -260,7 +262,7 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object Label6: TLabel
+      object lblCleanTime: TLabel
         Left = 32
         Top = 89
         Width = 84
@@ -273,8 +275,8 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object TLabel
-        Left = 377
+      object lblDailyPrepTime: TLabel
+        Left = 390
         Top = 58
         Width = 139
         Height = 16
@@ -286,9 +288,9 @@ object fResGroup: TfResGroup
         Font.Style = []
         ParentFont = False
       end
-      object Label8: TLabel
-        Left = 377
-        Top = 87
+      object lblDailyCleanTime: TLabel
+        Left = 390
+        Top = 88
         Width = 115
         Height = 16
         Caption = 'Daily Cleanup Time:'
@@ -342,7 +344,7 @@ object fResGroup: TfResGroup
       end
       object cbxDAILY_PRE_TIME: TComboBox
         Left = 623
-        Top = 56
+        Top = 57
         Width = 111
         Height = 21
         TabOrder = 3
@@ -373,32 +375,48 @@ object fResGroup: TfResGroup
         ParentBiDiMode = False
         TabOrder = 5
       end
-    end
-    object txtPREP_TIME: TEdit
-      Left = 154
-      Top = 57
-      Width = 83
-      Height = 21
-      BiDiMode = bdRightToLeft
-      ParentBiDiMode = False
-      TabOrder = 1
-    end
-    object txtDAILY_STARTUP_TIME: TEdit
-      Left = 535
-      Top = 57
-      Width = 83
-      Height = 21
-      BiDiMode = bdRightToLeft
-      ParentBiDiMode = False
-      TabOrder = 2
+      object txtDAILY_STARTUP_TIME: TEdit
+        Left = 535
+        Top = 57
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 6
+        OnChange = txtDAILY_STARTUP_TIMEChange
+      end
+      object txtPREP_TIME: TEdit
+        Left = 154
+        Top = 57
+        Width = 83
+        Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
+        TabOrder = 7
+      end
+      object cbxPRE_TIME: TComboBox
+        Left = 242
+        Top = 57
+        Width = 111
+        Height = 21
+        TabOrder = 8
+        Text = 'Minutes'
+        OnChange = cbxPRE_TIMEChange
+        Items.Strings = (
+          'Seconds'
+          'Minutes'
+          'Hours'
+          'Days'
+          'Weeks')
+      end
     end
   end
   object dbgridResource: TDBGrid
     Left = 0
     Top = 185
-    Width = 1029
-    Height = 247
-    Align = alTop
+    Width = 784
+    Height = 290
+    Align = alClient
     DataSource = dsRES_GRP_cds
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     TabOrder = 3
@@ -458,46 +476,43 @@ object fResGroup: TfResGroup
         Visible = False
       end>
   end
-  object StatusBar1: TStatusBar
+  object sbarBottom: TStatusBar
     Left = 0
-    Top = 454
-    Width = 1029
+    Top = 501
+    Width = 784
     Height = 19
     Panels = <>
   end
-  object cbxPRE_TIME: TComboBox
-    Left = 243
-    Top = 131
-    Width = 111
-    Height = 21
+  object panelResGrpOper: TPanel
+    Left = 0
+    Top = 475
+    Width = 784
+    Height = 26
+    Align = alBottom
+    Caption = 'panelResGrpOper'
+    ShowCaption = False
     TabOrder = 5
-    Text = 'Minutes'
-    OnChange = cbxPRE_TIMEChange
-    Items.Strings = (
-      'Seconds'
-      'Minutes'
-      'Hours'
-      'Days'
-      'Weeks')
-  end
-  object btnAdd: TButton
-    Left = 552
-    Top = 431
-    Width = 75
-    Height = 25
-    Caption = '&Add'
-    TabOrder = 6
-    OnClick = btnAddClick
-  end
-  object btnRemove: TButton
-    Left = 641
-    Top = 431
-    Width = 75
-    Height = 25
-    Align = alCustom
-    Caption = '&Remove'
-    TabOrder = 7
-    OnClick = btnRemoveClick
+    DesignSize = (
+      784
+      26)
+    object btnAdd: TButton
+      Left = 621
+      Top = -1
+      Width = 75
+      Height = 25
+      Action = actAdd
+      Anchors = [akRight]
+      TabOrder = 0
+    end
+    object btnRemove: TButton
+      Left = 702
+      Top = -1
+      Width = 75
+      Height = 25
+      Action = actRemove
+      Anchors = [akRight]
+      TabOrder = 1
+    end
   end
   object MainMenu1: TMainMenu
     Left = 16
@@ -609,10 +624,13 @@ object fResGroup: TfResGroup
     object actOrdByName: TAction
       Category = 'Search'
       Caption = '&Name'
+      Checked = True
+      OnExecute = actOrdByNameExecute
     end
     object actOrdByDesc: TAction
       Category = 'Search'
       Caption = '&Description'
+      OnExecute = actOrdByDescExecute
     end
     object actFirst: TAction
       Category = 'Search'
@@ -641,6 +659,16 @@ object fResGroup: TfResGroup
       ShortCut = 16423
       OnExecute = actLastExecute
       OnUpdate = actLastUpdate
+    end
+    object actAdd: TAction
+      Category = 'ResGrpEdit'
+      Caption = '&Add'
+      OnExecute = actAddExecute
+    end
+    object actRemove: TAction
+      Category = 'ResGrpEdit'
+      Caption = '&Remove'
+      OnExecute = actRemoveExecute
     end
   end
   object ImageEnable: TImageList
@@ -1051,6 +1079,7 @@ object fResGroup: TfResGroup
       000000000000}
   end
   object qryRES_GRP_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     AfterScroll = qryRES_GRP_MSTRAfterScroll
@@ -1095,9 +1124,9 @@ object fResGroup: TfResGroup
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
       'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-CM3VPN2\SQLEXPRESS;Use Procedure for Prepare=1;Auto Translate=T' +
-      'rue;Packet Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption' +
-      ' for Data=False;Tag with column collation when possible=False'
+      '-H9CW0N2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
+      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
+      'alse;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1105,7 +1134,7 @@ object fResGroup: TfResGroup
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
-    Options = [poCascadeDeletes, poUseQuoteChar]
+    Options = [poCascadeDeletes, poCascadeUpdates, poUseQuoteChar]
     Left = 528
     Top = 80
   end
@@ -1159,12 +1188,13 @@ object fResGroup: TfResGroup
     Top = 352
   end
   object qryUTL_TYPE_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'select * from UTILIZATION_TYPE_MSTR')
-    Left = 808
+    Left = 728
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
     DataSet = qryUTL_TYPE_MSTR
@@ -1177,13 +1207,14 @@ object fResGroup: TfResGroup
     Top = 80
   end
   object qryRES_MSTR: TADOQuery
+    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_MSTR'
       '')
-    Left = 696
+    Left = 640
   end
   object qryRES_GRP: TADOQuery
     Active = True
@@ -1196,7 +1227,7 @@ object fResGroup: TfResGroup
         Attributes = [paSigned]
         DataType = ftInteger
         Precision = 10
-        Value = 18
+        Value = 1
       end>
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
@@ -1305,17 +1336,17 @@ object fResGroup: TfResGroup
     Left = 448
     Top = 48
   end
-  object PopupMenu1: TPopupMenu
+  object pMenuOrdBy: TPopupMenu
     Images = ImageEnable
     Left = 160
     Top = 376
     object btnName: TMenuItem
+      Action = actOrdByName
       Caption = '&1 Name'
-      OnClick = btnNameClick
     end
     object btnDescription: TMenuItem
+      Action = actOrdByDesc
       Caption = '&2 Description'
-      OnClick = btnDescriptionClick
     end
   end
   object qryRES_GRP_ID: TADOQuery

@@ -35,22 +35,21 @@ type
     qryRES_GRP_MSTR: TADOQuery;
     ADOConnection1: TADOConnection;
     dspRES_GRP_MSTR: TDataSetProvider;
-    ToolBar1: TToolBar;
+    tbarTop: TToolBar;
     btnNew: TToolButton;
     btnDelete: TToolButton;
-    ToolButton3: TToolButton;
     btnSave: TToolButton;
     btnCancel: TToolButton;
-    ToolButton6: TToolButton;
+    separator2: TToolButton;
     btnExit: TToolButton;
-    ToolButton8: TToolButton;
-    Panel1: TPanel;
-    Label1: TLabel;
-    DBEdit1: TDBEdit;
-    Label2: TLabel;
-    DBEdit2: TDBEdit;
-    Label3: TLabel;
-    Panel2: TPanel;
+    separator3: TToolButton;
+    panelMainDesc: TPanel;
+    lblName: TLabel;
+    dbeName: TDBEdit;
+    lblDesc: TLabel;
+    dbeDesc: TDBEdit;
+    lblUtilType: TLabel;
+    panelTimeParam: TPanel;
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
     actNew: TAction;
@@ -73,7 +72,7 @@ type
     qryRES_GRP: TADOQuery;
     cdsRES_GRP: TClientDataSet;
     qryUTL_TYPE_MSTR: TADOQuery;
-    DBLookupComboBox1: TDBLookupComboBox;
+    dblkcbxUtilType: TDBLookupComboBox;
     dbgridResource: TDBGrid;
     dsRES_GRP_cds: TDataSource;
     qryRES_GRPRESOURCE_GROUP_ID: TIntegerField;
@@ -86,18 +85,17 @@ type
     cdsRES_GRPUSE_GROUP_SETTINGS_IND2: TWideStringField;
     cdsRES_GRPPRIORITY_INDEX: TIntegerField;
     cdsRES_GRPResourceDescription: TStringField;
-    GroupBox1: TGroupBox;
-    Label5: TLabel;
-    Label4: TLabel;
-    Label6: TLabel;
-    Label8: TLabel;
+    grpbxTimeParam: TGroupBox;
+    lblOperCost: TLabel;
+    lblPrepTime: TLabel;
+    lblCleanTime: TLabel;
+    lblDailyCleanTime: TLabel;
     seditOPER_COST: TSpinEdit;
     btnFirst: TToolButton;
     btnPrior: TToolButton;
     btnNext: TToolButton;
     btnLast: TToolButton;
-    ToolButton13: TToolButton;
-    StatusBar1: TStatusBar;
+    sbarBottom: TStatusBar;
     dsRES_GRP_MSTR: TDataSource;
     qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
     qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
@@ -122,26 +120,32 @@ type
     cdsRES_GRP_MSTRqryRES_GRP: TDataSetField;
     btnSearch: TToolButton;
     btnOrderBy: TToolButton;
-    cbxPRE_TIME: TComboBox;
     cbxCLEANUP_TIME: TComboBox;
     cbxDAILY_CLEANUP_TIME: TComboBox;
     cbxDAILY_PRE_TIME: TComboBox;
-    PopupMenu1: TPopupMenu;
+    pMenuOrdBy: TPopupMenu;
     btnName: TMenuItem;
     btnDescription: TMenuItem;
-    ToolButton2: TToolButton;
-    ToolButton4: TToolButton;
-    btnAdd: TButton;
-    btnRemove: TButton;
+    separator6: TToolButton;
     cdsRES_GRPLOC_ID: TIntegerField;
     cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField;
     cdsRES_GRPUSE_GROUP_DEFAULTS: TBooleanField;
     qryRES_GRP_ID: TADOQuery;
     ImageDisable: TImageList;
-    txtPREP_TIME: TEdit;
     txtCLEANUP_TIME: TEdit;
-    txtDAILY_STARTUP_TIME: TEdit;
     txtDAILY_CLEANUP_TIME: TEdit;
+    actAdd: TAction;
+    actRemove: TAction;
+    lblDailyPrepTime: TLabel;
+    separator1: TToolButton;
+    separator4: TToolButton;
+    separator5: TToolButton;
+    txtDAILY_STARTUP_TIME: TEdit;
+    txtPREP_TIME: TEdit;
+    cbxPRE_TIME: TComboBox;
+    panelResGrpOper: TPanel;
+    btnAdd: TButton;
+    btnRemove: TButton;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -159,7 +163,6 @@ type
     procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
     procedure menuNameClick(Sender: TObject);
     procedure menuDescClick(Sender: TObject);
-    procedure btnAddClick(Sender: TObject);
     procedure dbgridResourceDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -168,19 +171,21 @@ type
     procedure dbgridResourceColExit(Sender: TObject);
     procedure seditOPER_COSTChange(Sender: TObject);
     //procedure RepRecs(ipResGrpID: Integer);
-    procedure btnNameClick(Sender: TObject);
-    procedure btnDescriptionClick(Sender: TObject);
     procedure cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
     procedure cbxPRE_TIMEChange(Sender: TObject);
     procedure cbxDAILY_PRE_TIMEChange(Sender: TObject);
     procedure cbxCLEANUP_TIMEChange(Sender: TObject);
     procedure cbxDAILY_CLEANUP_TIMEChange(Sender: TObject);
-    procedure btnRemoveClick(Sender: TObject);
-	procedure actFirstUpdate(Sender: TObject);
+	  procedure actFirstUpdate(Sender: TObject);
     procedure actPriorUpdate(Sender: TObject);
     procedure actNextUpdate(Sender: TObject);
     procedure actLastUpdate(Sender: TObject);
-	procedure FormClose(Sender: TObject; var Action: TCloseAction);
+	  procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure actOrdByNameExecute(Sender: TObject);
+    procedure actOrdByDescExecute(Sender: TObject);
+    procedure actAddExecute(Sender: TObject);
+    procedure actRemoveExecute(Sender: TObject);
+    procedure txtDAILY_STARTUP_TIMEChange(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -293,6 +298,56 @@ begin
     actFirst.Enabled :=false;
 end;
 
+procedure TfResGroup.actAddExecute(Sender: TObject);
+var strResId: TArray<string>;
+    i :Integer;
+    locId :Integer;
+    resTypeId :Integer;
+    listResId : TStringList;
+begin
+  frmAddresource :=  TfrmAddresource.Create(self);
+  if cdsRES_GRP.RecordCount > 0 then
+  begin
+    listResId := TStringList.Create;
+    cdsRES_GRP.First;
+    for i := 0 to cdsRES_GRP.RecordCount - 1 do
+    begin
+     listResId.Add(cdsRES_GRP.FieldByName('RESOURCE_ID').AsString);
+     cdsRES_GRP.Next;
+    end;
+    frmAddresource.cdsAddResource.Close;
+    locId :=  cdsRES_GRP.FieldByName('LOC_ID').Value;
+    resTypeId :=  cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
+    frmAddresource.qryAddResource.SQL.Clear;
+    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
+     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
+    allowMultiSelect := True;
+    frmAddresource.cdsAddResource.Open;
+  end
+  else
+  begin
+    frmAddresource.cdsAddResource.Close;
+    frmAddresource.qryAddResource.SQL.Clear;
+    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
+    allowMultiSelect := False;
+    frmAddresource.cdsAddResource.Open;
+  end;
+  try
+    frmAddresource.ShowModal;
+  finally
+    strResId :=  frmAddresource.strResourceId.Split(['^']);
+
+    for i := 0 to High(strResId) do
+    begin
+      cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
+      // cdsRES_GRP.Post;   this will cause error: Project ResourceGroupClient.exe raised exception class EDatabaseError with message 'cdsRES_GRP: Dataset not in edit or insert mode'.
+    end;
+    //ShowMessage('AAA cdsRES_GRP_MSTR.ChangeCount = ' + IntToStr(cdsRES_GRP_MSTR.ChangeCount));
+    //ShowMessage('BBB cdsRES_GRP.ChangeCount = ' + IntToStr(cdsRES_GRP.ChangeCount));
+    frmAddresource.Free;
+  end;
+end;
+
 procedure TfResGroup.actLastExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.Last;
@@ -356,6 +411,20 @@ begin
     actNext.Enabled :=false;
 end;
 
+procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
+begin
+  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
+  actOrdByName.Checked := FALSE;
+  actOrdByDesc.Checked := TRUE;
+end;
+
+procedure TfResGroup.actOrdByNameExecute(Sender: TObject);
+begin
+  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+  actOrdByDesc.Checked := FALSE;
+  actOrdByName.Checked := TRUE;
+end;
+
 procedure TfResGroup.actPriorExecute(Sender: TObject);
 begin
   priorid := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger;
@@ -387,6 +456,38 @@ begin
   begin
     FallowMultiSelect := Value;
   // Repaint;    // update user interface to reflect new value
+  end;
+end;
+
+procedure TfResGroup.actRemoveExecute(Sender: TObject);
+var
+  i:integer;
+  idRemove:integer;
+begin
+  if dbgridResource.SelectedRows.Count = 1 then
+  begin
+    idRemove := Application.MessageBox(PWideChar('Are you sure you want to remove ' + cdsRES_GRP.FieldByName('Resource Name').AsString + '?'), 'Confirm', MB_YESNO OR MB_ICONQUESTION);
+    case idRemove of
+      ID_YES:
+        cdsRES_GRP.Delete;
+      ID_NO:
+      ;
+    end;
+  end;
+  if dbgridResource.SelectedRows.Count > 1 then
+  begin
+    idRemove := Application.MessageBox(PWideChar('Are you sure you want to remove the selected resources?'), 'Confirm', MB_YESNO);
+    case idRemove of
+      ID_YES:
+        with dbgridResource.DataSource.DataSet do
+        for i:=0 to dbgridResource.SelectedRows.Count-1 do
+         begin
+           GotoBookmark(dbgridResource.SelectedRows.Items[i]);
+           cdsRES_GRP.Delete;
+        end;
+      ID_NO:
+      ;
+    end;
   end;
 end;
 
@@ -427,101 +528,6 @@ procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
   if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.modified then
     actSave.Enabled := true;
-end;
-
-
-procedure TfResGroup.btnAddClick(Sender: TObject);
-var strResId: TArray<string>;
-    i :Integer;
-    locId :Integer;
-    resTypeId :Integer;
-    listResId : TStringList;
-begin
-  frmAddresource :=  TfrmAddresource.Create(self);
-  if cdsRES_GRP.RecordCount > 0 then
-  begin
-    listResId := TStringList.Create;
-    cdsRES_GRP.First;
-    for i := 0 to cdsRES_GRP.RecordCount - 1 do
-    begin
-     listResId.Add(cdsRES_GRP.FieldByName('RESOURCE_ID').AsString);
-     cdsRES_GRP.Next;
-    end;
-    frmAddresource.cdsAddResource.Close;
-    locId :=  cdsRES_GRP.FieldByName('LOC_ID').Value;
-    resTypeId :=  cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
-    frmAddresource.qryAddResource.SQL.Clear;
-    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
-     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
-    FallowMultiSelect := True;
-    frmAddresource.cdsAddResource.Open;
-  end
-  else
-  begin
-    frmAddresource.cdsAddResource.Close;
-    frmAddresource.qryAddResource.SQL.Clear;
-    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
-    FallowMultiSelect := False;
-    frmAddresource.cdsAddResource.Open;
-  end;
-  try
-    frmAddresource.ShowModal;
-  finally
-    strResId :=  frmAddresource.strResourceId.Split(['^']);
-    for i := 0 to High(strResId) do
-      cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
-    actNew.Enabled := false;
-    actDelete.Enabled :=false;
-    actSave.Enabled := true;
-    actCancel.Enabled := true;
-    actFirst.Enabled :=false;
-    actPrior.Enabled :=false;
-    actNext.Enabled :=false;
-    actLast.Enabled :=false;
-    frmAddresource.Free;
-  end;
-end;
-
-procedure TfResGroup.btnDescriptionClick(Sender: TObject);
-begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
-end;
-
-procedure TfResGroup.btnNameClick(Sender: TObject);
-begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
-end;
-
-procedure TfResGroup.btnRemoveClick(Sender: TObject);
-  var
-  i:integer;
-  idRemove:integer;
-begin
-  if dbgridResource.SelectedRows.Count = 1 then
-  begin
-    idRemove := Application.MessageBox(PWideChar('Are you sure you want to remove ' + cdsRES_GRP.FieldByName('Resource Name').AsString + '?'), 'Confirm', MB_YESNO OR MB_ICONQUESTION);
-    case idRemove of
-      ID_YES:
-        cdsRES_GRP.Delete;
-      ID_NO:
-      ;
-    end;
-  end;
-  if dbgridResource.SelectedRows.Count > 1 then
-  begin
-    idRemove := Application.MessageBox(PWideChar('Are you sure you want to remove the selected resources?'), 'Confirm', MB_YESNO);
-    case idRemove of
-      ID_YES:
-        with dbgridResource.DataSource.DataSet do
-        for i:=0 to dbgridResource.SelectedRows.Count-1 do
-         begin
-           GotoBookmark(dbgridResource.SelectedRows.Items[i]);
-           cdsRES_GRP.Delete;
-        end;
-      ID_NO:
-      ;
-    end;
-  end;
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -720,6 +726,11 @@ if seditOPER_COST.Value > seditOPER_COST.MaxValue
 
 end;
 
+procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+begin
+
+end;
+
 {procedure TfResGroup.RepRecs(ipResGrpID: Integer);
 
 begin
@@ -743,6 +754,6 @@ begin
 
   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
    ShowMessage('call refreshrecord == suceed:');
-end; }
+end;   }
 end.
 

@@ -23,7 +23,6 @@ object fResGrpSearch: TfResGrpSearch
     Height = 36
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 269
     DesignSize = (
       606
       36)
@@ -35,7 +34,6 @@ object fResGrpSearch: TfResGrpSearch
       Anchors = [akLeft]
       Caption = 'Close Window On Go'
       TabOrder = 0
-      ExplicitTop = 6
     end
     object btnGo: TButton
       Left = 446
@@ -55,7 +53,6 @@ object fResGrpSearch: TfResGrpSearch
       Caption = 'Close'
       TabOrder = 2
       OnClick = actCloseExecute
-      ExplicitTop = 6
     end
   end
   object panelFind: TPanel
@@ -65,7 +62,6 @@ object fResGrpSearch: TfResGrpSearch
     Height = 41
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 703
     DesignSize = (
       606
       41)
@@ -73,7 +69,7 @@ object fResGrpSearch: TfResGrpSearch
       Left = 8
       Top = 14
       Width = 27
-      Height = 25
+      Height = 13
       Anchors = [akLeft]
       Caption = 'Find: '
     end
@@ -127,8 +123,6 @@ object fResGrpSearch: TfResGrpSearch
     Height = 284
     Align = alClient
     TabOrder = 2
-    ExplicitWidth = 703
-    ExplicitHeight = 240
     object dbgridResults: TDBGrid
       AlignWithMargins = True
       Left = 4
