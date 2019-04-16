@@ -39,7 +39,6 @@ type
     { Private declarations }
   public
     { Public declarations }
-    var opResGrpID:Integer;
   end;
 
 var
@@ -59,7 +58,6 @@ procedure TfResGrpSearch.actGoExecute(Sender: TObject);
 begin
   RefreshRec;
   if tglCloseOnGo.Checked = TRUE then fResGrpSearch.Close;
-  // fResGroup.RepRecs(opResGrpID);
 end;
 
 procedure TfResGrpSearch.actGoUpdate(Sender: TObject);
@@ -80,7 +78,6 @@ begin
     else
       InqStr := '%' + cbxNameDesc.Text;
   dsRES_GRP_MSTR_cds.Enabled := FALSE;
-   //ShowMessage('Search By ' + cbxFindBy.Text + ', ' + cbxFindCondition.Text + ' ' + InqStr);
   cdsRES_GRP_MSTR.Close;
   if cbxFindBy.Text = 'Name' then
     qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_NAME').Value := InqStr
@@ -101,11 +98,11 @@ begin
 end;
 
 procedure TfResGrpSearch.RefreshRec();
+var
+  opResGrpID:Integer;
 begin
   opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-  if not fResGroup.cdsRES_GRP_MSTR.Active then
-    fResGroup.cdsRES_GRP_MSTR.Open;
-  fResGroup.cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',opResGrpID,[]);
+  fResGroup.RepRecs(opResGrpID);
 end;
 
 end.

@@ -170,7 +170,6 @@ type
     procedure dbgridResourceColEnter(Sender: TObject);
     procedure dbgridResourceColExit(Sender: TObject);
     procedure seditOPER_COSTChange(Sender: TObject);
-    //procedure RepRecs(ipResGrpID: Integer);
     procedure cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
     procedure cbxPRE_TIMEChange(Sender: TObject);
     procedure cbxDAILY_PRE_TIMEChange(Sender: TObject);
@@ -200,6 +199,7 @@ type
     { Public declarations }
     property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
      //procedure refreshrecord;
+    procedure RepRecs(ipResGrpID: Integer);
   end;
 
 var
@@ -457,6 +457,11 @@ begin
     FallowMultiSelect := Value;
   // Repaint;    // update user interface to reflect new value
   end;
+end;
+
+procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+begin
+   //
 end;
 
 procedure TfResGroup.actRemoveExecute(Sender: TObject);
@@ -726,34 +731,14 @@ if seditOPER_COST.Value > seditOPER_COST.MaxValue
 
 end;
 
-procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+procedure TfResGroup.RepRecs(ipResGrpID: Integer);
 begin
-
-end;
-
-{procedure TfResGroup.RepRecs(ipResGrpID: Integer);
-
-begin
-   ShowMessage('back in main form with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' + cdsRES_GRP_MSTR.RecNo.ToString);
    if not cdsRES_GRP_MSTR.Active then
-    cdsRES_GRP_MSTR.Open;
-   //cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
-   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24, [loCaseInsensitive]);
-
-   ShowMessage('locate with ID:' + IntToStr(ipResGrpID) + ', CURRENT RecNo:' +  cdsRES_GRP_MSTR.RecNo.ToString);
-   seditOPER_COST.Value := 888;
-   fResGroup.Refresh;
-   //cdsRES_GRP_MSTR.MoveBy(cdsRES_GRP_MSTR.RecNo);
-
-   //cdsRES_GRP_MSTR.GotoCurrent();
+     cdsRES_GRP_MSTR.Open;
+   if (cdsRES_GRP_MSTR.State in [dsBrowse]) AND
+      (cdsRES_GRP_MSTR.ChangeCount = 0) then
+     cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
 end;
 
-procedure TfResGroup.refreshrecord();
-begin
-  //with cdsRES_GRP_MSTR do
-
-  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',24,[]);
-   ShowMessage('call refreshrecord == suceed:');
-end;   }
 end.
 

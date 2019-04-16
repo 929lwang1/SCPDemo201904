@@ -431,11 +431,13 @@ object fResGroup: TfResGroup
     OnDrawColumnCell = dbgridResourceDrawColumnCell
     Columns = <
       item
+        Color = clSilver
         Expanded = False
         FieldName = 'Resource Name'
         Visible = True
       end
       item
+        Color = clSilver
         Expanded = False
         FieldName = 'Resource Description'
         Visible = True
@@ -1265,6 +1267,7 @@ object fResGroup: TfResGroup
       LookupResultField = 'RESOURCE_NAME'
       KeyFields = 'RESOURCE_ID'
       LookupCache = True
+      ReadOnly = True
       Lookup = True
     end
     object cdsRES_GRPResourceDescription: TStringField
@@ -1275,6 +1278,7 @@ object fResGroup: TfResGroup
       LookupResultField = 'RESOURCE_DESC'
       KeyFields = 'RESOURCE_ID'
       LookupCache = True
+      ReadOnly = True
       Size = 30
       Lookup = True
     end
