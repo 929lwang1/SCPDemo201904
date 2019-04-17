@@ -214,7 +214,7 @@ uses AddResource,ResourceGroupFind;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
-  cdsRES_GRP_MSTR.Cancel;
+  cdsRES_GRP_MSTR.CancelUpdates();
   DispRec(iResGrpID);
 end;
 
