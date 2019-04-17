@@ -326,6 +326,8 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 111
         Height = 21
+        Style = csDropDownList
+        ItemIndex = 1
         TabOrder = 2
         Text = 'Minutes'
         OnChange = cbxPRE_TIMEChange
@@ -350,6 +352,8 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 111
         Height = 21
+        Style = csDropDownList
+        ItemIndex = 1
         TabOrder = 4
         Text = 'Minutes'
         OnChange = cbxCLEANUP_TIMEChange
@@ -374,6 +378,8 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 111
         Height = 21
+        Style = csDropDownList
+        ItemIndex = 1
         TabOrder = 6
         Text = 'Minutes'
         OnChange = cbxDAILY_PRE_TIMEChange
@@ -398,6 +404,8 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 111
         Height = 21
+        Style = csDropDownList
+        ItemIndex = 1
         TabOrder = 8
         Text = 'Minutes'
         OnChange = cbxDAILY_CLEANUP_TIMEChange
@@ -1363,7 +1371,7 @@ object fResGroup: TfResGroup
     Left = 904
   end
   object ImageDisable: TImageList
-    Left = 248
+    Left = 216
     Top = 376
     Bitmap = {
       494C01010A001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
