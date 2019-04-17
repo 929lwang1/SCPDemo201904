@@ -195,6 +195,7 @@ type
     procedure calDAILY_PRE_TIME;
     procedure calCLEANUP_TIME;
     procedure SetallowMultiSelect(Value: boolean);
+    procedure DispRec(ipResGrpID: Integer);
   public
     { Public declarations }
     property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
@@ -204,6 +205,7 @@ type
 
 var
   fResGroup: TfResGroup;
+  iResGrpID: Integer;
 
 implementation
 
@@ -213,6 +215,7 @@ uses AddResource,ResourceGroupFind;
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.Cancel;
+  DispRec(iResGrpID);
 end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
@@ -565,6 +568,7 @@ begin
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
   seditOPER_COST.OnChange :=seditOPER_COSTChange;
+  iResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
 end;
 
 
@@ -669,11 +673,16 @@ end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
 begin
-   if not cdsRES_GRP_MSTR.Active then
-     cdsRES_GRP_MSTR.Open;
-   if (cdsRES_GRP_MSTR.State in [dsBrowse]) AND
-      (cdsRES_GRP_MSTR.ChangeCount = 0) then
-     cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
+  if not cdsRES_GRP_MSTR.Active then
+    cdsRES_GRP_MSTR.Open;
+  if (cdsRES_GRP_MSTR.State in [dsBrowse]) AND
+     (cdsRES_GRP_MSTR.ChangeCount = 0) then
+    DispRec(ipResGrpID);
+end;
+
+procedure TfResGroup.DispRec(ipResGrpID: Integer);
+begin
+  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
 end;
 
 end.
