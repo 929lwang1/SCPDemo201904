@@ -346,10 +346,13 @@ procedure TfResGroup.actNewExecute(Sender: TObject);
 var
   nextid:integer;
 begin
+  qryRES_GRP_ID.Close;
+  qryRES_GRP_ID.Open;
   qryRES_GRP_ID.Last;
   nextid := qryRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
-  cdsRES_GRP_MSTR.insert;
+  cdsRES_GRP_MSTR.Append;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
+  cdsRES_GRP_MSTR.FieldByName('UTILIZATION_TYPE_CD').AsInteger := 1;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger := nextid;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString := 'New Group ' + inttostr(nextid);
 end;

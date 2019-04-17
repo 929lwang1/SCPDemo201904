@@ -4,3 +4,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 3,ResourceGroupClient-20190417-1114.exe,disable Tcombobox for time list
 4,ResourceGroupClient-20190417-1330.exe,Recommit Grid checkbox bug
 5,ResourceGroupClient-20190417-1336.exe,close search form when double click a row with 'Close On Go' turned ON
+6,ResourceGroupClient-20190417-1546.exe,fix error 'Linkfields to detail must be unique.' in new mode when add resources
