@@ -205,7 +205,6 @@ type
 
 var
   fResGroup: TfResGroup;
-  iResGrpID: Integer;
 
 implementation
 
@@ -215,7 +214,6 @@ uses AddResource,ResourceGroupFind;
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.CancelUpdates();
-  DispRec(iResGrpID);
 end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
@@ -568,7 +566,6 @@ begin
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
   seditOPER_COST.OnChange :=seditOPER_COSTChange;
-  iResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
 end;
 
 
