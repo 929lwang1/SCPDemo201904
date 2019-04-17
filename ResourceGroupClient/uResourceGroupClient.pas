@@ -574,23 +574,32 @@ end;
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);
 begin
-  if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
-    SaveBoolean();
+  if dbgridResource.DataSource.DataSet.RecordCount > 0 then
+  begin
+    if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
+      SaveBoolean();
+  end;
 end;
 
 procedure TfResGroup.dbgridResourceColEnter(Sender: TObject);
 begin
-  if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
+  if dbgridResource.DataSource.DataSet.RecordCount > 0 then
   begin
-    OriginalOptions := dbgridResource.Options;
-    dbgridResource.Options := dbgridResource.Options - [dgEditing];
+  if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
+    begin
+      OriginalOptions := dbgridResource.Options;
+      dbgridResource.Options := dbgridResource.Options - [dgEditing];
+    end;
   end;
 end;
 
 procedure TfResGroup.dbgridResourceColExit(Sender: TObject);
 begin
-  if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
-    dbgridResource.Options := OriginalOptions;
+  if dbgridResource.DataSource.DataSet.RecordCount > 0 then
+  begin
+    if dbgridResource.SelectedField.FieldName = 'USE_GROUP_DEFAULTS' then
+      dbgridResource.Options := OriginalOptions;
+  end;
 end;
 
 procedure TfResGroup.dbgridResourceDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -598,10 +607,13 @@ procedure TfResGroup.dbgridResourceDrawColumnCell(Sender: TObject; const Rect: T
 const
   CtrlState : array[Boolean] of Integer = (DFCS_BUTTONCHECK,DFCS_BUTTONCHECK or DFCS_CHECKED);
 begin
-  if Column.Field.FieldName = 'USE_GROUP_DEFAULTS' then
+  if dbgridResource.DataSource.DataSet.RecordCount > 0 then
   begin
-    dbgridResource.Canvas.FillRect(Rect);
-    DrawFrameControl(dbgridResource.Canvas.Handle,Rect,DFC_BUTTON,CtrlState[Column.Field.AsBoolean]);
+  if Column.Field.FieldName = 'USE_GROUP_DEFAULTS' then
+    begin
+      dbgridResource.Canvas.FillRect(Rect);
+      DrawFrameControl(dbgridResource.Canvas.Handle,Rect,DFC_BUTTON,CtrlState[Column.Field.AsBoolean]);
+    end;
   end;
 end;
 
@@ -640,19 +652,10 @@ begin
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
-{var
-  i:integer;}
 begin
   if qryRES_GRP.Active then qryRES_GRP.Close;
   qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
   qryRES_GRP.Open;
-  {for i := 0 to DBGrid1.DataSource.DataSet.RecordCount do
-  begin
-    DBGrid1.Fields[6].DataSet.edit;
-    DBGrid1.Fields[6].AsBoolean := DBGrid1.Fields[3].AsBoolean;
-    DBGrid1.Fields[6].DataSet.post;
-    DBGrid1.DataSource.DataSet.Next;
-  end;  }
 end;
 
 procedure TfResGroup.SaveBoolean;
