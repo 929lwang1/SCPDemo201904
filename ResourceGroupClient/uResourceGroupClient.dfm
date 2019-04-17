@@ -312,44 +312,23 @@ object fResGroup: TfResGroup
         Value = 0
         OnChange = seditOPER_COSTChange
       end
-      object cbxCLEANUP_TIME: TComboBox
-        Left = 242
-        Top = 83
-        Width = 111
+      object txtPREP_TIME: TEdit
+        Left = 154
+        Top = 57
+        Width = 83
         Height = 21
+        BiDiMode = bdRightToLeft
+        ParentBiDiMode = False
         TabOrder = 1
-        Text = 'Minutes'
-        OnChange = cbxCLEANUP_TIMEChange
-        Items.Strings = (
-          'Seconds'
-          'Minutes'
-          'Hours'
-          'Days'
-          'Weeks')
       end
-      object cbxDAILY_CLEANUP_TIME: TComboBox
-        Left = 623
-        Top = 83
+      object cbxPRE_TIME: TComboBox
+        Left = 243
+        Top = 56
         Width = 111
         Height = 21
         TabOrder = 2
         Text = 'Minutes'
-        OnChange = cbxDAILY_CLEANUP_TIMEChange
-        Items.Strings = (
-          'Seconds'
-          'Minutes'
-          'Hours'
-          'Days'
-          'Weeks')
-      end
-      object cbxDAILY_PRE_TIME: TComboBox
-        Left = 623
-        Top = 57
-        Width = 111
-        Height = 21
-        TabOrder = 3
-        Text = 'Minutes'
-        OnChange = cbxDAILY_PRE_TIMEChange
+        OnChange = cbxPRE_TIMEChange
         Items.Strings = (
           'Seconds'
           'Minutes'
@@ -364,16 +343,22 @@ object fResGroup: TfResGroup
         Height = 21
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
-        TabOrder = 4
+        TabOrder = 3
       end
-      object txtDAILY_CLEANUP_TIME: TEdit
-        Left = 534
+      object cbxCLEANUP_TIME: TComboBox
+        Left = 242
         Top = 83
-        Width = 83
+        Width = 111
         Height = 21
-        BiDiMode = bdRightToLeft
-        ParentBiDiMode = False
-        TabOrder = 5
+        TabOrder = 4
+        Text = 'Minutes'
+        OnChange = cbxCLEANUP_TIMEChange
+        Items.Strings = (
+          'Seconds'
+          'Minutes'
+          'Hours'
+          'Days'
+          'Weeks')
       end
       object txtDAILY_STARTUP_TIME: TEdit
         Left = 535
@@ -382,26 +367,40 @@ object fResGroup: TfResGroup
         Height = 21
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
-        TabOrder = 6
-        OnChange = txtDAILY_STARTUP_TIMEChange
+        TabOrder = 5
       end
-      object txtPREP_TIME: TEdit
-        Left = 154
-        Top = 57
+      object cbxDAILY_PRE_TIME: TComboBox
+        Left = 623
+        Top = 56
+        Width = 111
+        Height = 21
+        TabOrder = 6
+        Text = 'Minutes'
+        OnChange = cbxDAILY_PRE_TIMEChange
+        Items.Strings = (
+          'Seconds'
+          'Minutes'
+          'Hours'
+          'Days'
+          'Weeks')
+      end
+      object txtDAILY_CLEANUP_TIME: TEdit
+        Left = 534
+        Top = 83
         Width = 83
         Height = 21
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 7
       end
-      object cbxPRE_TIME: TComboBox
-        Left = 242
-        Top = 57
+      object cbxDAILY_CLEANUP_TIME: TComboBox
+        Left = 623
+        Top = 83
         Width = 111
         Height = 21
         TabOrder = 8
         Text = 'Minutes'
-        OnChange = cbxPRE_TIMEChange
+        OnChange = cbxDAILY_CLEANUP_TIMEChange
         Items.Strings = (
           'Seconds'
           'Minutes'
@@ -418,7 +417,7 @@ object fResGroup: TfResGroup
     Height = 290
     Align = alClient
     DataSource = dsRES_GRP_cds
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText

@@ -43,7 +43,7 @@ type
     procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure dbgrdResourceCellClick(Column: TColumn);
+    procedure actOKUpdate(Sender: TObject);
   private
     FstrResourceId: String;
     procedure SetstrResourceId(Value: String);
@@ -60,6 +60,11 @@ implementation
 
 {$R *.dfm}
 uses uResourceGroupClient;
+
+procedure TfrmAddresource.actOKUpdate(Sender: TObject);
+begin
+  frmAddresource.btnOk.Enabled := dbgrdResource.SelectedRows.Count > 0;
+end;
 
 procedure TfrmAddresource.btnCancelClick(Sender: TObject);
 begin
@@ -102,12 +107,6 @@ begin
     frmAddresource.SetstrResourceId(FstrResourceId);
   end;
   frmAddresource.Close;
-end;
-
-
-procedure TfrmAddresource.dbgrdResourceCellClick(Column: TColumn);
-begin
-    frmAddresource.btnOk.Enabled := True;
 end;
 
 procedure TfrmAddresource.FormActivate(Sender: TObject);

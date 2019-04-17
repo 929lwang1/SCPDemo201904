@@ -2,8 +2,8 @@ object frmAddresource: TfrmAddresource
   Left = 0
   Top = 0
   Caption = 'Add resource'
-  ClientHeight = 328
-  ClientWidth = 488
+  ClientHeight = 411
+  ClientWidth = 496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmAddresource: TfrmAddresource
   object dbgrdResource: TDBGrid
     Left = 0
     Top = 41
-    Width = 488
-    Height = 237
+    Width = 496
+    Height = 320
     Align = alClient
     DataSource = dsAddResource_cds
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -28,7 +28,6 @@ object frmAddresource: TfrmAddresource
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-    OnCellClick = dbgrdResourceCellClick
     OnDblClick = btnOkClick
     Columns = <
       item
@@ -44,19 +43,17 @@ object frmAddresource: TfrmAddresource
   end
   object panButton: TPanel
     Left = 0
-    Top = 278
-    Width = 488
+    Top = 361
+    Width = 496
     Height = 50
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = 2
-    ExplicitTop = 359
-    ExplicitWidth = 881
+    ExplicitWidth = 853
     DesignSize = (
-      488
+      496
       50)
     object btnCancel: TButton
-      Left = 382
+      Left = 390
       Top = 14
       Width = 75
       Height = 25
@@ -65,10 +62,10 @@ object frmAddresource: TfrmAddresource
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 0
-      ExplicitLeft = 785
+      ExplicitLeft = 747
     end
     object btnOk: TButton
-      Left = 285
+      Left = 293
       Top = 14
       Width = 75
       Height = 25
@@ -77,17 +74,17 @@ object frmAddresource: TfrmAddresource
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 1
-      ExplicitLeft = 688
+      ExplicitLeft = 650
     end
   end
   object panLabel: TPanel
     Left = 0
     Top = 0
-    Width = 488
+    Width = 496
     Height = 41
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 883
+    ExplicitWidth = 853
     object lbInfor: TLabel
       Left = 18
       Top = 13
@@ -218,11 +215,12 @@ object frmAddresource: TfrmAddresource
     Top = 248
   end
   object actAddResource: TActionList
-    Left = 680
-    Top = 16
+    Left = 240
+    Top = 248
     object actOK: TAction
       Caption = 'OK'
       OnExecute = btnOkClick
+      OnUpdate = actOKUpdate
     end
     object actCancel: TAction
       Caption = 'Cancel'
