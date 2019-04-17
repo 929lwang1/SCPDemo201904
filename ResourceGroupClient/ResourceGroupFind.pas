@@ -28,13 +28,15 @@ type
     dspRES_GRP_MSTR: TDataSetProvider;
     ActionList1: TActionList;
     actGo: TAction;
-    procedure btnCloseClick(Sender: TObject);
+    actClose: TAction;
+    actSearch: TAction;
     procedure actSearchExecute(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actGoUpdate(Sender: TObject);
-    procedure RefreshRec;
     procedure dbgridResultsDblClick(Sender: TObject);
+    procedure RefreshRec;
+    procedure CloseForm;
   private
     { Private declarations }
   public
@@ -51,13 +53,12 @@ uses uResourceGroupClient;
 
 procedure TfResGrpSearch.actCloseExecute(Sender: TObject);
 begin
-   fResGrpSearch.Close;
+   CloseForm;
 end;
 
 procedure TfResGrpSearch.actGoExecute(Sender: TObject);
 begin
   RefreshRec;
-  if tglCloseOnGo.Checked = TRUE then fResGrpSearch.Close;
 end;
 
 procedure TfResGrpSearch.actGoUpdate(Sender: TObject);
@@ -87,11 +88,6 @@ begin
   dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
-procedure TfResGrpSearch.btnCloseClick(Sender: TObject);
-begin
-  fResGrpSearch.Close;
-end;
-
 procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
 begin
    RefreshRec;
@@ -103,6 +99,11 @@ var
 begin
   opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
   fResGroup.RepRecs(opResGrpID);
+  if tglCloseOnGo.Checked = TRUE then CloseForm;
 end;
 
+procedure TfResGrpSearch.CloseForm();
+begin
+  fResGrpSearch.Close;
+end;
 end.

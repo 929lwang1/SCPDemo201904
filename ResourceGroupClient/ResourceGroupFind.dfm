@@ -49,10 +49,9 @@ object fResGrpSearch: TfResGrpSearch
       Top = 3
       Width = 75
       Height = 25
+      Action = actClose
       Anchors = [akRight]
-      Caption = 'Close'
       TabOrder = 2
-      OnClick = actCloseExecute
     end
   end
   object panelFind: TPanel
@@ -78,10 +77,9 @@ object fResGrpSearch: TfResGrpSearch
       Top = 9
       Width = 75
       Height = 25
+      Action = actSearch
       Anchors = [akRight]
-      Caption = 'Search'
       TabOrder = 0
-      OnClick = actSearchExecute
     end
     object cbxFindBy: TComboBox
       Left = 41
@@ -209,6 +207,14 @@ object fResGrpSearch: TfResGrpSearch
       Caption = 'Go'
       OnExecute = actGoExecute
       OnUpdate = actGoUpdate
+    end
+    object actClose: TAction
+      Caption = 'Close'
+      OnExecute = actCloseExecute
+    end
+    object actSearch: TAction
+      Caption = 'Search'
+      OnExecute = actSearchExecute
     end
   end
 end
