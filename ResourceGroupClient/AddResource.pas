@@ -63,7 +63,8 @@ uses uResourceGroupClient;
 
 procedure TfrmAddresource.actOKUpdate(Sender: TObject);
 begin
-  frmAddresource.btnOk.Enabled := dbgrdResource.SelectedRows.Count > 0;
+  if fResGroup.allowMultiSelect then
+    frmAddresource.btnOk.Enabled := dbgrdResource.SelectedRows.Count > 0;
 end;
 
 procedure TfrmAddresource.btnCancelClick(Sender: TObject);
@@ -114,11 +115,11 @@ begin
   if fResGroup.allowMultiSelect then
   begin
     dbgrdResource.Options:=dbgrdResource.Options + [dgMultiSelect];
-    frmAddresource.btnOk.Enabled := False;
   end
   else
   begin
     dbgrdResource.Options:=dbgrdResource.Options - [dgMultiSelect];
+    frmAddresource.btnOk.Enabled := True;
   end;
 end;
 end.

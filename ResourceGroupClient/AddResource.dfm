@@ -48,7 +48,6 @@ object frmAddresource: TfrmAddresource
     Height = 50
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 853
     DesignSize = (
       496
       50)
@@ -62,7 +61,6 @@ object frmAddresource: TfrmAddresource
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 0
-      ExplicitLeft = 747
     end
     object btnOk: TButton
       Left = 293
@@ -74,7 +72,6 @@ object frmAddresource: TfrmAddresource
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 1
-      ExplicitLeft = 650
     end
   end
   object panLabel: TPanel
@@ -84,7 +81,6 @@ object frmAddresource: TfrmAddresource
     Height = 41
     Align = alTop
     TabOrder = 2
-    ExplicitWidth = 853
     object lbInfor: TLabel
       Left = 18
       Top = 13
