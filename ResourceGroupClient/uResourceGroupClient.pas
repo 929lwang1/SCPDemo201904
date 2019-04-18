@@ -189,6 +189,7 @@ type
     { Private declarations }
     FallowMultiSelect: boolean;
     OriginalOptions:TDBGridOptions;
+    currentRec: Integer;
     procedure SaveBoolean;
     procedure calPRE_TIME;
     procedure calDAILY_CLEANUP_TIME;
@@ -214,6 +215,15 @@ uses AddResource,ResourceGroupFind;
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
   cdsRES_GRP_MSTR.CancelUpdates();
+  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',currentRec,[]);
+  cdsRES_GRP_MSTR.Prior;
+  if not cdsRES_GRP_MSTR.Bof then
+  begin
+    cdsRES_GRP_MSTR.Next;
+    cdsRES_GRP_MSTR.Next;
+    if not cdsRES_GRP_MSTR.Eof then
+       cdsRES_GRP_MSTR.Prior;
+  end;
 end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
@@ -346,6 +356,7 @@ procedure TfResGroup.actNewExecute(Sender: TObject);
 var
   nextid:integer;
 begin
+  currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
   qryRES_GRP_ID.Close;
   qryRES_GRP_ID.Open;
   qryRES_GRP_ID.Last;

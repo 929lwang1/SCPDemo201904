@@ -6,3 +6,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 5,ResourceGroupClient-20190417-1336.exe,close search form when double click a row with 'Close On Go' turned ON
 6,ResourceGroupClient-20190417-1546.exe,fix error 'Linkfields to detail must be unique.' in new mode when add resources
 7,ResourceGroupClient-20190417-1600.exe,Fix ok button enable state in add form
+8,ResourceGroupClient-20190417-1610.exe,"Fix navigation button state when do new, cancel "
