@@ -104,6 +104,8 @@ end;
 
 procedure TfResGrpSearch.CloseForm();
 begin
+  dsRES_GRP_MSTR_cds.Enabled := FALSE;
+  cdsRES_GRP_MSTR.Close;
   fResGrpSearch.Close;
 end;
 end.

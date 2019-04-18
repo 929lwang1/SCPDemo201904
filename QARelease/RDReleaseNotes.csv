@@ -7,3 +7,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 6,ResourceGroupClient-20190417-1546.exe,fix error 'Linkfields to detail must be unique.' in new mode when add resources
 7,ResourceGroupClient-20190417-1600.exe,Fix ok button enable state in add form
 8,ResourceGroupClient-20190417-1610.exe,"Fix navigation button state when do new, cancel "
+9,ResourceGroupClient-20190418-1448.exe,clean previous searching result when launching Search form for the second time
