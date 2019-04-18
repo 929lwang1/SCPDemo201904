@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 520
-  ClientWidth = 784
+  ClientWidth = 1001
   Color = clBtnFace
   Constraints.MinHeight = 500
   Constraints.MinWidth = 780
@@ -19,7 +19,7 @@ object fResGroup: TfResGroup
   object tbarTop: TToolBar
     Left = 0
     Top = 0
-    Width = 784
+    Width = 1001
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -27,6 +27,7 @@ object fResGroup: TfResGroup
     DisabledImages = ImageDisable
     Images = ImageEnable
     TabOrder = 0
+    ExplicitWidth = 784
     object btnNew: TToolButton
       Left = 0
       Top = 0
@@ -147,13 +148,15 @@ object fResGroup: TfResGroup
   object panelMainDesc: TPanel
     Left = 0
     Top = 25
-    Width = 784
-    Height = 49
+    Width = 1001
+    Height = 24
     Align = alTop
+    AutoSize = True
     TabOrder = 1
+    ExplicitWidth = 784
     object lblName: TLabel
       Left = 16
-      Top = 13
+      Top = 2
       Width = 42
       Height = 16
       Caption = 'Name: '
@@ -166,7 +169,7 @@ object fResGroup: TfResGroup
     end
     object lblDesc: TLabel
       Left = 217
-      Top = 13
+      Top = 2
       Width = 72
       Height = 16
       Caption = 'Description: '
@@ -179,7 +182,7 @@ object fResGroup: TfResGroup
     end
     object lblUtilType: TLabel
       Left = 484
-      Top = 13
+      Top = 2
       Width = 64
       Height = 16
       Caption = 'Utilization: '
@@ -192,7 +195,7 @@ object fResGroup: TfResGroup
     end
     object dbeName: TDBEdit
       Left = 60
-      Top = 13
+      Top = 2
       Width = 121
       Height = 21
       DataField = 'RESOURCE_GROUP_NAME'
@@ -201,7 +204,7 @@ object fResGroup: TfResGroup
     end
     object dbeDesc: TDBEdit
       Left = 288
-      Top = 12
+      Top = 1
       Width = 177
       Height = 21
       DataField = 'RESOURCE_GROUP_DESC'
@@ -210,7 +213,7 @@ object fResGroup: TfResGroup
     end
     object dblkcbxUtilType: TDBLookupComboBox
       Left = 552
-      Top = 12
+      Top = 1
       Width = 197
       Height = 21
       DataField = 'UTILIZATION_TYPE_CD'
@@ -223,19 +226,22 @@ object fResGroup: TfResGroup
   end
   object panelTimeParam: TPanel
     Left = 0
-    Top = 74
-    Width = 784
+    Top = 49
+    Width = 1001
     Height = 111
     Align = alTop
     TabOrder = 2
+    ExplicitTop = 74
+    ExplicitWidth = 784
     object grpbxTimeParam: TGroupBox
       Left = 1
       Top = 1
-      Width = 782
+      Width = 999
       Height = 104
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
+      ExplicitWidth = 782
       object lblOperCost: TLabel
         Left = 32
         Top = 26
@@ -420,9 +426,9 @@ object fResGroup: TfResGroup
   end
   object dbgridResource: TDBGrid
     Left = 0
-    Top = 185
-    Width = 784
-    Height = 290
+    Top = 160
+    Width = 1001
+    Height = 315
     Align = alClient
     DataSource = dsRES_GRP_cds
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -488,39 +494,43 @@ object fResGroup: TfResGroup
   object sbarBottom: TStatusBar
     Left = 0
     Top = 501
-    Width = 784
+    Width = 1001
     Height = 19
     Panels = <>
+    ExplicitWidth = 784
   end
   object panelResGrpOper: TPanel
     Left = 0
     Top = 475
-    Width = 784
+    Width = 1001
     Height = 26
     Align = alBottom
     Caption = 'panelResGrpOper'
     ShowCaption = False
     TabOrder = 5
+    ExplicitWidth = 784
     DesignSize = (
-      784
+      1001
       26)
     object btnAdd: TButton
-      Left = 621
+      Left = 838
       Top = -1
       Width = 75
       Height = 25
       Action = actAdd
       Anchors = [akRight]
       TabOrder = 0
+      ExplicitLeft = 621
     end
     object btnRemove: TButton
-      Left = 702
+      Left = 919
       Top = -1
       Width = 75
       Height = 25
       Action = actRemove
       Anchors = [akRight]
       TabOrder = 1
+      ExplicitLeft = 702
     end
   end
   object MainMenu1: TMainMenu
@@ -1089,7 +1099,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR')
-    Left = 480
+    Left = 488
     object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1126,10 +1136,10 @@ object fResGroup: TfResGroup
     Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=APT05' +
-      '-H9CW0N2;Use Procedure for Prepare=1;Auto Translate=True;Packet ' +
-      'Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Data=F' +
-      'alse;Tag with column collation when possible=False'
+      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=tcp:1' +
+      '0.183.137.40;Use Procedure for Prepare=1;Auto Translate=True;Pac' +
+      'ket Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Da' +
+      'ta=False;Tag with column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 392
@@ -1235,7 +1245,7 @@ object fResGroup: TfResGroup
     SQL.Strings = (
       'select * from RESOURCE_GROUPS'
       ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
-    Left = 560
+    Left = 552
     object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
