@@ -561,31 +561,25 @@ object fResGroup: TfResGroup
       object menuOrderBy: TMenuItem
         Caption = '&Order By'
         object menuName: TMenuItem
-          Caption = '&1 Name'
-          OnClick = menuNameClick
+          Action = actOrdByName
         end
         object menuDesc: TMenuItem
-          Caption = '&2 Description'
-          OnClick = menuDescClick
+          Action = actOrdByDesc
         end
       end
       object menuGoto: TMenuItem
         Caption = '&Goto'
         object menuFirst: TMenuItem
-          Caption = '&First'
-          ShortCut = 16421
+          Action = actFirst
         end
         object menuPrior: TMenuItem
-          Caption = '&Prior'
-          ShortCut = 32805
+          Action = actPrior
         end
         object menuNext: TMenuItem
-          Caption = '&Next'
-          ShortCut = 32807
+          Action = actNext
         end
         object menuLast: TMenuItem
-          Caption = '&Last'
-          ShortCut = 16423
+          Action = actLast
         end
       end
     end

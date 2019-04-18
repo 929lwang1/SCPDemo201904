@@ -161,8 +161,6 @@ type
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
     procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
-    procedure menuNameClick(Sender: TObject);
-    procedure menuDescClick(Sender: TObject);
     procedure dbgridResourceDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -202,6 +200,8 @@ type
     property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
      //procedure refreshrecord;
     procedure RepRecs(ipResGrpID: Integer);
+    constructor Create(AOwner: TComponent); override;
+    procedure BeforeDestruction; override;
   end;
 
 var
@@ -211,6 +211,35 @@ implementation
 
 {$R *.dfm}
 uses AddResource,ResourceGroupFind;
+
+procedure TfResGroup.BeforeDestruction;
+begin
+  inherited;
+  with TFileStream.Create(ExtractFilePath(Application.ExeName) + ClassName +
+    '.fs', fmCreate) do
+  try
+    WriteComponent(Self);
+  finally
+    Free;
+  end;
+end;
+constructor TfResGroup.Create(AOwner: TComponent);
+
+begin
+  if FileExists(ExtractFilePath(Application.ExeName) + ClassName + '.fs') then
+  begin
+    CreateNew(AOwner, 0);
+    with TFileStream.Create(ExtractFilePath(Application.ExeName) + ClassName +
+      '.fs', fmOpenRead or fmShareDenyWrite) do
+    try
+      ReadComponent(Self);
+    finally
+      Free;
+    end;
+  end
+  else
+    inherited Create(AOwner);
+end;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
 begin
@@ -651,15 +680,6 @@ begin
   begin
     fResGroup.Close;
   end;
-end;
-
-procedure TfResGroup.menuDescClick(Sender: TObject);
-begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
-end;
-procedure TfResGroup.menuNameClick(Sender: TObject);
-begin
-   cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);

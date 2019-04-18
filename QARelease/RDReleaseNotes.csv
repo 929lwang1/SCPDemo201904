@@ -8,3 +8,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 7,ResourceGroupClient-20190417-1600.exe,Fix ok button enable state in add form
 8,ResourceGroupClient-20190417-1610.exe,"Fix navigation button state when do new, cancel "
 9,ResourceGroupClient-20190418-1448.exe,clean previous searching result when launching Search form for the second time
+10,ResourceGroupClient-20190417-1620.exe,make order by and goto work. Also remenber the order by selection when reopen
