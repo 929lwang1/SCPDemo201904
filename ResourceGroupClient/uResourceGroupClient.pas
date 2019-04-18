@@ -183,6 +183,9 @@ type
     procedure actAddExecute(Sender: TObject);
     procedure actRemoveExecute(Sender: TObject);
     procedure txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+    procedure txtPREP_TIMEChange(Sender: TObject);
+    procedure txtCLEANUP_TIMEChange(Sender: TObject);
+    procedure txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -445,9 +448,88 @@ begin
   end;
 end;
 
-procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+procedure TfResGroup.txtCLEANUP_TIMEChange(Sender: TObject);
+var
+  cleanuptime:string;
 begin
-   //
+  if cbxCLEANUP_TIME.Text = 'Seconds' then
+    cleanuptime := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').Value);
+  if cbxCLEANUP_TIME.Text = 'Minutes' then
+    cleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 60);
+  if cbxCLEANUP_TIME.Text = 'Hours' then
+    cleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 3600);
+  if cbxCLEANUP_TIME.Text = 'Days' then
+    cleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 86400);
+  if cbxCLEANUP_TIME.Text = 'Weeks' then
+    cleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 604800);
+  if txtCLEANUP_TIME.Text <> cleanuptime then
+  begin
+  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+    cdsRES_GRP_MSTR.Edit;
+  end;
+end;
+
+procedure TfResGroup.txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
+var
+  dcleanuptime:string;
+begin
+  if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
+    dcleanuptime := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').Value);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
+    dcleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 60);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
+    dcleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 3600);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Days' then
+    dcleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 86400);
+  if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
+    dcleanuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 604800);
+  if txtDAILY_CLEANUP_TIME.Text <> dcleanuptime then
+  begin
+    if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+      cdsRES_GRP_MSTR.Edit;
+  end;
+end;
+
+procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
+var
+  startuptime:string;
+begin
+  if cbxDAILY_PRE_TIME.Text = 'Seconds' then
+    startuptime := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').Value);
+  if cbxDAILY_PRE_TIME.Text = 'Minutes' then
+    startuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 60);
+  if cbxDAILY_PRE_TIME.Text = 'Hours' then
+    startuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 3600);
+  if cbxDAILY_PRE_TIME.Text = 'Days' then
+    startuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 86400);
+  if cbxDAILY_PRE_TIME.Text = 'Weeks' then
+    startuptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 604800);
+  if txtDAILY_STARTUP_TIME.Text <> startuptime then
+  begin
+    if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+      cdsRES_GRP_MSTR.Edit;
+  end;
+end;
+
+procedure TfResGroup.txtPREP_TIMEChange(Sender: TObject);
+var
+  preptime:string;
+begin
+  if cbxPRE_TIME.Text = 'Seconds' then
+    preptime := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value);
+  if cbxPRE_TIME.Text = 'Minutes' then
+    preptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
+  if cbxPRE_TIME.Text = 'Hours' then
+    preptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 3600);
+  if cbxPRE_TIME.Text = 'Days' then
+    preptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 86400);
+  if cbxPRE_TIME.Text = 'Weeks' then
+    preptime := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 604800);
+  if txtPREP_TIME.Text <> preptime then
+  begin
+    if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+      cdsRES_GRP_MSTR.Edit;
+  end;
 end;
 
 procedure TfResGroup.actRemoveExecute(Sender: TObject);
@@ -490,7 +572,7 @@ begin
   begin
     ShowMessage('A group mustRecordCount contain at least one resource.');
   end
-  else //if cdsRES_GRP_MSTR.Modified or cdsRES_GRP.Modified or seditOPER_COST.Modified then
+  else
   begin
     for i := 1 to dbgridResource.DataSource.DataSet.RecordCount do
     begin
@@ -499,6 +581,78 @@ begin
       else dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'N';
       dbgridResource.DataSource.DataSet.Post;
       dbgridResource.DataSource.DataSet.Next;
+    end;
+    if txtPREP_TIME.Text = '' then
+    begin
+      txtPREP_TIME.Text :='0';
+      cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=0;
+    end
+    else
+    begin
+      if cbxPRE_TIME.Text = 'Seconds' then
+        cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=StrToFloat(txtPREP_TIME.Text);
+      if cbxPRE_TIME.Text = 'Minutes' then
+        cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=StrToFloat(txtPREP_TIME.Text) * 60;
+      if cbxPRE_TIME.Text = 'Hours' then
+        cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=StrToFloat(txtPREP_TIME.Text) * 3600;
+      if cbxPRE_TIME.Text = 'Days' then
+        cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=StrToFloat(txtPREP_TIME.Text) * 86400;
+      if cbxPRE_TIME.Text = 'Weeks' then
+        cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=StrToFloat(txtPREP_TIME.Text) * 604800;
+    end;
+     if txtDAILY_STARTUP_TIME.Text = '' then
+    begin
+      txtDAILY_STARTUP_TIME.Text :='0';
+      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=0;
+    end
+    else
+    begin
+      if cbxDAILY_PRE_TIME.Text = 'Seconds' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text);
+      if cbxDAILY_PRE_TIME.Text = 'Minutes' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 60;
+      if cbxDAILY_PRE_TIME.Text = 'Hours' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 3600;
+      if cbxDAILY_PRE_TIME.Text = 'Days' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 86400;
+      if cbxDAILY_PRE_TIME.Text = 'Weeks' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 604800;
+    end;
+    if txtDAILY_CLEANUP_TIME.Text = '' then
+    begin
+      txtDAILY_CLEANUP_TIME.Text :='0';
+      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=0;
+    end
+    else
+    begin
+      if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text);
+      if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 60;
+      if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 3600;
+      if cbxDAILY_CLEANUP_TIME.Text = 'Days' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 86400;
+      if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
+        cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 604800;
+    end;
+    if txtCLEANUP_TIME.Text = '' then
+    begin
+      txtCLEANUP_TIME.Text :='0';
+      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=0;
+    end
+    else
+    begin
+      if cbxCLEANUP_TIME.Text = 'Seconds' then
+        cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text);
+      if cbxCLEANUP_TIME.Text = 'Minutes' then
+        cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 60;
+      if cbxCLEANUP_TIME.Text = 'Hours' then
+        cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 3600;
+      if cbxCLEANUP_TIME.Text = 'Days' then
+        cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 86400;
+      if cbxCLEANUP_TIME.Text = 'Weeks' then
+        cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 604800;
     end;
     cdsRES_GRP_MSTR.ApplyUpdates(0);
   end;
@@ -525,9 +679,9 @@ end;
 procedure TfResGroup.calPRE_TIME;
 begin
   if cbxPRE_TIME.Text = 'Seconds' then
-    txtPREP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value);
+      txtPREP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat);
   if cbxPRE_TIME.Text = 'Minutes' then
-    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
+      txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
   if cbxPRE_TIME.Text = 'Hours' then
     txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 3600);
   if cbxPRE_TIME.Text = 'Days' then
@@ -539,7 +693,7 @@ end;
 procedure TfResGroup.calDAILY_PRE_TIME;
 begin
   if cbxDAILY_PRE_TIME.Text = 'Seconds' then
-    txtDAILY_STARTUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').Value);
+    txtDAILY_STARTUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').Value);
   if cbxDAILY_PRE_TIME.Text = 'Minutes' then
     txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 60);
   if cbxDAILY_PRE_TIME.Text = 'Hours' then
@@ -553,7 +707,7 @@ end;
 procedure TfResGroup.calCLEANUP_TIME;
 begin
   if cbxCLEANUP_TIME.Text = 'Seconds' then
-    txtCLEANUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').Value);
+    txtCLEANUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').Value);
   if cbxCLEANUP_TIME.Text = 'Minutes' then
     txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 60);
   if cbxCLEANUP_TIME.Text = 'Hours' then
@@ -567,7 +721,7 @@ end;
 procedure TfResGroup.calDAILY_CLEANUP_TIME;
 begin
   if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
-    txtDAILY_CLEANUP_TIME.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').Value);
+    txtDAILY_CLEANUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').Value);
   if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
     txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 60);
   if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
@@ -600,10 +754,18 @@ end;
 
 procedure TfResGroup.cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
 begin
+//  txtPREP_TIME.OnChange :=nil;
+//  txtDAILY_STARTUP_TIME.OnChange :=nil;
+//  txtCLEANUP_TIME.OnChange :=nil;
+//  txtDAILY_CLEANUP_TIME.OnChange :=nil;
   calPRE_TIME();
   calCLEANUP_TIME();
   calDAILY_CLEANUP_TIME();
   calDAILY_PRE_TIME();
+//  txtPREP_TIME.OnChange :=txtPREP_TIMEChange;
+//  txtDAILY_STARTUP_TIME.OnChange :=txtDAILY_STARTUP_TIMEChange;
+//  txtCLEANUP_TIME.OnChange :=txtCLEANUP_TIMEChange;
+//  txtDAILY_CLEANUP_TIME.OnChange :=txtDAILY_CLEANUP_TIMEChange;
   seditOPER_COST.OnChange :=nil;
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
@@ -698,8 +860,8 @@ end;
 
 procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
-  if seditOPER_COST.Value > seditOPER_COST.MaxValue
-    then seditOPER_COST.Value :=seditOPER_COST.MaxValue;
+  if seditOPER_COST.Value > seditOPER_COST.MaxValue then
+    seditOPER_COST.Value :=seditOPER_COST.MaxValue;
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
   cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
@@ -720,4 +882,3 @@ begin
 end;
 
 end.
-

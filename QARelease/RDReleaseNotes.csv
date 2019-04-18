@@ -11,3 +11,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 10,ResourceGroupClient-20190417-1620.exe,make order by and goto work. Also remenber the order by selection when reopen
 11,ResourceGroupClient-20190417-1700.exe,Coding standard enhancement
 12,ResourceGroupClient-20190418-1736.exe,refresh search grid correctly when switching search filters
+13,ResourceGroupClient-20190418-1827.exe,convert and save time

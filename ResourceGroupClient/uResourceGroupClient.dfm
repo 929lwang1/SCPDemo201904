@@ -3,7 +3,7 @@ object fResGroup: TfResGroup
   Top = 0
   Caption = 'Resource Group'
   ClientHeight = 520
-  ClientWidth = 1001
+  ClientWidth = 903
   Color = clBtnFace
   Constraints.MinHeight = 500
   Constraints.MinWidth = 780
@@ -19,7 +19,7 @@ object fResGroup: TfResGroup
   object tbarTop: TToolBar
     Left = 0
     Top = 0
-    Width = 1001
+    Width = 903
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -27,7 +27,6 @@ object fResGroup: TfResGroup
     DisabledImages = ImageDisable
     Images = ImageEnable
     TabOrder = 0
-    ExplicitWidth = 784
     object btnNew: TToolButton
       Left = 0
       Top = 0
@@ -148,12 +147,11 @@ object fResGroup: TfResGroup
   object panelMainDesc: TPanel
     Left = 0
     Top = 25
-    Width = 1001
+    Width = 903
     Height = 24
     Align = alTop
     AutoSize = True
     TabOrder = 1
-    ExplicitWidth = 784
     object lblName: TLabel
       Left = 16
       Top = 2
@@ -227,21 +225,18 @@ object fResGroup: TfResGroup
   object panelTimeParam: TPanel
     Left = 0
     Top = 49
-    Width = 1001
+    Width = 903
     Height = 111
     Align = alTop
     TabOrder = 2
-    ExplicitTop = 74
-    ExplicitWidth = 784
     object grpbxTimeParam: TGroupBox
       Left = 1
       Top = 1
-      Width = 999
+      Width = 901
       Height = 104
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
-      ExplicitWidth = 782
       object lblOperCost: TLabel
         Left = 32
         Top = 26
@@ -319,13 +314,14 @@ object fResGroup: TfResGroup
         OnChange = seditOPER_COSTChange
       end
       object txtPREP_TIME: TEdit
-        Left = 154
-        Top = 57
+        Left = 153
+        Top = 56
         Width = 83
         Height = 21
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 1
+        OnChange = txtPREP_TIMEChange
       end
       object cbxPRE_TIME: TComboBox
         Left = 243
@@ -352,6 +348,7 @@ object fResGroup: TfResGroup
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 3
+        OnChange = txtCLEANUP_TIMEChange
       end
       object cbxCLEANUP_TIME: TComboBox
         Left = 242
@@ -372,15 +369,16 @@ object fResGroup: TfResGroup
       end
       object txtDAILY_STARTUP_TIME: TEdit
         Left = 535
-        Top = 57
+        Top = 56
         Width = 83
         Height = 21
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 5
+        OnChange = txtDAILY_STARTUP_TIMEChange
       end
       object cbxDAILY_PRE_TIME: TComboBox
-        Left = 623
+        Left = 624
         Top = 56
         Width = 111
         Height = 21
@@ -404,6 +402,7 @@ object fResGroup: TfResGroup
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 7
+        OnChange = txtDAILY_CLEANUP_TIMEChange
       end
       object cbxDAILY_CLEANUP_TIME: TComboBox
         Left = 623
@@ -427,7 +426,7 @@ object fResGroup: TfResGroup
   object dbgridResource: TDBGrid
     Left = 0
     Top = 160
-    Width = 1001
+    Width = 903
     Height = 315
     Align = alClient
     DataSource = dsRES_GRP_cds
@@ -494,43 +493,39 @@ object fResGroup: TfResGroup
   object sbarBottom: TStatusBar
     Left = 0
     Top = 501
-    Width = 1001
+    Width = 903
     Height = 19
     Panels = <>
-    ExplicitWidth = 784
   end
   object panelResGrpOper: TPanel
     Left = 0
     Top = 475
-    Width = 1001
+    Width = 903
     Height = 26
     Align = alBottom
     Caption = 'panelResGrpOper'
     ShowCaption = False
     TabOrder = 5
-    ExplicitWidth = 784
     DesignSize = (
-      1001
+      903
       26)
     object btnAdd: TButton
-      Left = 838
+      Left = 740
       Top = -1
       Width = 75
       Height = 25
       Action = actAdd
       Anchors = [akRight]
       TabOrder = 0
-      ExplicitLeft = 621
     end
     object btnRemove: TButton
-      Left = 919
+      Left = 821
       Top = -1
       Width = 75
       Height = 25
       Action = actRemove
       Anchors = [akRight]
       TabOrder = 1
-      ExplicitLeft = 702
     end
   end
   object MainMenu1: TMainMenu
@@ -1211,7 +1206,7 @@ object fResGroup: TfResGroup
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
     DataSet = qryUTL_TYPE_MSTR
-    Left = 624
+    Left = 656
     Top = 360
   end
   object dspRES_MSTR: TDataSetProvider
@@ -1372,7 +1367,7 @@ object fResGroup: TfResGroup
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR ORDER BY resource_group_id;')
-    Left = 904
+    Left = 824
   end
   object ImageDisable: TImageList
     Left = 216
