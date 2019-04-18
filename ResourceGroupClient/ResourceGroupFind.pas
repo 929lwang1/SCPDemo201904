@@ -81,9 +81,15 @@ begin
   dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
   if cbxFindBy.Text = 'Name' then
-    qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_NAME').Value := InqStr
+  begin
+    cdsRES_GRP_MSTR.CommandText := 'select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_name like :resource_group_name order by resource_group_name';
+    cdsRES_GRP_MSTR.Params.ParamByName('RESOURCE_GROUP_NAME').AsString := InqStr;
+  end
   else
-    qryRES_GRP_MSTR.Parameters.ParamByName('RESOURCE_GROUP_DESC').Value := InqStr;
+  begin
+    cdsRES_GRP_MSTR.CommandText := 'select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like :resource_group_desc order by resource_group_desc';
+    cdsRES_GRP_MSTR.Params.ParamByName('RESOURCE_GROUP_DESC').AsString := InqStr;
+  end;
   cdsRES_GRP_MSTR.Open;
   dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;

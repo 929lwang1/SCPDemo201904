@@ -10,3 +10,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 9,ResourceGroupClient-20190418-1448.exe,clean previous searching result when launching Search form for the second time
 10,ResourceGroupClient-20190417-1620.exe,make order by and goto work. Also remenber the order by selection when reopen
 11,ResourceGroupClient-20190417-1700.exe,Coding standard enhancement
+12,ResourceGroupClient-20190418-1736.exe,refresh search grid correctly when switching search filters

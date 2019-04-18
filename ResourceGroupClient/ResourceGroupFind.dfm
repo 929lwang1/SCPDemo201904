@@ -197,6 +197,7 @@ object fResGrpSearch: TfResGrpSearch
   end
   object dspRES_GRP_MSTR: TDataSetProvider
     DataSet = qryRES_GRP_MSTR
+    Options = [poAllowCommandText, poUseQuoteChar]
     Left = 400
     Top = 144
   end
