@@ -494,10 +494,10 @@ begin
   begin
     for i := 1 to dbgridResource.DataSource.DataSet.RecordCount do
     begin
-      dbgridResource.Fields[3].DataSet.edit;
-      if dbgridResource.Fields[4].AsBoolean then dbgridResource.Fields[3].AsString := 'Y'
-      else dbgridResource.Fields[3].AsString := 'N';
-      dbgridResource.Fields[3].DataSet.Post;
+      dbgridResource.DataSource.DataSet.Edit;
+      if dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_DEFAULTS').AsBoolean then dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'Y'
+      else dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'N';
+      dbgridResource.DataSource.DataSet.Post;
       dbgridResource.DataSource.DataSet.Next;
     end;
     cdsRES_GRP_MSTR.ApplyUpdates(0);
@@ -513,12 +513,12 @@ procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
 begin
   with cdsRES_GRP do
   begin
-    if Fields[4].Value = NULL then
+    if Fields.FieldByName('USE_GROUP_DEFAULTS').Value = NULL then
     begin
-      if Fields[3].AsString = 'Y' then
-         Fields[4].AsBoolean := True
+      if Fields.FieldByName('USE_GROUP_SETTINGS_IND').AsString = 'Y' then
+         Fields.FieldByName('USE_GROUP_DEFAULTS').AsBoolean := True
       else
-         Fields[4].AsBoolean := False;
+         Fields.FieldByName('USE_GROUP_DEFAULTS').AsBoolean := False;
     end;
   end;
 end;
