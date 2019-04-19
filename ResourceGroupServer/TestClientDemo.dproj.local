@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2019/04/09 17:59:11.000.524,=C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit4.pas</Transaction>
-    <Transaction>2019/04/09 17:59:30.000.725,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit4.dfm=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uTestClientDemo.dfm</Transaction>
-    <Transaction>2019/04/09 17:59:30.000.725,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Unit4.pas=C:\RossDemo\SCPDemo201904\ResourceGroupServer\uTestClientDemo.pas</Transaction>
-    <Transaction>2019/04/09 17:59:38.000.627,C:\Users\lwang1\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\RossDemo\SCPDemo201904\ResourceGroupServer\TestClientDemo.dproj</Transaction>
-  </Transactions>
-</BorlandProject>
