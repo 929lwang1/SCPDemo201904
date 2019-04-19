@@ -86,6 +86,7 @@ object fResGrpSearch: TfResGrpSearch
       Top = 11
       Width = 80
       Height = 21
+      Style = csDropDownList
       ItemIndex = 0
       TabOrder = 1
       Text = 'Name'
@@ -98,9 +99,10 @@ object fResGrpSearch: TfResGrpSearch
       Top = 11
       Width = 90
       Height = 21
-      ItemIndex = 1
+      Style = csDropDownList
+      ItemIndex = 0
       TabOrder = 2
-      Text = 'Contains'
+      Text = 'Starts With'
       Items.Strings = (
         'Starts With'
         'Contains'

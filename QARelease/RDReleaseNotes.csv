@@ -14,3 +14,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 13,ResourceGroupClient-20190418-1827.exe,convert and save time
 14,ResourceGroupClient-20190419-1324.exe,fix issue that cannot change time UM in New mode
 15,ResourceGroupClient-20190419-1442.exe,Fix checkbox issue - save use group defaults incorrectly
+16,ResourceGroupClient-20190419-1503.exe,"set search grid columns dynamically based on the Find criteria, with other search form enhancement"

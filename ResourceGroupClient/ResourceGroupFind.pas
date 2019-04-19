@@ -36,6 +36,7 @@ type
     procedure actGoUpdate(Sender: TObject);
     procedure dbgridResultsDblClick(Sender: TObject);
     procedure RefreshRec;
+    procedure ResetGridFields(ipOrdBy: String);
     procedure CloseForm;
   private
     { Private declarations }
@@ -45,6 +46,9 @@ type
 
 var
   fResGrpSearch: TfResGrpSearch;
+  sColList: Array of String;
+  sColValList: Array of String;
+  sColWidList: Array of Integer;
 
 implementation
 {$R *.dfm}
@@ -90,6 +94,7 @@ begin
     cdsRES_GRP_MSTR.CommandText := 'select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like :resource_group_desc order by resource_group_desc';
     cdsRES_GRP_MSTR.Params.ParamByName('RESOURCE_GROUP_DESC').AsString := InqStr;
   end;
+  ResetGridFields(cbxFindBy.Text);
   cdsRES_GRP_MSTR.Open;
   dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
@@ -108,10 +113,41 @@ begin
   if tglCloseOnGo.Checked = TRUE then CloseForm;
 end;
 
+procedure TfResGrpSearch.ResetGridFields(ipOrdBy: String);
+var
+  iPos: integer;
+begin
+  SetLength(sColList,2);
+  SetLength(sColValList,2);
+  SetLength(sColWidList,2);
+  if ipOrdBy = 'Name' then
+  begin
+    sColList := ['resource_group_name','resource_group_desc'];
+    sColValList := ['Name','Description'];
+    sColWidList := [124,244];
+  end
+  else
+  begin
+    sColList := ['resource_group_desc','resource_group_name'];
+    sColValList := ['Description','Name'];
+    sColWidList := [244,124];
+  end;
+  dbgridResults.Columns.Clear;
+  for iPos := low(sColList) to high(sColList) do
+    begin
+      dbgridResults.Columns.Add.FieldName := sColList[iPos];
+      dbgridResults.Columns[iPos].Title.Caption := sColValList[iPos];
+      dbgridResults.Columns[iPos].Width := sColWidList[iPos];
+    end;
+end;
+
 procedure TfResGrpSearch.CloseForm();
 begin
   dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
+  cbxFindBy.ItemIndex := 0;
+  cbxFindCondition.ItemIndex := 0;
+  ResetGridFields('Name');
   fResGrpSearch.Close;
 end;
 end.
