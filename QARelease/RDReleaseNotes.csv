@@ -13,3 +13,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 12,ResourceGroupClient-20190418-1736.exe,refresh search grid correctly when switching search filters
 13,ResourceGroupClient-20190418-1827.exe,convert and save time
 14,ResourceGroupClient-20190419-1324.exe,fix issue that cannot change time UM in New mode
+15,ResourceGroupClient-20190419-1442.exe,Fix checkbox issue - save use group defaults incorrectly

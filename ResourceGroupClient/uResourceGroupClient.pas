@@ -580,16 +580,22 @@ procedure TfResGroup.actSaveExecute(Sender: TObject);
 var
   i:integer;
 begin
+  if cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString = '' then
+  begin
+    Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
+    exit;
+  end;
   if cdsRES_GRP.RecordCount = 0 then
   begin
     ShowMessage('A group mustRecordCount contain at least one resource.');
   end
   else
   begin
+    dbgridResource.DataSource.DataSet.First;
     for i := 1 to dbgridResource.DataSource.DataSet.RecordCount do
     begin
       dbgridResource.DataSource.DataSet.Edit;
-      if dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_DEFAULTS').AsBoolean then dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'Y'
+      if dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_DEFAULTS').AsBoolean = True then dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'Y'
       else dbgridResource.DataSource.DataSet.FieldByName('USE_GROUP_SETTINGS_IND').AsString := 'N';
       dbgridResource.DataSource.DataSet.Post;
       dbgridResource.DataSource.DataSet.Next;
