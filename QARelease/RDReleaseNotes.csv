@@ -15,3 +15,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 14,ResourceGroupClient-20190419-1324.exe,fix issue that cannot change time UM in New mode
 15,ResourceGroupClient-20190419-1442.exe,Fix checkbox issue - save use group defaults incorrectly
 16,ResourceGroupClient-20190419-1503.exe,"set search grid columns dynamically based on the Find criteria, with other search form enhancement"
+17,ResourceGroupClient-20190419-1513,"do not preserve time when reopen, fix add grid selection"

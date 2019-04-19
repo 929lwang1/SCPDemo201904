@@ -217,6 +217,10 @@ uses AddResource,ResourceGroupFind;
 
 procedure TfResGroup.BeforeDestruction;
 begin
+  cbxPRE_TIME.ItemIndex := 1;
+  cbxCLEANUP_TIME.ItemIndex := 1;
+  cbxDAILY_PRE_TIME.ItemIndex := 1;
+  cbxDAILY_CLEANUP_TIME.ItemIndex := 1;
   inherited;
   with TFileStream.Create(ExtractFilePath(Application.ExeName) + ClassName +
     '.fs', fmCreate) do
