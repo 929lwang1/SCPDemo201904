@@ -14,9 +14,7 @@ type
     dbgrdResource: TDBGrid;
     btnOk: TButton;
     btnCancel: TButton;
-    qryAddResource: TADOQuery;
     cdsAddResource: TClientDataSet;
-    dspAddResource: TDataSetProvider;
     dsAddResource_cds: TDataSource;
     cdsAddResourceRESOURCE_ID: TIntegerField;
     cdsAddResourceLOC_ID: TIntegerField;

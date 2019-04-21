@@ -2,8 +2,8 @@ object frmAddresource: TfrmAddresource
   Left = 0
   Top = 0
   Caption = 'Add resource'
-  ClientHeight = 411
-  ClientWidth = 496
+  ClientHeight = 373
+  ClientWidth = 676
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmAddresource: TfrmAddresource
   object dbgrdResource: TDBGrid
     Left = 0
     Top = 41
-    Width = 496
-    Height = 320
+    Width = 676
+    Height = 282
     Align = alClient
     DataSource = dsAddResource_cds
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -43,16 +43,16 @@ object frmAddresource: TfrmAddresource
   end
   object panButton: TPanel
     Left = 0
-    Top = 361
-    Width = 496
+    Top = 323
+    Width = 676
     Height = 50
     Align = alBottom
     TabOrder = 1
     DesignSize = (
-      496
+      676
       50)
     object btnCancel: TButton
-      Left = 390
+      Left = 570
       Top = 14
       Width = 75
       Height = 25
@@ -63,7 +63,7 @@ object frmAddresource: TfrmAddresource
       TabOrder = 0
     end
     object btnOk: TButton
-      Left = 293
+      Left = 473
       Top = 14
       Width = 75
       Height = 25
@@ -77,7 +77,7 @@ object frmAddresource: TfrmAddresource
   object panLabel: TPanel
     Left = 0
     Top = 0
-    Width = 496
+    Width = 676
     Height = 41
     Align = alTop
     TabOrder = 2
@@ -93,39 +93,14 @@ object frmAddresource: TfrmAddresource
       Layout = tlCenter
     end
   end
-  object qryAddResource: TADOQuery
-    Connection = fResGroup.ADOConnection1
-    CursorType = ctStatic
-    Parameters = <
-      item
-        Name = 'LOC_ID'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Size = 4
-        Value = Null
-      end
-      item
-        Name = 'RESOURCE_TYPE_CD'
-        Attributes = [paSigned]
-        DataType = ftSmallint
-        Precision = 5
-        Size = 2
-        Value = Null
-      end>
-    SQL.Strings = (
-      'SELECT * from RESOURCE_MSTR where LOC_ID=:LOC_ID and '
-      'RESOURCE_TYPE_CD=:RESOURCE_TYPE_CD;')
-    Left = 680
-    Top = 64
-  end
   object cdsAddResource: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspAddResource'
-    Left = 680
-    Top = 176
+    RemoteServer = fResGroup.dcomMain
+    Left = 160
+    Top = 160
     object cdsAddResourceRESOURCE_ID: TIntegerField
       FieldName = 'RESOURCE_ID'
     end
@@ -200,15 +175,10 @@ object frmAddresource: TfrmAddresource
       Size = 10
     end
   end
-  object dspAddResource: TDataSetProvider
-    DataSet = qryAddResource
-    Left = 680
-    Top = 120
-  end
   object dsAddResource_cds: TDataSource
     DataSet = cdsAddResource
-    Left = 688
-    Top = 248
+    Left = 256
+    Top = 160
   end
   object actAddResource: TActionList
     Left = 240

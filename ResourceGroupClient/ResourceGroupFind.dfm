@@ -155,10 +155,10 @@ object fResGrpSearch: TfResGrpSearch
     end
   end
   object cdsRES_GRP_MSTR: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspRES_GRP_MSTR'
+    ProviderName = 'dspRES_GRP_MSTR_FIND'
+    RemoteServer = fResGroup.dcomMain
     Left = 184
     Top = 176
   end
@@ -166,42 +166,6 @@ object fResGrpSearch: TfResGrpSearch
     DataSet = cdsRES_GRP_MSTR
     Left = 184
     Top = 232
-  end
-  object qryRES_GRP_MSTR: TADOQuery
-    Connection = fResGroup.ADOConnection1
-    CursorType = ctStatic
-    Parameters = <
-      item
-        Name = 'resource_group_name'
-        DataType = ftWideString
-        NumericScale = 255
-        Precision = 255
-        Size = 20
-        Value = Null
-      end
-      item
-        Name = 'resource_group_desc'
-        Attributes = [paNullable]
-        DataType = ftWideString
-        NumericScale = 255
-        Precision = 255
-        Size = 40
-        Value = Null
-      end>
-    SQL.Strings = (
-      
-        'select resource_group_name, resource_group_desc,  resource_group' +
-        '_id from resource_group_mstr WHERE resource_group_name like :res' +
-        'ource_group_name'
-      ' OR resource_group_desc like :resource_group_desc')
-    Left = 400
-    Top = 88
-  end
-  object dspRES_GRP_MSTR: TDataSetProvider
-    DataSet = qryRES_GRP_MSTR
-    Options = [poAllowCommandText, poUseQuoteChar]
-    Left = 400
-    Top = 144
   end
   object ActionList1: TActionList
     Left = 296

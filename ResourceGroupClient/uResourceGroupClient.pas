@@ -8,7 +8,7 @@ uses
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Menus,
   Vcl.ExtCtrls, Vcl.DBCtrls, Datasnap.Provider, Data.DB, Data.Win.ADODB,
   Vcl.StdCtrls, Vcl.Mask, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Samples.Spin;
+  Vcl.Samples.Spin, Datasnap.Win.MConnect;
 
 type
   TfResGroup = class(TForm)
@@ -32,9 +32,6 @@ type
     menuLast: TMenuItem;
     actList: TActionList;
     ImageEnable: TImageList;
-    qryRES_GRP_MSTR: TADOQuery;
-    ADOConnection1: TADOConnection;
-    dspRES_GRP_MSTR: TDataSetProvider;
     tbarTop: TToolBar;
     btnNew: TToolButton;
     btnDelete: TToolButton;
@@ -67,18 +64,10 @@ type
     actNext: TAction;
     actLast: TAction;
     dsUTL_TYPE_MSTR_cds: TDataSource;
-    dspRES_MSTR: TDataSetProvider;
-    qryRES_MSTR: TADOQuery;
-    qryRES_GRP: TADOQuery;
     cdsRES_GRP: TClientDataSet;
-    qryUTL_TYPE_MSTR: TADOQuery;
     dblkcbxUtilType: TDBLookupComboBox;
     dbgridResource: TDBGrid;
     dsRES_GRP_cds: TDataSource;
-    qryRES_GRPRESOURCE_GROUP_ID: TIntegerField;
-    qryRES_GRPRESOURCE_ID: TIntegerField;
-    qryRES_GRPUSE_GROUP_SETTINGS_IND: TWideStringField;
-    qryRES_GRPPRIORITY_INDEX: TIntegerField;
     cdsRES_GRPRESOURCE_GROUP_ID: TIntegerField;
     cdsRES_GRPRESOURCE_ID: TIntegerField;
     cdsRES_GRPResouceName: TStringField;
@@ -96,17 +85,6 @@ type
     btnNext: TToolButton;
     btnLast: TToolButton;
     sbarBottom: TStatusBar;
-    dsRES_GRP_MSTR: TDataSource;
-    qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
-    qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
-    qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
-    qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField;
-    qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField;
-    qryRES_GRP_MSTROPERATION_COST: TFloatField;
-    qryRES_GRP_MSTRPREP_TIME: TFloatField;
-    qryRES_GRP_MSTRCLEANUP_TIME: TFloatField;
-    qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField;
-    qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField;
     cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField;
     cdsRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField;
     cdsRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField;
@@ -130,7 +108,6 @@ type
     cdsRES_GRPLOC_ID: TIntegerField;
     cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField;
     cdsRES_GRPUSE_GROUP_DEFAULTS: TBooleanField;
-    qryRES_GRP_ID: TADOQuery;
     ImageDisable: TImageList;
     txtCLEANUP_TIME: TEdit;
     txtDAILY_CLEANUP_TIME: TEdit;
@@ -146,6 +123,10 @@ type
     panelResGrpOper: TPanel;
     btnAdd: TButton;
     btnRemove: TButton;
+    cdsUTL_TYPE_MSTR: TClientDataSet;
+    dcomMain: TDCOMConnection;
+    cdsRES_GRP_ID: TClientDataSet;
+    cdsRES_MSTR: TClientDataSet;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -345,20 +326,22 @@ begin
      listResId.Add(cdsRES_GRP.FieldByName('RESOURCE_ID').AsString);
      cdsRES_GRP.Next;
     end;
-    frmAddresource.cdsAddResource.Close;
     locId :=  cdsRES_GRP.FieldByName('LOC_ID').Value;
     resTypeId :=  cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
-    frmAddresource.qryAddResource.SQL.Clear;
-    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
-     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
+    frmAddresource.cdsAddResource.Close;
+    frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD =' +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  QuotedStr(listResId.CommaText)  +');';
+//    frmAddresource.qryAddResource.SQL.Clear;
+//    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
+//     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
     allowMultiSelect := True;
     frmAddresource.cdsAddResource.Open;
   end
   else
   begin
     frmAddresource.cdsAddResource.Close;
-    frmAddresource.qryAddResource.SQL.Clear;
-    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
+    frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;';
+//    frmAddresource.qryAddResource.SQL.Clear;
+//    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
     allowMultiSelect := False;
     frmAddresource.cdsAddResource.Open;
   end;
@@ -393,10 +376,8 @@ var
   nextid:integer;
 begin
   currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-  qryRES_GRP_ID.Close;
-  qryRES_GRP_ID.Open;
-  qryRES_GRP_ID.Last;
-  nextid := qryRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
+  cdsRES_GRP_ID.Last;
+  nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
   cdsRES_GRP_MSTR.Append;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
   cdsRES_GRP_MSTR.FieldByName('UTILIZATION_TYPE_CD').AsInteger := 1;
@@ -804,9 +785,9 @@ end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
 begin
-  if qryRES_GRP.Active then qryRES_GRP.Close;
-  qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-  qryRES_GRP.Open;
+//  if qryRES_GRP.Active then qryRES_GRP.Close;
+//  qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+//  qryRES_GRP.Open;
 end;
 
 procedure TfResGroup.SaveBoolean;

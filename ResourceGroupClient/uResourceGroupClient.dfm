@@ -2,8 +2,8 @@ object fResGroup: TfResGroup
   Left = 0
   Top = 0
   Caption = 'Resource Group'
-  ClientHeight = 520
-  ClientWidth = 903
+  ClientHeight = 509
+  ClientWidth = 927
   Color = clBtnFace
   Constraints.MinHeight = 500
   Constraints.MinWidth = 780
@@ -19,7 +19,7 @@ object fResGroup: TfResGroup
   object tbarTop: TToolBar
     Left = 0
     Top = 0
-    Width = 903
+    Width = 927
     Height = 25
     ButtonHeight = 25
     ButtonWidth = 26
@@ -147,7 +147,7 @@ object fResGroup: TfResGroup
   object panelMainDesc: TPanel
     Left = 0
     Top = 25
-    Width = 903
+    Width = 927
     Height = 24
     Align = alTop
     AutoSize = True
@@ -225,14 +225,14 @@ object fResGroup: TfResGroup
   object panelTimeParam: TPanel
     Left = 0
     Top = 49
-    Width = 903
+    Width = 927
     Height = 111
     Align = alTop
     TabOrder = 2
     object grpbxTimeParam: TGroupBox
       Left = 1
       Top = 1
-      Width = 901
+      Width = 925
       Height = 104
       Align = alTop
       Caption = 'Defaults'
@@ -426,8 +426,8 @@ object fResGroup: TfResGroup
   object dbgridResource: TDBGrid
     Left = 0
     Top = 160
-    Width = 903
-    Height = 315
+    Width = 927
+    Height = 304
     Align = alClient
     DataSource = dsRES_GRP_cds
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
@@ -492,25 +492,25 @@ object fResGroup: TfResGroup
   end
   object sbarBottom: TStatusBar
     Left = 0
-    Top = 501
-    Width = 903
+    Top = 490
+    Width = 927
     Height = 19
     Panels = <>
   end
   object panelResGrpOper: TPanel
     Left = 0
-    Top = 475
-    Width = 903
+    Top = 464
+    Width = 927
     Height = 26
     Align = alBottom
     Caption = 'panelResGrpOper'
     ShowCaption = False
     TabOrder = 5
     DesignSize = (
-      903
+      927
       26)
     object btnAdd: TButton
-      Left = 740
+      Left = 764
       Top = -1
       Width = 75
       Height = 25
@@ -519,7 +519,7 @@ object fResGroup: TfResGroup
       TabOrder = 0
     end
     object btnRemove: TButton
-      Left = 821
+      Left = 845
       Top = -1
       Width = 75
       Height = 25
@@ -1086,74 +1086,15 @@ object fResGroup: TfResGroup
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
   end
-  object qryRES_GRP_MSTR: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    AfterScroll = qryRES_GRP_MSTRAfterScroll
-    Parameters = <>
-    SQL.Strings = (
-      'select * from RESOURCE_GROUP_MSTR')
-    Left = 488
-    object qryRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
-      FieldName = 'RESOURCE_GROUP_ID'
-    end
-    object qryRES_GRP_MSTRRESOURCE_GROUP_NAME: TWideStringField
-      FieldName = 'RESOURCE_GROUP_NAME'
-    end
-    object qryRES_GRP_MSTRRESOURCE_TYPE_CD: TSmallintField
-      FieldName = 'RESOURCE_TYPE_CD'
-    end
-    object qryRES_GRP_MSTRRESOURCE_GROUP_DESC: TWideStringField
-      FieldName = 'RESOURCE_GROUP_DESC'
-      Size = 40
-    end
-    object qryRES_GRP_MSTRUTILIZATION_TYPE_CD: TSmallintField
-      FieldName = 'UTILIZATION_TYPE_CD'
-    end
-    object qryRES_GRP_MSTROPERATION_COST: TFloatField
-      FieldName = 'OPERATION_COST'
-    end
-    object qryRES_GRP_MSTRPREP_TIME: TFloatField
-      FieldName = 'PREP_TIME'
-    end
-    object qryRES_GRP_MSTRCLEANUP_TIME: TFloatField
-      FieldName = 'CLEANUP_TIME'
-    end
-    object qryRES_GRP_MSTRDAILY_STARTUP_TIME: TFloatField
-      FieldName = 'DAILY_STARTUP_TIME'
-    end
-    object qryRES_GRP_MSTRDAILY_CLEANUP_TIME: TFloatField
-      FieldName = 'DAILY_CLEANUP_TIME'
-    end
-  end
-  object ADOConnection1: TADOConnection
-    Connected = True
-    ConnectionString = 
-      'Provider=SQLOLEDB.1;Password=Pass_word0;Persist Security Info=Tr' +
-      'ue;User ID=SCP71Demo;Initial Catalog=SCP71Demo;Data Source=tcp:1' +
-      '0.183.137.40;Use Procedure for Prepare=1;Auto Translate=True;Pac' +
-      'ket Size=4096;Workstation ID=APT05-CM3VPN2;Use Encryption for Da' +
-      'ta=False;Tag with column collation when possible=False'
-    LoginPrompt = False
-    Provider = 'SQLOLEDB.1'
-    Left = 392
-    Top = 65520
-  end
-  object dspRES_GRP_MSTR: TDataSetProvider
-    DataSet = qryRES_GRP_MSTR
-    Options = [poCascadeDeletes, poCascadeUpdates, poUseQuoteChar]
-    Left = 528
-    Top = 80
-  end
   object cdsRES_GRP_MSTR: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRES_GRP_MSTR'
+    RemoteServer = dcomMain
     AfterScroll = cdsRES_GRP_MSTRAfterScroll
-    Left = 448
-    Top = 296
+    Left = 440
+    Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
       FieldName = 'RESOURCE_GROUP_ID'
     end
@@ -1192,69 +1133,13 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_MSTR_cds: TDataSource
     DataSet = cdsRES_GRP_MSTR
-    Left = 440
-    Top = 352
-  end
-  object qryUTL_TYPE_MSTR: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from UTILIZATION_TYPE_MSTR')
-    Left = 728
+    Left = 552
+    Top = 224
   end
   object dsUTL_TYPE_MSTR_cds: TDataSource
-    DataSet = qryUTL_TYPE_MSTR
-    Left = 656
-    Top = 360
-  end
-  object dspRES_MSTR: TDataSetProvider
-    DataSet = qryRES_MSTR
-    Left = 648
-    Top = 80
-  end
-  object qryRES_MSTR: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    Parameters = <>
-    SQL.Strings = (
-      'select * from RESOURCE_MSTR'
-      '')
-    Left = 640
-  end
-  object qryRES_GRP: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    DataSource = dsRES_GRP_MSTR
-    Parameters = <
-      item
-        Name = 'RESOURCE_GROUP_ID'
-        Attributes = [paSigned]
-        DataType = ftInteger
-        Precision = 10
-        Value = 1
-      end>
-    SQL.Strings = (
-      'select * from RESOURCE_GROUPS'
-      ' WHERE RESOURCE_GROUP_ID =:RESOURCE_GROUP_ID')
+    DataSet = cdsUTL_TYPE_MSTR
     Left = 552
-    object qryRES_GRPRESOURCE_GROUP_ID: TIntegerField
-      FieldName = 'RESOURCE_GROUP_ID'
-    end
-    object qryRES_GRPRESOURCE_ID: TIntegerField
-      FieldName = 'RESOURCE_ID'
-    end
-    object qryRES_GRPUSE_GROUP_SETTINGS_IND: TWideStringField
-      FieldName = 'USE_GROUP_SETTINGS_IND'
-      FixedChar = True
-      Size = 1
-    end
-    object qryRES_GRPPRIORITY_INDEX: TIntegerField
-      FieldName = 'PRIORITY_INDEX'
-    end
+    Top = 336
   end
   object cdsRES_GRP: TClientDataSet
     Active = True
@@ -1262,13 +1147,14 @@ object fResGroup: TfResGroup
     DataSetField = cdsRES_GRP_MSTRqryRES_GRP
     Filtered = True
     Params = <>
+    RemoteServer = dcomMain
     OnCalcFields = cdsRES_GRPCalcFields
-    Left = 536
-    Top = 296
+    Left = 440
+    Top = 280
     object cdsRES_GRPResouceName: TStringField
       FieldKind = fkLookup
       FieldName = 'Resource Name'
-      LookupDataSet = qryRES_MSTR
+      LookupDataSet = cdsRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_NAME'
       KeyFields = 'RESOURCE_ID'
@@ -1279,7 +1165,7 @@ object fResGroup: TfResGroup
     object cdsRES_GRPResourceDescription: TStringField
       FieldKind = fkLookup
       FieldName = 'Resource Description'
-      LookupDataSet = qryRES_MSTR
+      LookupDataSet = cdsRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_DESC'
       KeyFields = 'RESOURCE_ID'
@@ -1316,7 +1202,6 @@ object fResGroup: TfResGroup
     object cdsRES_GRPLOC_ID: TIntegerField
       FieldKind = fkLookup
       FieldName = 'LOC_ID'
-      LookupDataSet = qryRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'LOC_ID'
       KeyFields = 'RESOURCE_ID'
@@ -1327,7 +1212,6 @@ object fResGroup: TfResGroup
     object cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField
       FieldKind = fkLookup
       FieldName = 'RESOURCE_TYPE_CD'
-      LookupDataSet = qryRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_TYPE_CD'
       KeyFields = 'RESOURCE_ID'
@@ -1338,13 +1222,8 @@ object fResGroup: TfResGroup
   end
   object dsRES_GRP_cds: TDataSource
     DataSet = cdsRES_GRP
-    Left = 536
-    Top = 360
-  end
-  object dsRES_GRP_MSTR: TDataSource
-    DataSet = qryRES_GRP_MSTR
-    Left = 448
-    Top = 48
+    Left = 552
+    Top = 280
   end
   object pMenuOrdBy: TPopupMenu
     Images = ImageEnable
@@ -1358,16 +1237,6 @@ object fResGroup: TfResGroup
       Action = actOrdByDesc
       Caption = '&2 Description'
     end
-  end
-  object qryRES_GRP_ID: TADOQuery
-    Active = True
-    Connection = ADOConnection1
-    CursorType = ctStatic
-    DataSource = dsRES_GRP_MSTR
-    Parameters = <>
-    SQL.Strings = (
-      'select * from RESOURCE_GROUP_MSTR ORDER BY resource_group_id;')
-    Left = 824
   end
   object ImageDisable: TImageList
     Left = 216
@@ -1775,5 +1644,40 @@ object fResGroup: TfResGroup
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
+  end
+  object cdsUTL_TYPE_MSTR: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspUTL_TYPE_MSTR'
+    RemoteServer = dcomMain
+    Left = 440
+    Top = 336
+  end
+  object dcomMain: TDCOMConnection
+    Connected = True
+    ServerGUID = '{B00C20A6-E999-4626-8839-850BE25C0855}'
+    ServerName = 'ResourceGroupServer.RGS'
+    ComputerName = 'APT05-23RTPN2'
+    Left = 320
+    Top = 224
+  end
+  object cdsRES_GRP_ID: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRES_GRP_ID'
+    RemoteServer = dcomMain
+    Left = 792
+    Top = 16
+  end
+  object cdsRES_MSTR: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRES_MSTR'
+    RemoteServer = dcomMain
+    Left = 440
+    Top = 392
   end
 end

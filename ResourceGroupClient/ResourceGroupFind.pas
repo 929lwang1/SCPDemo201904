@@ -24,8 +24,6 @@ type
     dbgridResults: TDBGrid;
     cdsRES_GRP_MSTR: TClientDataSet;
     dsRES_GRP_MSTR_cds: TDataSource;
-    qryRES_GRP_MSTR: TADOQuery;
-    dspRES_GRP_MSTR: TDataSetProvider;
     ActionList1: TActionList;
     actGo: TAction;
     actClose: TAction;
@@ -73,6 +71,7 @@ end;
 procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
 var
 InqStr:String;
+newsql:TStringBuilder;
 begin
   cbxNameDesc.AddItem(cbxNameDesc.Text,nil);
   if cbxFindCondition.Text = 'Starts With' then
@@ -82,21 +81,27 @@ begin
       InqStr := '%' + cbxNameDesc.Text + '%'
     else
       InqStr := '%' + cbxNameDesc.Text;
-  dsRES_GRP_MSTR_cds.Enabled := FALSE;
+//  dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
+  newsql := TStringBuilder.Create;
+  newsql.Clear;
   if cbxFindBy.Text = 'Name' then
   begin
-    cdsRES_GRP_MSTR.CommandText := 'select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_name like :resource_group_name order by resource_group_name';
-    cdsRES_GRP_MSTR.Params.ParamByName('RESOURCE_GROUP_NAME').AsString := InqStr;
+    newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_name like ');
+    newsql.Append(QuotedStr(InqStr));
+    newsql.Append(' order by resource_group_name');
+    cdsRES_GRP_MSTR.CommandText := newsql.ToString;
   end
   else
   begin
-    cdsRES_GRP_MSTR.CommandText := 'select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like :resource_group_desc order by resource_group_desc';
-    cdsRES_GRP_MSTR.Params.ParamByName('RESOURCE_GROUP_DESC').AsString := InqStr;
+    newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like ');
+    newsql.Append(QuotedStr(InqStr));
+    newsql.Append(' order by resource_group_desc');
+    cdsRES_GRP_MSTR.CommandText := newsql.ToString;
   end;
   ResetGridFields(cbxFindBy.Text);
   cdsRES_GRP_MSTR.Open;
-  dsRES_GRP_MSTR_cds.Enabled := TRUE;
+//  dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
