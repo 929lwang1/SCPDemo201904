@@ -71,4 +71,5 @@ end;
 initialization
   TComponentFactory.Create(ComServer, TRGS,
     Class_RGS, ciMultiInstance, tmApartment);
+  ComServer.UpdateRegistry(True);
 end.

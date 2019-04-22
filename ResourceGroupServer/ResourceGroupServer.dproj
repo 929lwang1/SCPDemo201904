@@ -100,12 +100,10 @@
         </DelphiCompile>
         <DCCReference Include="uResourceGroupServer.pas">
             <Form>Form9</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="ResourceGroupServer_TLB.pas"/>
         <DCCReference Include="uServer.pas">
             <Form>RGS</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TRemoteDataModule</DesignClass>
             <CoClasses>RGS</CoClasses>
         </DCCReference>
