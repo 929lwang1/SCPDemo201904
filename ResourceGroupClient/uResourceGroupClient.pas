@@ -376,6 +376,9 @@ var
   nextid:integer;
 begin
   currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+  cdsRES_GRP_ID.Close;
+  cdsRES_GRP_ID.CommandText := 'select max(resource_group_id) as RESOURCE_GROUP_ID from resource_group_mstr';
+  cdsRES_GRP_ID.Open;
   nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
   cdsRES_GRP_MSTR.Append;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;

@@ -22,3 +22,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 21,ResourceGroupClient-20190422-1452.exe,update the client to connect remote server
 22,ResourceGroupClient-20190422-0327.exe,Order by name when first open
 23,ResourceGroupClient-20190422-1646.exe,Fix duplicated name validation
+24,ResourceGroupClient-20190422-1707.exe,fix error 'Linkfields to detail must be unique.' in new mode when add resources
