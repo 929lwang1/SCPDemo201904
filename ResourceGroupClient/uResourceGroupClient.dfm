@@ -1660,7 +1660,7 @@ object fResGroup: TfResGroup
     Connected = True
     ServerGUID = '{B00C20A6-E999-4626-8839-850BE25C0855}'
     ServerName = 'ResourceGroupServer.RGS'
-    ComputerName = 'APT05-GHVVPN2'
+    ComputerName = '10.183.137.40'
     Left = 320
     Top = 224
   end
