@@ -20,3 +20,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 19,ResourceGroupClient-20190422-1127.exe,update LookupDataSet and DataSource field to fix several bugs exists
 20,ResourceGroupClient-20190422-1317.exe,delete unnecessary messages and disable navigation buttons when remove resource from grid
 21,ResourceGroupClient-20190422-1452.exe,update the client to connect remote server
+22,ResourceGroupClient-20190422-0327.exe,Order by name when first open

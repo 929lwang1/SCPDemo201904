@@ -227,6 +227,8 @@ begin
   end
   else
     inherited Create(AOwner);
+  if cdsRES_GRP_MSTR.IndexFieldNames = '' then
+     cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
 end;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
@@ -373,7 +375,6 @@ var
   nextid:integer;
 begin
   currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-  cdsRES_GRP_ID.Last;
   nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
   cdsRES_GRP_MSTR.Append;
   cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
