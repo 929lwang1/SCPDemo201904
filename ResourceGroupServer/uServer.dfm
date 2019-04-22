@@ -125,7 +125,6 @@ object RGS: TRGS
     Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
-    DataSource = dsRES_GRP_MSTR
     Parameters = <>
     SQL.Strings = (
       'select * from RESOURCE_GROUP_MSTR ORDER BY resource_group_id;')

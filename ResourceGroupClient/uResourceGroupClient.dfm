@@ -1202,6 +1202,7 @@ object fResGroup: TfResGroup
     object cdsRES_GRPLOC_ID: TIntegerField
       FieldKind = fkLookup
       FieldName = 'LOC_ID'
+      LookupDataSet = cdsRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'LOC_ID'
       KeyFields = 'RESOURCE_ID'
@@ -1212,6 +1213,7 @@ object fResGroup: TfResGroup
     object cdsRES_GRPRESOURCE_TYPE_CD: TIntegerField
       FieldKind = fkLookup
       FieldName = 'RESOURCE_TYPE_CD'
+      LookupDataSet = cdsRES_MSTR
       LookupKeyFields = 'RESOURCE_ID'
       LookupResultField = 'RESOURCE_TYPE_CD'
       KeyFields = 'RESOURCE_ID'
@@ -1658,7 +1660,7 @@ object fResGroup: TfResGroup
     Connected = True
     ServerGUID = '{B00C20A6-E999-4626-8839-850BE25C0855}'
     ServerName = 'ResourceGroupServer.RGS'
-    ComputerName = 'APT05-23RTPN2'
+    ComputerName = 'APT05-GHVVPN2'
     Left = 320
     Top = 224
   end

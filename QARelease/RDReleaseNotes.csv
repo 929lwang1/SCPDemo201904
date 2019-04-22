@@ -17,3 +17,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 16,ResourceGroupClient-20190419-1503.exe,"set search grid columns dynamically based on the Find criteria, with other search form enhancement"
 17,ResourceGroupClient-20190419-1513,"do not preserve time when reopen, fix add grid selection"
 18,ResourceGroupClient-20190422-0800.exe,"split the sever and client, do not use this version to test, several bugs exists"
+19,ResourceGroupClient-209190422-1127.exe,update LookupDataSet and DataSource field to fix several bugs exists
