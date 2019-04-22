@@ -1,0 +1,19 @@
+ReleaseSeq,ReleaseProjectName,RD Release Notes
+1,ResourceGroupClient-20190417-1100.exe,Cancel button fix
+2,ResourceGroupClient-20190417-1108.exe,Fix New button error
+3,ResourceGroupClient-20190417-1114.exe,disable Tcombobox for time list
+4,ResourceGroupClient-20190417-1330.exe,Recommit Grid checkbox bug
+5,ResourceGroupClient-20190417-1336.exe,close search form when double click a row with 'Close On Go' turned ON
+6,ResourceGroupClient-20190417-1546.exe,fix error 'Linkfields to detail must be unique.' in new mode when add resources
+7,ResourceGroupClient-20190417-1600.exe,Fix ok button enable state in add form
+8,ResourceGroupClient-20190417-1610.exe,"Fix navigation button state when do new, cancel "
+9,ResourceGroupClient-20190418-1448.exe,clean previous searching result when launching Search form for the second time
+10,ResourceGroupClient-20190417-1620.exe,make order by and goto work. Also remenber the order by selection when reopen
+11,ResourceGroupClient-20190417-1700.exe,Coding standard enhancement
+12,ResourceGroupClient-20190418-1736.exe,refresh search grid correctly when switching search filters
+13,ResourceGroupClient-20190418-1827.exe,convert and save time
+14,ResourceGroupClient-20190419-1324.exe,fix issue that cannot change time UM in New mode
+15,ResourceGroupClient-20190419-1442.exe,Fix checkbox issue - save use group defaults incorrectly
+16,ResourceGroupClient-20190419-1503.exe,"set search grid columns dynamically based on the Find criteria, with other search form enhancement"
+17,ResourceGroupClient-20190419-1513,"do not preserve time when reopen, fix add grid selection"
+18,ResourceGroupClient-20190422-0800.exe,"split the sever and client, do not use this version to test, several bugs exists"
