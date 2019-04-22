@@ -255,12 +255,9 @@ begin
     begin
       cdsRES_GRP_MSTR.Delete;
       cdsRES_GRP_MSTR.ApplyUpdates(0);
-      ShowMessage('Record is deleted successfully.');
     end;
   mrNo:
-    begin
-      ShowMessage('Delete operation is cancelled.');
-    end;
+    ;
   end;
 end;
 
@@ -306,7 +303,7 @@ end;
 
 procedure TfResGroup.actFirstUpdate(Sender: TObject);
 begin
-  actFirst.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse);
+  actFirst.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.actAddExecute(Sender: TObject);
@@ -368,7 +365,7 @@ end;
 
 procedure TfResGroup.actLastUpdate(Sender: TObject);
 begin
-  actLast.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse);
+  actLast.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.actNewExecute(Sender: TObject);
@@ -397,7 +394,7 @@ end;
 
 procedure TfResGroup.actNextUpdate(Sender: TObject);
 begin
-  actNext.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse);
+  actNext.Enabled := not cdsRES_GRP_MSTR.Eof and (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
@@ -421,7 +418,7 @@ end;
 
 procedure TfResGroup.actPriorUpdate(Sender: TObject);
 begin
-  actPrior.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse);
+  actPrior.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
 end;
 
 procedure TfResGroup.SetallowMultiSelect(Value: boolean);
