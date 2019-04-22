@@ -36,6 +36,7 @@ type
     procedure RefreshRec;
     procedure ResetGridFields(ipOrdBy: String);
     procedure CloseForm;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -81,7 +82,7 @@ begin
       InqStr := '%' + cbxNameDesc.Text + '%'
     else
       InqStr := '%' + cbxNameDesc.Text;
-//  dsRES_GRP_MSTR_cds.Enabled := FALSE;
+  dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
   newsql := TStringBuilder.Create;
   newsql.Clear;
@@ -101,12 +102,21 @@ begin
   end;
   ResetGridFields(cbxFindBy.Text);
   cdsRES_GRP_MSTR.Open;
-//  dsRES_GRP_MSTR_cds.Enabled := TRUE;
+  dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
 begin
    RefreshRec;
+end;
+
+procedure TfResGrpSearch.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  dsRES_GRP_MSTR_cds.Enabled := FALSE;
+  cdsRES_GRP_MSTR.Close;
+  cbxFindBy.ItemIndex := 0;
+  cbxFindCondition.ItemIndex := 0;
+  ResetGridFields('Name');
 end;
 
 procedure TfResGrpSearch.RefreshRec();
@@ -153,11 +163,6 @@ end;
 
 procedure TfResGrpSearch.CloseForm();
 begin
-  dsRES_GRP_MSTR_cds.Enabled := FALSE;
-  cdsRES_GRP_MSTR.Close;
-  cbxFindBy.ItemIndex := 0;
-  cbxFindCondition.ItemIndex := 0;
-  ResetGridFields('Name');
   fResGrpSearch.Close;
 end;
 end.
