@@ -113,7 +113,12 @@ procedure TfResGrpSearch.RefreshRec();
 var
   opResGrpID:Integer;
 begin
-  opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+  if not cdsRES_GRP_MSTR.Active then
+    cdsRES_GRP_MSTR.Open;
+  if cdsRES_GRP_MSTR.RecordCount <> 0 then
+    opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value
+  else
+    opResGrpID :=0;
   fResGroup.RepRecs(opResGrpID);
   if tglCloseOnGo.Checked = TRUE then CloseForm;
 end;
