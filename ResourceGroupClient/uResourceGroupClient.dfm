@@ -1682,4 +1682,13 @@ object fResGroup: TfResGroup
     Left = 440
     Top = 392
   end
+  object cdsRES_GRP_MSTR_DUP: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRES_GRP_MSTR_DUP'
+    RemoteServer = dcomMain
+    Left = 792
+    Top = 96
+  end
 end

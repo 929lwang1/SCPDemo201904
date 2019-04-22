@@ -122,7 +122,6 @@ object RGS: TRGS
     Top = 280
   end
   object qryRES_GRP_ID: TADOQuery
-    Active = True
     Connection = ADOConnection1
     CursorType = ctStatic
     Parameters = <>
@@ -145,7 +144,7 @@ object RGS: TRGS
   end
   object dspRES_GRP_ID: TDataSetProvider
     DataSet = qryRES_GRP_ID
-    Options = [poAutoRefresh, poUseQuoteChar]
+    Options = [poAutoRefresh, poAllowCommandText, poUseQuoteChar]
     Left = 208
     Top = 168
   end
@@ -221,5 +220,19 @@ object RGS: TRGS
       ' OR resource_group_desc like :resource_group_desc')
     Left = 594
     Top = 216
+  end
+  object qryRES_GRP_MSTR_DUP: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    SQL.Strings = (
+      'select * from RESOURCE_GROUP_MSTR;')
+    Left = 592
+    Top = 136
+  end
+  object dspRES_GRP_MSTR_DUP: TDataSetProvider
+    DataSet = qryRES_GRP_MSTR_DUP
+    Options = [poAllowCommandText, poUseQuoteChar]
+    Left = 720
+    Top = 136
   end
 end

@@ -41,6 +41,8 @@ type
     dspRES_GRP_MSTR_FIND: TDataSetProvider;
     dspRES_GRP: TDataSetProvider;
     qryRES_GRP_MSTR_FIND: TADOQuery;
+    qryRES_GRP_MSTR_DUP: TADOQuery;
+    dspRES_GRP_MSTR_DUP: TDataSetProvider;
   private
     { Private declarations }
   protected

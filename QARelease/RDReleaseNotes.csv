@@ -21,3 +21,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 20,ResourceGroupClient-20190422-1317.exe,delete unnecessary messages and disable navigation buttons when remove resource from grid
 21,ResourceGroupClient-20190422-1452.exe,update the client to connect remote server
 22,ResourceGroupClient-20190422-0327.exe,Order by name when first open
+23,ResourceGroupClient-20190422-1646.exe,Fix duplicated name validation

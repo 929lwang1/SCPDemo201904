@@ -127,6 +127,7 @@ type
     dcomMain: TDCOMConnection;
     cdsRES_GRP_ID: TClientDataSet;
     cdsRES_MSTR: TClientDataSet;
+    cdsRES_GRP_MSTR_DUP: TClientDataSet;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -566,6 +567,14 @@ begin
   if cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString = '' then
   begin
     Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
+    exit;
+  end;
+  cdsRES_GRP_MSTR_DUP.Close;
+  cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString) + ';';
+  cdsRES_GRP_MSTR_DUP.Open;
+  if cdsRES_GRP_MSTR_DUP.IsEmpty = False then
+  begin
+    Application.MessageBox('Entity already exists in database; cannot save.','Error',MB_OK+MB_ICONHAND);
     exit;
   end;
   if cdsRES_GRP.RecordCount = 0 then
