@@ -329,7 +329,7 @@ begin
     locId :=  cdsRES_GRP.FieldByName('LOC_ID').Value;
     resTypeId :=  cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
     frmAddresource.cdsAddResource.Close;
-    frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD =' +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  QuotedStr(listResId.CommaText)  +');';
+    frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD =' +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');';
 //    frmAddresource.qryAddResource.SQL.Clear;
 //    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
 //     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
