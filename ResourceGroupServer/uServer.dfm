@@ -127,7 +127,9 @@ object RGS: TRGS
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'select MAX(RESOURCE_GROUP_ID) from RESOURCE_GROUP_MSTR;')
+      
+        'select MAX(RESOURCE_GROUP_ID)  as RESOURCE_GROUP_ID from RESOURC' +
+        'E_GROUP_MSTR;')
     Left = 114
     Top = 168
   end
