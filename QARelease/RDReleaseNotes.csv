@@ -27,3 +27,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 26,ResourceGroupClient-20190422-1735.exe,fix error when add resource twice
 27,ResourceGroupClient-20190422-1745.exe,"fix search grid when loading the search form for the second time, and reset the screen when exit from search with window close button"
 28,ResourceGroupClient-20190423-0917.exe,fix unexpected message 'entity already exists in database; cannot save.' in update mode
+29,ResourceGroupClient-20190423-1534.exe,Fix 'Entity already exists in database' poping up when clicking new button

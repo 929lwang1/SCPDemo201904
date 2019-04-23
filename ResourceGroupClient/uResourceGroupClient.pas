@@ -233,9 +233,12 @@ begin
 end;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
+var
+  tempRec:Integer;
 begin
+  tempRec := currentRec;
   cdsRES_GRP_MSTR.CancelUpdates();
-  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',currentRec,[]);
+  cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',tempRec,[]);
   cdsRES_GRP_MSTR.Prior;
   if not cdsRES_GRP_MSTR.Bof then
   begin
@@ -720,7 +723,8 @@ begin
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
   seditOPER_COST.OnChange :=seditOPER_COSTChange;
-  currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+  if cdsRES_GRP_MSTR.State <> dsInsert then
+    currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
 end;
 
 
