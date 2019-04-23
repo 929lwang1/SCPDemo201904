@@ -567,9 +567,14 @@ procedure TfResGroup.actSaveExecute(Sender: TObject);
 var
   i:integer;
 begin
-  if cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString = '' then
+  if dbeName.text = '' then
   begin
     Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
+    exit;
+  end;
+  if cdsRES_GRP.RecordCount = 0 then
+  begin
+    Application.MessageBox('A group must contain at least one resource.','Error',MB_OK+MB_ICONHAND);
     exit;
   end;
   cdsRES_GRP_MSTR_DUP.Close;
@@ -579,10 +584,6 @@ begin
   begin
     Application.MessageBox('Entity already exists in database; cannot save.','Error',MB_OK+MB_ICONHAND);
     exit;
-  end;
-  if cdsRES_GRP.RecordCount = 0 then
-  begin
-    ShowMessage('A group mustRecordCount contain at least one resource.');
   end
   else
   begin
