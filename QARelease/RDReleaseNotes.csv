@@ -29,3 +29,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 28,ResourceGroupClient-20190423-0917.exe,fix unexpected message 'entity already exists in database; cannot save.' in update mode
 29,ResourceGroupClient-20190423-1534.exe,Fix 'Entity already exists in database' poping up when clicking new button
 30,ResourceGroupClient-20190423-1622.exe,Fix the above issue
+31,ResourceGroupClient-20190423-1716.exe,Still the above issue
