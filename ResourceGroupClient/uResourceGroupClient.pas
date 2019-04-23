@@ -576,7 +576,7 @@ begin
     exit;
   end;
   cdsRES_GRP_MSTR_DUP.Close;
-  cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString) + ';';
+  cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(dbeName.Text);
   cdsRES_GRP_MSTR_DUP.Open;
   if (cdsRES_GRP_MSTR_DUP.IsEmpty = False) AND (currentRec <> cdsRES_GRP_MSTR_DUP.FieldByName('RESOURCE_GROUP_ID').AsInteger) then
   begin
