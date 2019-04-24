@@ -357,7 +357,6 @@ begin
   cdsRES_GRP_ID.Close;
   cdsRES_GRP_ID.Open;
   nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
-  cdsRES_GRP_MSTR.OnNewRecord := cdsRES_GRP_MSTRNewRecord;
   cdsRES_GRP_MSTR.Append;
 end;
 
