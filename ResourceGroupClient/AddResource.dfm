@@ -1,7 +1,7 @@
 object frmAddresource: TfrmAddresource
   Left = 0
   Top = 0
-  Caption = 'Add resource'
+  Caption = 'Add resource(s)'
   ClientHeight = 373
   ClientWidth = 676
   Color = clBtnFace
@@ -108,12 +108,14 @@ object frmAddresource: TfrmAddresource
       FieldName = 'LOC_ID'
     end
     object cdsAddResourceRESOURCE_NAME: TWideStringField
+      DisplayLabel = 'Resource Name'
       FieldName = 'RESOURCE_NAME'
     end
     object cdsAddResourceRESOURCE_TYPE_CD: TSmallintField
       FieldName = 'RESOURCE_TYPE_CD'
     end
     object cdsAddResourceRESOURCE_DESC: TWideStringField
+      DisplayLabel = 'Resource Description'
       FieldName = 'RESOURCE_DESC'
       Size = 40
     end
