@@ -312,6 +312,7 @@ object fResGroup: TfResGroup
         TabOrder = 0
         Value = 0
         OnChange = seditOPER_COSTChange
+        OnExit = seditOPER_COSTExit
       end
       object txtPREP_TIME: TEdit
         Left = 153
@@ -1117,6 +1118,7 @@ object fResGroup: TfResGroup
     end
     object cdsRES_GRP_MSTRPREP_TIME: TFloatField
       FieldName = 'PREP_TIME'
+      MaxValue = 2147483647.000000000000000000
     end
     object cdsRES_GRP_MSTRCLEANUP_TIME: TFloatField
       FieldName = 'CLEANUP_TIME'

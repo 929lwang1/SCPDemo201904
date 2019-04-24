@@ -168,6 +168,7 @@ type
     procedure txtPREP_TIMEChange(Sender: TObject);
     procedure txtCLEANUP_TIMEChange(Sender: TObject);
     procedure txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
+    procedure seditOPER_COSTExit(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -213,7 +214,6 @@ begin
   end;
 end;
 constructor TfResGroup.Create(AOwner: TComponent);
-
 begin
   if FileExists(ExtractFilePath(Application.ExeName) + ClassName + '.fs') then
   begin
@@ -347,7 +347,6 @@ begin
   end;
   try
     frmAddresource.ShowModal;
-  finally
     strResId :=  frmAddresource.strResourceId.Split(['^']);
 
     for i := 0 to High(strResId) do
@@ -355,8 +354,7 @@ begin
       cdsRES_GRP.AppendRecord(['','','0','N','',strResId[i],cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').value,'','']);
       // cdsRES_GRP.Post;   this will cause error: Project ResourceGroupClient.exe raised exception class EDatabaseError with message 'cdsRES_GRP: Dataset not in edit or insert mode'.
     end;
-    //ShowMessage('AAA cdsRES_GRP_MSTR.ChangeCount = ' + IntToStr(cdsRES_GRP_MSTR.ChangeCount));
-    //ShowMessage('BBB cdsRES_GRP.ChangeCount = ' + IntToStr(cdsRES_GRP.ChangeCount));
+  finally
     frmAddresource.Free;
   end;
 end;
@@ -567,6 +565,7 @@ procedure TfResGroup.actSaveExecute(Sender: TObject);
 var
   i:integer;
 begin
+  seditOPER_COSTExit(self);
   if dbeName.text = '' then
   begin
     Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
@@ -720,9 +719,8 @@ begin
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
-  seditOPER_COST.OnChange :=seditOPER_COSTChange;
+  seditOPER_COST.OnChange := seditOPER_COSTChange;
 end;
-
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);
 begin
@@ -810,11 +808,27 @@ end;
 
 procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
-  if seditOPER_COST.Value > seditOPER_COST.MaxValue then
-    seditOPER_COST.Value :=seditOPER_COST.MaxValue;
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
   cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+end;
+
+procedure TfResGroup.seditOPER_COSTExit(Sender: TObject);
+begin
+  if StrToFloat(seditOPER_COST.Text) > seditOPER_COST.MaxValue then
+  begin
+    seditOPER_COST.Text := seditOPER_COST.MaxValue.ToString;
+    seditOPER_COST.Value :=  seditOPER_COST.MaxValue;
+    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
+       cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+  end;
+  if StrToFloat(seditOPER_COST.Text) < seditOPER_COST.MinValue then
+  begin
+    seditOPER_COST.Text := seditOPER_COST.MinValue.ToString;
+    seditOPER_COST.Value :=  seditOPER_COST.MinValue;
+    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
+       cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+  end;
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);

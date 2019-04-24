@@ -43,11 +43,10 @@ type
     procedure FormActivate(Sender: TObject);
     procedure actOKUpdate(Sender: TObject);
   private
-    FstrResourceId: String;
-    procedure SetstrResourceId(Value: String);
+    FResourceId: String;
     { Private declarations }
   public
-    property strResourceId: string read FstrResourceId write SetstrResourceId;
+    property strResourceId: string read FResourceId;
     { Public declarations }
   end;
 
@@ -69,41 +68,32 @@ procedure TfrmAddresource.btnCancelClick(Sender: TObject);
 begin
    frmAddresource.Close;
 end;
-procedure TfrmAddresource.SetstrResourceId(Value: String);
-begin
-  if FstrResourceId <> Value then
-  begin
-    FstrResourceId := Value;
-  // Repaint;    // update user interface to reflect new value
-  end;
-end;
+
 procedure TfrmAddresource.btnOkClick(Sender: TObject);
 var i:Integer;
 begin
   if dbgrdResource.SelectedRows.Count > 0 then
   begin
-    FstrResourceId := '';
+    FResourceId := '';
     with dbgrdResource.DataSource.DataSet do
     begin
       for i:=0 to dbgrdResource.SelectedRows.Count-1 do
       begin
         GotoBookmark(dbgrdResource.SelectedRows.Items[i]);
-        if FstrResourceId = '' then
+        if FResourceId = '' then
         begin
-          FstrResourceId := FstrResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+          FResourceId := FResourceId + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
         end
         else
         begin
-          FstrResourceId := FstrResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
+          FResourceId := FResourceId + '^' + cdsAddResource.FieldByName('RESOURCE_ID').AsString;
         end;
       end;
     end;
-    frmAddresource.SetstrResourceId(FstrResourceId);
   end
   else
   begin
-    FstrResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
-    frmAddresource.SetstrResourceId(FstrResourceId);
+    FResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
   end;
   frmAddresource.Close;
 end;
