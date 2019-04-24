@@ -810,7 +810,7 @@ procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
-  cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+ // cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
 end;
 
 procedure TfResGroup.seditOPER_COSTExit(Sender: TObject);
@@ -819,16 +819,14 @@ begin
   begin
     seditOPER_COST.Text := seditOPER_COST.MaxValue.ToString;
     seditOPER_COST.Value :=  seditOPER_COST.MaxValue;
-    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
-       cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
   end;
   if StrToFloat(seditOPER_COST.Text) < seditOPER_COST.MinValue then
   begin
     seditOPER_COST.Text := seditOPER_COST.MinValue.ToString;
     seditOPER_COST.Value :=  seditOPER_COST.MinValue;
-    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
-       cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
   end;
+  if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
+    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
