@@ -123,14 +123,17 @@ procedure TfResGrpSearch.RefreshRec();
 var
   opResGrpID:Integer;
 begin
-  if not cdsRES_GRP_MSTR.Active then
-    cdsRES_GRP_MSTR.Open;
-  if cdsRES_GRP_MSTR.RecordCount <> 0 then
-    opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value
-  else
-    opResGrpID :=0;
-  fResGroup.RepRecs(opResGrpID);
-  if tglCloseOnGo.Checked = TRUE then CloseForm;
+  if cdsRES_GRP_MSTR.Active then
+  begin
+    if cdsRES_GRP_MSTR.RecordCount > 0 then
+    begin
+      opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
+      fResGroup.RepRecs(opResGrpID);
+      if (tglCloseOnGo.Checked = TRUE) then CloseForm;
+    end
+    else
+      opResGrpID := 0;
+  end;
 end;
 
 procedure TfResGrpSearch.ResetGridFields(ipOrdBy: String);

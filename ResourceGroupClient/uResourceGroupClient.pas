@@ -248,7 +248,7 @@ end;
 
 procedure TfResGroup.actCancelUpdate(Sender: TObject);
 begin
-  actCancel.Enabled := (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
+  actCancel.Enabled := (cdsRES_GRP_MSTR.State in [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
 end;
 
 procedure TfResGroup.actDeleteExecute(Sender: TObject);
@@ -273,9 +273,9 @@ procedure TfResGroup.actExitExecute(Sender: TObject);
 var
   idexit:integer;
 begin
-  if (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
+  if (cdsRES_GRP_MSTR.State in [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
   begin
-    idexit := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL OR MB_ICONQUESTION);
+    idexit := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL or MB_ICONQUESTION);
     case idexit of
       ID_YES:
       begin
@@ -437,7 +437,7 @@ procedure TfResGroup.txtCLEANUP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
-  if txtCLEANUP_TIME.Text = '' then
+  if trim(txtCLEANUP_TIME.Text) = '' then
   begin
     txtCLEANUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=0;
@@ -461,7 +461,7 @@ procedure TfResGroup.txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
-  if txtDAILY_CLEANUP_TIME.Text = '' then
+  if trim(txtDAILY_CLEANUP_TIME.Text) = '' then
   begin
     txtDAILY_CLEANUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=0;
@@ -485,7 +485,7 @@ procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
-  if txtDAILY_STARTUP_TIME.Text = '' then
+  if trim(txtDAILY_STARTUP_TIME.Text) = '' then
   begin
     txtDAILY_STARTUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=0;
@@ -509,7 +509,7 @@ procedure TfResGroup.txtPREP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
-  if txtPREP_TIME.Text = '' then
+  if trim(txtPREP_TIME.Text) = '' then
   begin
     txtPREP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=0;
@@ -601,7 +601,7 @@ end;
 
 procedure TfResGroup.actSaveUpdate(Sender: TObject);
 begin
-  actSave.Enabled := (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
+  actSave.Enabled := (cdsRES_GRP_MSTR.State in [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0);
 end;
 
 procedure TfResGroup.cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -620,9 +620,9 @@ end;
 procedure TfResGroup.calPRE_TIME;
 begin
   if cbxPRE_TIME.Text = 'Seconds' then
-      txtPREP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat);
+    txtPREP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat);
   if cbxPRE_TIME.Text = 'Minutes' then
-      txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
+    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
   if cbxPRE_TIME.Text = 'Hours' then
     txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 3600);
   if cbxPRE_TIME.Text = 'Days' then

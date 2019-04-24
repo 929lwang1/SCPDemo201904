@@ -33,3 +33,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 32,ResourceGroupClient-20190423-1820.exe,Fix the blank name issue and also change the priority of the messages
 33,ResourceGroupClient-20190424-1550.exe,"Spinedit can save correctly when enter value exceed min max value, but error message could not remove"
 34,ResourceGroupClient-20190424-1610.exe,remove message when enter value < 0 in spinedit
+35,ResourceGroupClient-20190424-1623.exe,Fix issue when doubling click a blank grid the search form will be closed
