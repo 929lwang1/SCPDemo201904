@@ -169,11 +169,13 @@ type
     procedure txtCLEANUP_TIMEChange(Sender: TObject);
     procedure txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
     procedure seditOPER_COSTExit(Sender: TObject);
+    procedure cdsRES_GRP_MSTRNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
     OriginalOptions:TDBGridOptions;
     currentRec: Integer;
+    nextid:integer;
     procedure SaveBoolean;
     procedure calPRE_TIME;
     procedure calDAILY_CLEANUP_TIME;
@@ -370,19 +372,13 @@ begin
 end;
 
 procedure TfResGroup.actNewExecute(Sender: TObject);
-var
-  nextid:integer;
 begin
   currentRec :=  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
   cdsRES_GRP_ID.Close;
-  cdsRES_GRP_ID.CommandText := 'select max(resource_group_id) as RESOURCE_GROUP_ID from resource_group_mstr';
   cdsRES_GRP_ID.Open;
   nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
+  cdsRES_GRP_MSTR.OnNewRecord := cdsRES_GRP_MSTRNewRecord;
   cdsRES_GRP_MSTR.Append;
-  cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
-  cdsRES_GRP_MSTR.FieldByName('UTILIZATION_TYPE_CD').AsInteger := 1;
-  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger := nextid;
-  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString := 'New Group ' + inttostr(nextid);
 end;
 
 procedure TfResGroup.actNewUpdate(Sender: TObject);
@@ -720,6 +716,18 @@ begin
     seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
   else seditOPER_COST.Value := 0;
   seditOPER_COST.OnChange := seditOPER_COSTChange;
+end;
+
+procedure TfResGroup.cdsRES_GRP_MSTRNewRecord(DataSet: TDataSet);
+begin
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger := nextid;
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_TYPE_CD').AsInteger := 1;
+  cdsRES_GRP_MSTR.FieldByName('UTILIZATION_TYPE_CD').AsInteger := 1;
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString := 'New Group ' + IntToStr(nextid);
+  cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsInteger := 0;
+  cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsInteger := 0;
+  cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsInteger := 0;
+  cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsInteger := 0;
 end;
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);

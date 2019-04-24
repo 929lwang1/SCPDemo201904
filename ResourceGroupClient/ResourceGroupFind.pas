@@ -82,7 +82,6 @@ begin
       InqStr := '%' + cbxNameDesc.Text + '%'
     else
       InqStr := '%' + cbxNameDesc.Text;
-  dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
   newsql := TStringBuilder.Create;
   newsql.Clear;
@@ -102,7 +101,6 @@ begin
   end;
   ResetGridFields(cbxFindBy.Text);
   cdsRES_GRP_MSTR.Open;
-  dsRES_GRP_MSTR_cds.Enabled := TRUE;
 end;
 
 procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
@@ -112,7 +110,6 @@ end;
 
 procedure TfResGrpSearch.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  dsRES_GRP_MSTR_cds.Enabled := FALSE;
   cdsRES_GRP_MSTR.Close;
   cbxFindBy.ItemIndex := 0;
   cbxFindCondition.ItemIndex := 0;

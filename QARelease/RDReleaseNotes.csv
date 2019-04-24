@@ -34,3 +34,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 33,ResourceGroupClient-20190424-1550.exe,"Spinedit can save correctly when enter value exceed min max value, but error message could not remove"
 34,ResourceGroupClient-20190424-1610.exe,remove message when enter value < 0 in spinedit
 35,ResourceGroupClient-20190424-1623.exe,Fix issue when doubling click a blank grid the search form will be closed
+36,ResourceGroupClient-20190424-1645.exe,fix the issue when updating on a newly created records without time fields populated and then save the update

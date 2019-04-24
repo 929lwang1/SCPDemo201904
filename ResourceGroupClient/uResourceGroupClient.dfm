@@ -1094,6 +1094,7 @@ object fResGroup: TfResGroup
     ProviderName = 'dspRES_GRP_MSTR'
     RemoteServer = dcomMain
     AfterScroll = cdsRES_GRP_MSTRAfterScroll
+    OnNewRecord = cdsRES_GRP_MSTRNewRecord
     Left = 440
     Top = 224
     object cdsRES_GRP_MSTRRESOURCE_GROUP_ID: TIntegerField
