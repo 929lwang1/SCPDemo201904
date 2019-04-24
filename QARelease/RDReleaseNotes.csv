@@ -36,3 +36,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 35,ResourceGroupClient-20190424-1623.exe,Fix issue when doubling click a blank grid the search form will be closed
 36,ResourceGroupClient-20190424-1645.exe,fix the issue when updating on a newly created records without time fields populated and then save the update
 37,ResourceGroupClient-20190424-1714.exe,Make column name and form title standard in Add Resource(s) form
+38,ResourceGroupClient-20190424-1754.exe,Clicking close button now will get the same message as clicking exit button

@@ -14,6 +14,7 @@ object fResGroup: TfResGroup
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
   PixelsPerInch = 96
   TextHeight = 13
   object tbarTop: TToolBar

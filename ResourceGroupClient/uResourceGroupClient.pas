@@ -159,7 +159,6 @@ type
     procedure actPriorUpdate(Sender: TObject);
     procedure actNextUpdate(Sender: TObject);
     procedure actLastUpdate(Sender: TObject);
-	  procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure actOrdByNameExecute(Sender: TObject);
     procedure actOrdByDescExecute(Sender: TObject);
     procedure actAddExecute(Sender: TObject);
@@ -170,6 +169,7 @@ type
     procedure txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
     procedure seditOPER_COSTExit(Sender: TObject);
     procedure cdsRES_GRP_MSTRNewRecord(DataSet: TDataSet);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -272,28 +272,8 @@ begin
 end;
 
 procedure TfResGroup.actExitExecute(Sender: TObject);
-var
-  idexit:integer;
 begin
-  if (cdsRES_GRP_MSTR.State in [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
-  begin
-    idexit := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL or MB_ICONQUESTION);
-    case idexit of
-      ID_YES:
-      begin
-        cdsRES_GRP_MSTR.ApplyUpdates(0);
-        fResGroup.Close;
-      end;
-      ID_NO:
-        fResGroup.Close;
-      ID_CANCEL:
-        ;
-    end
-  end
-  else
-  begin
-    fResGroup.Close;
-  end;
+  fResGroup.Close;
 end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
@@ -775,29 +755,23 @@ begin
   end;
 end;
 
-procedure TfResGroup.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfResGroup.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 var
   idexitform:integer;
 begin
   if (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
   begin
     idexitform := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL OR MB_ICONQUESTION);
+    canclose := True;
     case idexitform of
       ID_YES:
-      begin
         cdsRES_GRP_MSTR.ApplyUpdates(0);
-        fResGroup.Close;
-      end;
       ID_NO:
-        fResGroup.Close;
-      ID_CANCEL:
         ;
+      ID_CANCEL:
+        canclose := False;
     end
   end
-  else
-  begin
-    fResGroup.Close;
-  end;
 end;
 
 procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
