@@ -180,6 +180,9 @@ type
     OriginalOptions:TDBGridOptions;
     currentRec: Integer;
     nextid:integer;
+    psHist: TStringList;
+    psText: String;
+    ptglHist: boolean;
     procedure SaveBoolean;
     procedure calPRE_TIME;
     procedure calDAILY_CLEANUP_TIME;
@@ -190,8 +193,11 @@ type
   public
     { Public declarations }
     property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
-     //procedure refreshrecord;
+    property strHist: TStringList read psHist;
+    property strText: string read psText;
+    property tglHist: boolean read ptglHist;
     procedure RepRecs(ipResGrpID: Integer);
+    procedure GetSearchHist;
     constructor Create(AOwner: TComponent); override;
     procedure BeforeDestruction; override;
   end;
@@ -282,7 +288,15 @@ end;
 
 procedure TfResGroup.actFindExecute(Sender: TObject);
 begin
+  fResGrpSearch := TfResGrpSearch.Create(self);
   fResGrpSearch.Show;
+end;
+
+procedure TfResGroup.GetSearchHist;
+begin
+  psHist := fResGrpSearch.strHist;
+  psText := fResGrpSearch.strText;
+  ptglHist := fResGrpSearch.tglHist;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);

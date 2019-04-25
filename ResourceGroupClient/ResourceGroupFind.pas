@@ -34,13 +34,23 @@ type
     procedure actGoUpdate(Sender: TObject);
     procedure dbgridResultsDblClick(Sender: TObject);
     procedure RefreshRec;
+    procedure SaveHistory;
+    procedure PopNameDescList;
+    procedure RefreshBrowser;
     procedure ResetGridFields(ipOrdBy: String);
-    procedure CloseForm;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
+    psHist: TStringList;
+    psText: String;
+    ptglHist: boolean;
   public
     { Public declarations }
+    property strHist: TStringList read psHist;
+    property strText: string read psText;
+    property tglHist: boolean read ptglHist;
   end;
 
 var
@@ -56,7 +66,7 @@ uses uResourceGroupClient;
 
 procedure TfResGrpSearch.actCloseExecute(Sender: TObject);
 begin
-   CloseForm;
+  fResGrpSearch.Close;
 end;
 
 procedure TfResGrpSearch.actGoExecute(Sender: TObject);
@@ -69,33 +79,32 @@ begin
   actGo.Enabled := (dbgridResults.SelectedRows.Count > 0);
 end;
 
-procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
+procedure TfResGrpSearch.RefreshBrowser;
 var
-InqStr:String;
+strInq:String;
 newsql:TStringBuilder;
 begin
-  cbxNameDesc.AddItem(cbxNameDesc.Text,nil);
-  if cbxFindCondition.Text = 'Starts With' then
-    InqStr := cbxNameDesc.Text + '%'
-  else
-    if cbxFindCondition.Text = 'Contains' then
-      InqStr := '%' + cbxNameDesc.Text + '%'
-    else
-      InqStr := '%' + cbxNameDesc.Text;
   cdsRES_GRP_MSTR.Close;
   newsql := TStringBuilder.Create;
   newsql.Clear;
+  if cbxFindCondition.Text = 'Starts With' then
+    strInq := cbxNameDesc.Text + '%'
+  else
+    if cbxFindCondition.Text = 'Contains' then
+      strInq := '%' + cbxNameDesc.Text + '%'
+    else
+      strInq := '%' + cbxNameDesc.Text;
   if cbxFindBy.Text = 'Name' then
   begin
     newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_name like ');
-    newsql.Append(QuotedStr(InqStr));
+    newsql.Append(QuotedStr(strInq));
     newsql.Append(' order by resource_group_name');
     cdsRES_GRP_MSTR.CommandText := newsql.ToString;
   end
   else
   begin
     newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like ');
-    newsql.Append(QuotedStr(InqStr));
+    newsql.Append(QuotedStr(strInq));
     newsql.Append(' order by resource_group_desc');
     cdsRES_GRP_MSTR.CommandText := newsql.ToString;
   end;
@@ -103,33 +112,70 @@ begin
   cdsRES_GRP_MSTR.Open;
 end;
 
-procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
+procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
 begin
-   RefreshRec;
+  PopNameDescList; //add items to cbxNameDesc to save search histories
+  RefreshBrowser;
+end;
+
+procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
+var
+  Pt: TPoint;
+  Coord: TGridCoord;
+  ClickCol: Integer;
+begin
+  Pt := dbgridResults.ScreenToClient(Mouse.CursorPos);
+  Coord := dbgridResults.MouseCoord(Pt.X, Pt.Y);
+  ClickCol := Coord.X;
+  if ClickCol >= 0 then
+    RefreshRec;
 end;
 
 procedure TfResGrpSearch.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  cdsRES_GRP_MSTR.Close;
+  fResGrpSearch.Free;
+end;
+
+procedure TfResGrpSearch.FormDestroy(Sender: TObject);
+begin
+  SaveHistory;
+end;
+
+procedure TfResGrpSearch.FormShow(Sender: TObject);
+begin
   cbxFindBy.ItemIndex := 0;
   cbxFindCondition.ItemIndex := 0;
   ResetGridFields('Name');
+  tglCloseOnGo.Checked := fResGroup.tglHist;
+  cbxNameDesc.Text := fResGroup.strText;
+  if fResGroup.strHist <> nil then
+    cbxNameDesc.Items.Assign(fResGroup.strHist);
+end;
+
+procedure TfResGrpSearch.SaveHistory();
+var
+iIdx: integer;
+begin
+  psHist := TStringList.Create;
+  with psHist do
+  begin
+    for iIdx := 0 to (cbxNameDesc.Items.Count - 1) do
+      Add(cbxNameDesc.Items[iIdx]);
+  end;
+  psText := cbxNameDesc.Text;
+  ptglHist := tglCloseOnGo.Checked;
+  fResGroup.GetSearchHist();
 end;
 
 procedure TfResGrpSearch.RefreshRec();
-var
-  opResGrpID:Integer;
 begin
-  if cdsRES_GRP_MSTR.Active then
+  if cdsRES_GRP_MSTR.Active and (dbgridResults.SelectedRows.Count > 0) then
   begin
     if cdsRES_GRP_MSTR.RecordCount > 0 then
     begin
-      opResGrpID := cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-      fResGroup.RepRecs(opResGrpID);
-      if (tglCloseOnGo.Checked = TRUE) then CloseForm;
+      fResGroup.RepRecs(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value);
+      if (tglCloseOnGo.Checked = TRUE) then fResGrpSearch.Close;
     end
-    else
-      opResGrpID := 0;
   end;
 end;
 
@@ -152,17 +198,26 @@ begin
     sColValList := ['Description','Name'];
     sColWidList := [244,124];
   end;
-  dbgridResults.Columns.Clear;
   for iPos := low(sColList) to high(sColList) do
     begin
-      dbgridResults.Columns.Add.FieldName := sColList[iPos];
+      dbgridResults.Columns[iPos].FieldName := sColList[iPos];
       dbgridResults.Columns[iPos].Title.Caption := sColValList[iPos];
       dbgridResults.Columns[iPos].Width := sColWidList[iPos];
     end;
 end;
 
-procedure TfResGrpSearch.CloseForm();
+procedure TfResGrpSearch.PopNameDescList();
+var
+iIdx: integer;
+bAddItm: Boolean;
 begin
-  fResGrpSearch.Close;
+  bAddItm := True;
+  for iIdx := 0 to (cbxNameDesc.Items.Count - 1) do
+  begin
+    if UpperCase(cbxNameDesc.Text) = UpperCase(cbxNameDesc.Items[iIdx]) then
+      bAddItm := False;
+  end;
+  if bAddItm = True then
+    cbxNameDesc.AddItem(cbxNameDesc.Text,nil);
 end;
 end.
