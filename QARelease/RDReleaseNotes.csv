@@ -39,4 +39,5 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 38,ResourceGroupClient-20190424-1754.exe,Clicking close button now will get the same message as clicking exit button
 39,ResourceGroupClient-20190424-1838.exe,Fix onNewRecord issue
 40,ResourceGroupClient-20190425-1356.exe,Characters and symbols should not be allowed to enter in Preparation /Cleanup Time field.
-45,ResourceGroupClient-20190425-1800.exe,"search form enhancement: only create search form when needed, search grid data is no longer wrapped out before actually close the form, double click on the space field of search grid should not automatically locate the first records in the main form"
+41,ResourceGroupClient-20190425-1800.exe,"search form enhancement: only create search form when needed, search grid data is no longer wrapped out before actually close the form, double click on the space field of search grid should not automatically locate the first records in the main form"
+42,ResourceGroupClient-20190425-1830.exe,add resource form - do not add record to the main form when double click on the space field of the resources grid

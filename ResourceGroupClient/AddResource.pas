@@ -38,10 +38,13 @@ type
     actCancel: TAction;
     panButton: TPanel;
     panLabel: TPanel;
-    procedure btnOkClick(Sender: TObject);
+    //procedure btnOkClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure actOKExecute(Sender: TObject);
     procedure actOKUpdate(Sender: TObject);
+    procedure dbgrdResourceDblClick(Sender: TObject);
+    procedure AddResources;
   private
     FResourceId: String;
     { Private declarations }
@@ -69,7 +72,13 @@ begin
    frmAddresource.Close;
 end;
 
-procedure TfrmAddresource.btnOkClick(Sender: TObject);
+//procedure TfrmAddresource.btnOkClick(Sender: TObject);
+procedure TfrmAddresource.actOkExecute(Sender: TObject);
+begin
+   AddResources;
+end;
+
+procedure TfrmAddresource.AddResources;
 var i:Integer;
 begin
   if dbgrdResource.SelectedRows.Count > 0 then
@@ -96,6 +105,19 @@ begin
     FResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
   end;
   frmAddresource.Close;
+end;
+
+procedure TfrmAddresource.dbgrdResourceDblClick(Sender: TObject);
+var
+  Pt: TPoint;
+  Coord: TGridCoord;
+  ClickCol: Integer;
+begin
+  Pt := dbgrdResource.ScreenToClient(Mouse.CursorPos);
+  Coord := dbgrdResource.MouseCoord(Pt.X, Pt.Y);
+  ClickCol := Coord.X;
+  if ClickCol >= 0 then
+    AddResources;
 end;
 
 procedure TfrmAddresource.FormActivate(Sender: TObject);
