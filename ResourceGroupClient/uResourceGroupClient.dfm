@@ -324,6 +324,7 @@ object fResGroup: TfResGroup
         ParentBiDiMode = False
         TabOrder = 1
         OnChange = txtPREP_TIMEChange
+        OnKeyPress = txtPREP_TIMEKeyPress
       end
       object cbxPRE_TIME: TComboBox
         Left = 243
@@ -351,6 +352,7 @@ object fResGroup: TfResGroup
         ParentBiDiMode = False
         TabOrder = 3
         OnChange = txtCLEANUP_TIMEChange
+        OnKeyPress = txtCLEANUP_TIMEKeyPress
       end
       object cbxCLEANUP_TIME: TComboBox
         Left = 242
@@ -378,6 +380,7 @@ object fResGroup: TfResGroup
         ParentBiDiMode = False
         TabOrder = 5
         OnChange = txtDAILY_STARTUP_TIMEChange
+        OnKeyPress = txtDAILY_STARTUP_TIMEKeyPress
       end
       object cbxDAILY_PRE_TIME: TComboBox
         Left = 624
@@ -405,6 +408,7 @@ object fResGroup: TfResGroup
         ParentBiDiMode = False
         TabOrder = 7
         OnChange = txtDAILY_CLEANUP_TIMEChange
+        OnKeyPress = txtDAILY_CLEANUP_TIMEKeyPress
       end
       object cbxDAILY_CLEANUP_TIME: TComboBox
         Left = 623

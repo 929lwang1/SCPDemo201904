@@ -170,6 +170,10 @@ type
     procedure seditOPER_COSTExit(Sender: TObject);
     procedure cdsRES_GRP_MSTRNewRecord(DataSet: TDataSet);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure txtPREP_TIMEKeyPress(Sender: TObject; var Key: Char);
+    procedure txtDAILY_STARTUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+    procedure txtCLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+    procedure txtDAILY_CLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -432,6 +436,21 @@ begin
   end;
 end;
 
+procedure TfResGroup.txtCLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if cbxCLEANUP_TIME.Text = 'Seconds' then
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
+  end
+  else
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
+      Key := #0
+    else if (Key = '.') and (Pos(Key, txtCLEANUP_TIME.Text) > 0) then
+      Key := #0;
+  end;
+end;
+
 procedure TfResGroup.txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
@@ -453,6 +472,21 @@ begin
       cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 86400;
     if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
       cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 604800;
+  end;
+end;
+
+procedure TfResGroup.txtDAILY_CLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
+  end
+  else
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
+      Key := #0
+    else if (Key = '.') and (Pos(Key, txtDAILY_CLEANUP_TIME.Text) > 0) then
+      Key := #0;
   end;
 end;
 
@@ -480,6 +514,21 @@ begin
   end;
 end;
 
+procedure TfResGroup.txtDAILY_STARTUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if cbxDAILY_PRE_TIME.Text = 'Seconds' then
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
+  end
+  else
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
+      Key := #0
+    else if (Key = '.') and (Pos(Key, txtDAILY_STARTUP_TIME.Text) > 0) then
+      Key := #0;
+  end;
+end;
+
 procedure TfResGroup.txtPREP_TIMEChange(Sender: TObject);
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
@@ -501,6 +550,21 @@ begin
     cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 86400;
   if cbxPRE_TIME.Text = 'Weeks' then
     cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 604800;
+  end;
+end;
+
+procedure TfResGroup.txtPREP_TIMEKeyPress(Sender: TObject; var Key: Char);
+begin
+  if cbxPRE_TIME.Text = 'Seconds' then
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
+  end
+  else
+  begin
+    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
+      Key := #0
+    else if (Key = '.') and (Pos(Key, txtPREP_TIME.Text) > 0) then
+      Key := #0;
   end;
 end;
 
@@ -554,7 +618,7 @@ begin
   cdsRES_GRP_MSTR_DUP.Close;
   cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(dbeName.Text);
   cdsRES_GRP_MSTR_DUP.Open;
-  if (cdsRES_GRP_MSTR_DUP.IsEmpty = False) AND (cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger <> cdsRES_GRP_MSTR_DUP.FieldByName('RESOURCE_GROUP_ID').AsInteger) then
+  if (cdsRES_GRP_MSTR_DUP.IsEmpty = False) and (cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger <> cdsRES_GRP_MSTR_DUP.FieldByName('RESOURCE_GROUP_ID').AsInteger) then
   begin
     Application.MessageBox('Entity already exists in database; cannot save.','Error',MB_OK+MB_ICONHAND);
     exit;
@@ -758,9 +822,9 @@ procedure TfResGroup.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 var
   idexitform:integer;
 begin
-  if (cdsRES_GRP_MSTR.State IN [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
+  if (cdsRES_GRP_MSTR.State in [dsEdit, dsInsert]) or (cdsRES_GRP_MSTR.ChangeCount > 0) then
   begin
-    idexitform := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL OR MB_ICONQUESTION);
+    idexitform := Application.MessageBox('Save Changes before exiting?', 'Confirm', MB_YESNOCANCEL or MB_ICONQUESTION);
     canclose := True;
     case idexitform of
       ID_YES:

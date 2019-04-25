@@ -38,3 +38,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 37,ResourceGroupClient-20190424-1714.exe,Make column name and form title standard in Add Resource(s) form
 38,ResourceGroupClient-20190424-1754.exe,Clicking close button now will get the same message as clicking exit button
 39,ResourceGroupClient-20190424-1838.exe,Fix onNewRecord issue
+40,ResourceGroupClient-20190425-1356.exe,Characters and symbols should not be allowed to enter in Preparation /Cleanup Time field.
