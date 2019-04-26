@@ -44,3 +44,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 43,ResourceGroupClient-20190426-0850.exe,allow cost  to use float value
 44,ResourceGroupClient-20190426-0908.exe,remove CreatForm of research and add form from project file again
 45,ResourceGroupClient-2019-0426-1405.exe,search form enhancement [only refresh the grid when the search filters changed & grid enhancement]
+46,ResourceGroupClient20190426-1516.exe,simply the code for time conversion

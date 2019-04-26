@@ -176,6 +176,10 @@ type
     procedure txtDAILY_CLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
     procedure spinButtonCostDownClick(Sender: TObject);
     procedure spinButtonCostUpClick(Sender: TObject);
+    procedure txtPREP_TIMEExit(Sender: TObject);
+    procedure txtDAILY_STARTUP_TIMEExit(Sender: TObject);
+    procedure txtCLEANUP_TIMEExit(Sender: TObject);
+    procedure txtDAILY_CLEANUP_TIMEExit(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -186,12 +190,21 @@ type
     psText: String;
     ptglHist: boolean;
     procedure SaveBoolean;
+    function calTime(ipTimeUm, ipField : string):string;
+    function txtOnChange(ipTime, ipTimeUm: string):real;
+    function txtKeyPress(ipTimeUm, ipTime: string; ipKey: char):char;
     procedure calPRE_TIME;
     procedure calDAILY_CLEANUP_TIME;
     procedure calDAILY_PRE_TIME;
     procedure calCLEANUP_TIME;
     procedure DispRec(ipResGrpID: Integer);
     procedure validateCost;
+  const
+    seconds = 1;
+    minutes = 60;
+    hours = 3600;
+    days = 86400;
+    weeks = 604800;
   public
     { Public declarations }
     property strHist: TStringList read psHist;
@@ -207,7 +220,6 @@ type
 
 var
   fResGroup: TfResGroup;
-
 implementation
 
 {$R *.dfm}
@@ -422,157 +434,123 @@ end;
 
 procedure TfResGroup.txtCLEANUP_TIMEChange(Sender: TObject);
 begin
-  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
-    cdsRES_GRP_MSTR.Edit;
   if trim(txtCLEANUP_TIME.Text) = '' then
   begin
     txtCLEANUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=0;
   end
   else
-  begin
-    if cbxCLEANUP_TIME.Text = 'Seconds' then
-      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text);
-    if cbxCLEANUP_TIME.Text = 'Minutes' then
-      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 60;
-    if cbxCLEANUP_TIME.Text = 'Hours' then
-      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 3600;
-    if cbxCLEANUP_TIME.Text = 'Days' then
-      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 86400;
-    if cbxCLEANUP_TIME.Text = 'Weeks' then
-      cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=StrToFloat(txtCLEANUP_TIME.Text) * 604800;
-  end;
+    cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat :=txtOnChange(txtCLEANUP_TIME.Text, cbxCLEANUP_TIME.Text);
+end;
+
+procedure TfResGroup.txtCLEANUP_TIMEExit(Sender: TObject);
+begin
+  txtCLEANUP_TIME.Text :=calTime(cbxCLEANUP_TIME.Text, 'CLEANUP_TIME');
 end;
 
 procedure TfResGroup.txtCLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
 begin
-  if cbxCLEANUP_TIME.Text = 'Seconds' then
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
-  end
-  else
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
-      Key := #0
-    else if (Key = '.') and (Pos(Key, txtCLEANUP_TIME.Text) > 0) then
-      Key := #0;
-  end;
+  Key :=txtKeyPress(cbxCLEANUP_TIME.Text, txtCLEANUP_TIME.Text, Key);
 end;
 
 procedure TfResGroup.txtDAILY_CLEANUP_TIMEChange(Sender: TObject);
 begin
-  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
-    cdsRES_GRP_MSTR.Edit;
   if trim(txtDAILY_CLEANUP_TIME.Text) = '' then
   begin
     txtDAILY_CLEANUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=0;
   end
   else
-  begin
-    if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text);
-    if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 60;
-    if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 3600;
-    if cbxDAILY_CLEANUP_TIME.Text = 'Days' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 86400;
-    if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=StrToFloat(txtDAILY_CLEANUP_TIME.Text) * 604800;
-  end;
+    cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat :=txtOnChange(txtDAILY_CLEANUP_TIME.Text, cbxDAILY_CLEANUP_TIME.Text);
+end;
+
+procedure TfResGroup.txtDAILY_CLEANUP_TIMEExit(Sender: TObject);
+begin
+  txtDAILY_CLEANUP_TIME.Text :=calTime(cbxDAILY_CLEANUP_TIME.Text, 'DAILY_CLEANUP_TIME');
 end;
 
 procedure TfResGroup.txtDAILY_CLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
 begin
-  if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
-  end
-  else
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
-      Key := #0
-    else if (Key = '.') and (Pos(Key, txtDAILY_CLEANUP_TIME.Text) > 0) then
-      Key := #0;
-  end;
+  Key :=txtKeyPress(cbxDAILY_CLEANUP_TIME.Text, txtDAILY_CLEANUP_TIME.Text, Key);
 end;
 
 procedure TfResGroup.txtDAILY_STARTUP_TIMEChange(Sender: TObject);
 begin
-  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
-    cdsRES_GRP_MSTR.Edit;
   if trim(txtDAILY_STARTUP_TIME.Text) = '' then
   begin
     txtDAILY_STARTUP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=0;
   end
   else
-  begin
-    if cbxDAILY_PRE_TIME.Text = 'Seconds' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text);
-    if cbxDAILY_PRE_TIME.Text = 'Minutes' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 60;
-    if cbxDAILY_PRE_TIME.Text = 'Hours' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 3600;
-    if cbxDAILY_PRE_TIME.Text = 'Days' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 86400;
-    if cbxDAILY_PRE_TIME.Text = 'Weeks' then
-      cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=StrToFloat(txtDAILY_STARTUP_TIME.Text) * 604800;
-  end;
+    cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat :=txtOnChange(txtDAILY_STARTUP_TIME.Text, cbxDAILY_PRE_TIME.Text);
+end;
+
+procedure TfResGroup.txtDAILY_STARTUP_TIMEExit(Sender: TObject);
+begin
+  txtDAILY_STARTUP_TIME.Text :=calTime(cbxDAILY_PRE_TIME.Text, 'DAILY_STARTUP_TIME');
 end;
 
 procedure TfResGroup.txtDAILY_STARTUP_TIMEKeyPress(Sender: TObject; var Key: Char);
 begin
-  if cbxDAILY_PRE_TIME.Text = 'Seconds' then
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
-  end
-  else
-  begin
-    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
-      Key := #0
-    else if (Key = '.') and (Pos(Key, txtDAILY_STARTUP_TIME.Text) > 0) then
-      Key := #0;
-  end;
+  Key :=txtKeyPress(cbxDAILY_PRE_TIME.Text, txtDAILY_STARTUP_TIME.Text, Key);
 end;
 
 procedure TfResGroup.txtPREP_TIMEChange(Sender: TObject);
 begin
-  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
-    cdsRES_GRP_MSTR.Edit;
   if trim(txtPREP_TIME.Text) = '' then
   begin
     txtPREP_TIME.Text :='0';
     cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=0;
   end
   else
-  begin
-  if cbxPRE_TIME.Text = 'Seconds' then
-    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text);
-  if cbxPRE_TIME.Text = 'Minutes' then
-    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 60;
-  if cbxPRE_TIME.Text = 'Hours' then
-    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 3600;
-  if cbxPRE_TIME.Text = 'Days' then
-    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 86400;
-  if cbxPRE_TIME.Text = 'Weeks' then
-    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').Value := StrToFloat(txtPREP_TIME.Text) * 604800;
-  end;
+    cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat :=txtOnChange(txtPREP_TIME.Text, cbxPRE_TIME.Text);
+end;
+
+procedure TfResGroup.txtPREP_TIMEExit(Sender: TObject);
+begin
+  txtPREP_TIME.Text :=calTime(cbxPRE_TIME.Text, 'PREP_TIME');
 end;
 
 procedure TfResGroup.txtPREP_TIMEKeyPress(Sender: TObject; var Key: Char);
 begin
-  if cbxPRE_TIME.Text = 'Seconds' then
+  Key :=txtKeyPress(cbxPRE_TIME.Text, txtPREP_TIME.Text, Key);
+end;
+
+function TfResGroup.txtOnChange(ipTime, ipTimeUm: string):real;
+begin
+  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+    cdsRES_GRP_MSTR.Edit;
+  if ipTimeUm = 'Seconds' then
+    Result := StrToFloat(ipTime) * seconds
+  else if ipTimeUm = 'Minutes' then
+    Result := StrToFloat(ipTime) * minutes
+  else if ipTimeUm = 'Hours' then
+    Result := StrToFloat(ipTime) * hours
+  else if ipTimeUm = 'Days' then
+    Result := StrToFloat(ipTime) * days
+  else if ipTimeUm = 'Weeks' then
+    Result := StrToFloat(ipTime) * weeks
+  else
+    Result :=0;
+end;
+
+function TfResGroup.txtKeyPress(ipTimeUm, ipTime: string; ipKey: char):char;
+begin
+  if ipTimeUm = 'Seconds' then
   begin
-    if not (AnsiChar(Key) in [#8, '0'..'9']) then Key := #0;
+    if not (AnsiChar(ipKey) in [#8, '0'..'9']) then
+      Result := #0
+    else
+      Result :=ipKey;
   end
   else
   begin
-    if not (AnsiChar(Key) in [#8, '0'..'9', '.']) then
-      Key := #0
-    else if (Key = '.') and (Pos(Key, txtPREP_TIME.Text) > 0) then
-      Key := #0;
+    if not (AnsiChar(ipKey) in [#8, '0'..'9', '.']) then
+      Result := #0
+    else if (ipKey = '.') and (Pos(ipKey, ipTime) > 0) then
+      Result := #0
+    else
+      Result :=ipKey;
   end;
 end;
 
@@ -664,60 +642,54 @@ begin
     end;
   end;
 end;
+
+function TfResGroup.calTime(ipTimeUm, ipField : string):string;
+begin
+  if ipTimeUm = 'Seconds' then
+  begin
+    Result := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName(ipField).AsFloat / seconds);
+    exit;
+  end;
+  if ipTimeUm = 'Minutes' then
+  begin
+    Result :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName(ipField).AsFloat / minutes);
+    exit;
+  end;
+  if ipTimeUm = 'Hours' then
+  begin
+    Result :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName(ipField).AsFloat / hours);
+    exit;
+  end;
+  if ipTimeUm = 'Days' then
+  begin
+    Result :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName(ipField).AsFloat / days);
+    exit;
+  end;
+  if ipTimeUm = 'Weeks' then
+  begin
+    Result :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName(ipField).AsFloat / weeks);
+    exit;
+  end;
+end;
+
 procedure TfResGroup.calPRE_TIME;
 begin
-  if cbxPRE_TIME.Text = 'Seconds' then
-    txtPREP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat);
-  if cbxPRE_TIME.Text = 'Minutes' then
-    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 60);
-  if cbxPRE_TIME.Text = 'Hours' then
-    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 3600);
-  if cbxPRE_TIME.Text = 'Days' then
-    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 86400);
-  if cbxPRE_TIME.Text = 'Weeks' then
-    txtPREP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('PREP_TIME').AsFloat / 604800);
+  txtPREP_TIME.Text :=calTime(cbxPRE_TIME.Text, 'PREP_TIME');
 end;
 
 procedure TfResGroup.calDAILY_PRE_TIME;
 begin
-  if cbxDAILY_PRE_TIME.Text = 'Seconds' then
-    txtDAILY_STARTUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat);
-  if cbxDAILY_PRE_TIME.Text = 'Minutes' then
-    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 60);
-  if cbxDAILY_PRE_TIME.Text = 'Hours' then
-    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 3600);
-  if cbxDAILY_PRE_TIME.Text = 'Days' then
-    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 86400);
-  if cbxDAILY_PRE_TIME.Text = 'Weeks' then
-    txtDAILY_STARTUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsFloat / 604800);
+  txtDAILY_STARTUP_TIME.Text :=calTime(cbxDAILY_PRE_TIME.Text, 'DAILY_STARTUP_TIME');
 end;
 
 procedure TfResGroup.calCLEANUP_TIME;
 begin
-  if cbxCLEANUP_TIME.Text = 'Seconds' then
-    txtCLEANUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat);
-  if cbxCLEANUP_TIME.Text = 'Minutes' then
-    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 60);
-  if cbxCLEANUP_TIME.Text = 'Hours' then
-    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 3600);
-  if cbxCLEANUP_TIME.Text = 'Days' then
-    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 86400);
-  if cbxCLEANUP_TIME.Text = 'Weeks' then
-    txtCLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsFloat / 604800);
+  txtCLEANUP_TIME.Text :=calTime(cbxCLEANUP_TIME.Text, 'CLEANUP_TIME');
 end;
 
 procedure TfResGroup.calDAILY_CLEANUP_TIME;
 begin
-  if cbxDAILY_CLEANUP_TIME.Text = 'Seconds' then
-    txtDAILY_CLEANUP_TIME.Text := FormatFloat('0', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat);
-  if cbxDAILY_CLEANUP_TIME.Text = 'Minutes' then
-    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 60);
-  if cbxDAILY_CLEANUP_TIME.Text = 'Hours' then
-    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 3600);
-  if cbxDAILY_CLEANUP_TIME.Text = 'Days' then
-    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 86400);
-  if cbxDAILY_CLEANUP_TIME.Text = 'Weeks' then
-    txtDAILY_CLEANUP_TIME.Text :=  FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsFloat / 604800);
+  txtDAILY_CLEANUP_TIME.Text :=calTime(cbxDAILY_CLEANUP_TIME.Text, 'DAILY_CLEANUP_TIME');
 end;
 
 procedure TfResGroup.cbxCLEANUP_TIMEChange(Sender: TObject);
