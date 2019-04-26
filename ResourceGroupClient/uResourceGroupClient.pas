@@ -702,18 +702,10 @@ end;
 
 procedure TfResGroup.cdsRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
 begin
-  txtPREP_TIME.OnChange :=nil;
-  txtDAILY_STARTUP_TIME.OnChange :=nil;
-  txtCLEANUP_TIME.OnChange :=nil;
-  txtDAILY_CLEANUP_TIME.OnChange :=nil;
-  calPRE_TIME();
-  calCLEANUP_TIME();
-  calDAILY_CLEANUP_TIME();
-  calDAILY_PRE_TIME();
-  txtPREP_TIME.OnChange :=txtPREP_TIMEChange;
-  txtDAILY_STARTUP_TIME.OnChange :=txtDAILY_STARTUP_TIMEChange;
-  txtCLEANUP_TIME.OnChange :=txtCLEANUP_TIMEChange;
-  txtDAILY_CLEANUP_TIME.OnChange :=txtDAILY_CLEANUP_TIMEChange;
+  cbxPRE_TIMEChange(cbxPRE_TIME);
+  cbxDAILY_PRE_TIMEChange(cbxDAILY_PRE_TIME);
+  cbxDAILY_CLEANUP_TIMEChange(cbxDAILY_CLEANUP_TIME);
+  cbxCLEANUP_TIMEChange(cbxCLEANUP_TIME);
   seditOPER_COST.OnChange :=nil;
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value = NULL then
   begin
