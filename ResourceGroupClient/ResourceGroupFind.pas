@@ -41,6 +41,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    function GridNeedRefresh(): boolean;
   private
     { Private declarations }
     psHist: TStringList;
@@ -58,6 +59,7 @@ var
   sColList: Array of String;
   sColValList: Array of String;
   sColWidList: Array of Integer;
+  sPrevFilter: string;
 
 implementation
 {$R *.dfm}
@@ -84,6 +86,7 @@ var
 strInq:String;
 newsql:TStringBuilder;
 begin
+  dbgridResults.DataSource.DataSet.DisableControls;
   cdsRES_GRP_MSTR.Close;
   newsql := TStringBuilder.Create;
   newsql.Clear;
@@ -94,28 +97,42 @@ begin
       strInq := '%' + cbxNameDesc.Text + '%'
     else
       strInq := '%' + cbxNameDesc.Text;
+  newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_');
   if cbxFindBy.Text = 'Name' then
-  begin
-    newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_name like ');
-    newsql.Append(QuotedStr(strInq));
-    newsql.Append(' order by resource_group_name');
-    cdsRES_GRP_MSTR.CommandText := newsql.ToString;
-  end
+    newsql.Append('name like ')
   else
-  begin
-    newsql.Append('select resource_group_name, resource_group_desc, resource_group_id from resource_group_mstr WHERE resource_group_desc like ');
-    newsql.Append(QuotedStr(strInq));
-    newsql.Append(' order by resource_group_desc');
-    cdsRES_GRP_MSTR.CommandText := newsql.ToString;
-  end;
+    newsql.Append('desc like ');
+  newsql.Append(QuotedStr(strInq));
+  newsql.Append(' order by resource_group_');
+  if cbxFindBy.Text = 'Name' then
+    newsql.Append('name')
+  else
+    newsql.Append('desc');
+  cdsRES_GRP_MSTR.CommandText := newsql.ToString;
   ResetGridFields(cbxFindBy.Text);
   cdsRES_GRP_MSTR.Open;
+  dbgridResults.DataSource.DataSet.EnableControls;
 end;
 
 procedure TfResGrpSearch.actSearchExecute(Sender: TObject);
 begin
   PopNameDescList; //add items to cbxNameDesc to save search histories
-  RefreshBrowser;
+  if true = GridNeedRefresh then
+     RefreshBrowser;
+end;
+
+function TfResGrpSearch.GridNeedRefresh(): boolean;
+var
+  strCurrentFilter: string;
+begin
+   strCurrentFilter := cbxFindBy.Text + cbxFindCondition.Text + cbxNameDesc.Text;
+   if strCurrentFilter =  sPrevFilter then
+     Result := false
+   else
+   begin
+     sPrevFilter := strCurrentFilter;
+     Result := true;
+   end;
 end;
 
 procedure TfResGrpSearch.dbgridResultsDblClick(Sender: TObject);
