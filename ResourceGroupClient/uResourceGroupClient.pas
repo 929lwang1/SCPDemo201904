@@ -128,6 +128,7 @@ type
     cdsRES_GRP_ID: TClientDataSet;
     cdsRES_MSTR: TClientDataSet;
     cdsRES_GRP_MSTR_DUP: TClientDataSet;
+    spinButtonCost: TSpinButton;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -142,7 +143,6 @@ type
     procedure actNextExecute(Sender: TObject);
     procedure actPriorExecute(Sender: TObject);
     procedure actFirstExecute(Sender: TObject);
-    procedure qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
     procedure dbgridResourceDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure cdsRES_GRPCalcFields(DataSet: TDataSet);
@@ -174,6 +174,8 @@ type
     procedure txtDAILY_STARTUP_TIMEKeyPress(Sender: TObject; var Key: Char);
     procedure txtCLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
     procedure txtDAILY_CLEANUP_TIMEKeyPress(Sender: TObject; var Key: Char);
+    procedure spinButtonCostDownClick(Sender: TObject);
+    procedure spinButtonCostUpClick(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: boolean;
@@ -188,14 +190,15 @@ type
     procedure calDAILY_CLEANUP_TIME;
     procedure calDAILY_PRE_TIME;
     procedure calCLEANUP_TIME;
-    procedure SetallowMultiSelect(Value: boolean);
     procedure DispRec(ipResGrpID: Integer);
+    procedure validateCost;
   public
     { Public declarations }
-    property allowMultiSelect: boolean read FallowMultiSelect write SetallowMultiSelect;
     property strHist: TStringList read psHist;
     property strText: string read psText;
     property tglHist: boolean read ptglHist;
+    property allowMultiSelect: boolean read FallowMultiSelect;
+     //procedure refreshrecord;
     procedure RepRecs(ipResGrpID: Integer);
     procedure GetSearchHist;
     constructor Create(AOwner: TComponent); override;
@@ -333,7 +336,7 @@ begin
 //    frmAddresource.qryAddResource.SQL.Clear;
 //    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
 //     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
-    allowMultiSelect := True;
+    FallowMultiSelect := True;
     frmAddresource.cdsAddResource.Open;
   end
   else
@@ -342,7 +345,7 @@ begin
     frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;';
 //    frmAddresource.qryAddResource.SQL.Clear;
 //    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
-    allowMultiSelect := False;
+    FallowMultiSelect := False;
     frmAddresource.cdsAddResource.Open;
   end;
   try
@@ -415,15 +418,6 @@ end;
 procedure TfResGroup.actPriorUpdate(Sender: TObject);
 begin
   actPrior.Enabled := not cdsRES_GRP_MSTR.Bof and (cdsRES_GRP_MSTR.State = dsBrowse) and (cdsRES_GRP_MSTR.ChangeCount = 0);
-end;
-
-procedure TfResGroup.SetallowMultiSelect(Value: boolean);
-begin
-  if FallowMultiSelect <> Value then
-  begin
-    FallowMultiSelect := Value;
-  // Repaint;    // update user interface to reflect new value
-  end;
 end;
 
 procedure TfResGroup.txtCLEANUP_TIMEChange(Sender: TObject);
@@ -769,9 +763,16 @@ begin
   txtCLEANUP_TIME.OnChange :=txtCLEANUP_TIMEChange;
   txtDAILY_CLEANUP_TIME.OnChange :=txtDAILY_CLEANUP_TIMEChange;
   seditOPER_COST.OnChange :=nil;
-  if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value <> null then
-    seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value
-  else seditOPER_COST.Value := 0;
+  if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value = NULL then
+  begin
+    seditOPER_COST.Value := 0;
+    seditOPER_COST.Text := FloattoStr(0.00);
+  end
+  else
+  begin
+    seditOPER_COST.Value := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+    seditOPER_COST.Text := FormatFloat('0.00', cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat);
+  end;
   seditOPER_COST.OnChange := seditOPER_COSTChange;
 end;
 
@@ -851,13 +852,6 @@ begin
   end
 end;
 
-procedure TfResGroup.qryRES_GRP_MSTRAfterScroll(DataSet: TDataSet);
-begin
-//  if qryRES_GRP.Active then qryRES_GRP.Close;
-//  qryRES_GRP.Parameters[0].Value := qryRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').Value;
-//  qryRES_GRP.Open;
-end;
-
 procedure TfResGroup.SaveBoolean;
 begin
   dbgridResource.SelectedField.DataSet.Edit;
@@ -867,25 +861,35 @@ end;
 
 procedure TfResGroup.seditOPER_COSTChange(Sender: TObject);
 begin
-  if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
+  if not(cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
     cdsRES_GRP_MSTR.Edit;
- // cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
 end;
 
 procedure TfResGroup.seditOPER_COSTExit(Sender: TObject);
 begin
-  if StrToFloat(seditOPER_COST.Text) > seditOPER_COST.MaxValue then
-  begin
-    seditOPER_COST.Text := seditOPER_COST.MaxValue.ToString;
-    seditOPER_COST.Value :=  seditOPER_COST.MaxValue;
-  end;
-  if StrToFloat(seditOPER_COST.Text) < seditOPER_COST.MinValue then
-  begin
-    seditOPER_COST.Text := seditOPER_COST.MinValue.ToString;
-    seditOPER_COST.Value :=  seditOPER_COST.MinValue;
-  end;
+  validateCost;
   if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
-    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').AsFloat := seditOPER_COST.Value;
+    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+  seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+  seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+end;
+
+procedure TfResGroup.spinButtonCostDownClick(Sender: TObject);
+begin
+  seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) - 1);
+  validateCost;
+end;
+procedure TfResGroup.validateCost;
+begin
+  if StrToFloat(seditOPER_COST.Text) > seditOPER_COST.MaxValue then
+    seditOPER_COST.Text := seditOPER_COST.MaxValue.ToString;
+  if StrToFloat(seditOPER_COST.Text) < seditOPER_COST.MinValue then
+    seditOPER_COST.Text := seditOPER_COST.MinValue.ToString;
+end;
+procedure TfResGroup.spinButtonCostUpClick(Sender: TObject);
+begin
+  seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) + 1);
+  validateCost;
 end;
 
 procedure TfResGroup.RepRecs(ipResGrpID: Integer);
