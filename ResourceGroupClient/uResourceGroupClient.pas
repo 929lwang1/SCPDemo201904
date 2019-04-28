@@ -199,7 +199,7 @@ type
     procedure calCLEANUP_TIME;
     procedure DispRec(ipResGrpID: Integer);
     procedure validateCost;
-
+    procedure orderBy(ipIndex: string);
   const
     seconds = 1;
     minutes = 60;
@@ -257,7 +257,10 @@ begin
   else
     inherited Create(AOwner);
   if cdsRES_GRP_MSTR.IndexFieldNames = '' then
-     cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+  begin
+    cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
+    actOrdByName.Checked := TRUE;
+  end;
 end;
 
 procedure TfResGroup.actCancelExecute(Sender: TObject);
@@ -346,9 +349,6 @@ begin
     resTypeId :=  cdsRES_GRP.FieldByName('RESOURCE_TYPE_CD').Value;
     frmAddresource.cdsAddResource.Close;
     frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD =' +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');';
-//    frmAddresource.qryAddResource.SQL.Clear;
-//    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where LOC_ID =' + locId.ToString + ' and RESOURCE_TYPE_CD ='
-//     +  resTypeId.ToString + ' AND RESOURCE_ID NOT IN (' +  listResId.CommaText  +');');
     FallowMultiSelect := True;
     frmAddresource.cdsAddResource.Open;
   end
@@ -356,8 +356,6 @@ begin
   begin
     frmAddresource.cdsAddResource.Close;
     frmAddresource.cdsAddResource.CommandText := 'SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;';
-//    frmAddresource.qryAddResource.SQL.Clear;
-//    frmAddresource.qryAddResource.SQL.Add('SELECT * from RESOURCE_MSTR where RESOURCE_TYPE_CD > 0;');
     FallowMultiSelect := False;
     frmAddresource.cdsAddResource.Open;
   end;
@@ -411,16 +409,19 @@ end;
 
 procedure TfResGroup.actOrdByDescExecute(Sender: TObject);
 begin
-  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_DESC';
-  actOrdByName.Checked := FALSE;
-  actOrdByDesc.Checked := TRUE;
+  orderBy('RESOURCE_GROUP_DESC');
 end;
 
 procedure TfResGroup.actOrdByNameExecute(Sender: TObject);
 begin
-  cdsRES_GRP_MSTR.IndexFieldNames := 'RESOURCE_GROUP_NAME';
-  actOrdByDesc.Checked := FALSE;
-  actOrdByName.Checked := TRUE;
+  orderBy('RESOURCE_GROUP_NAME');
+end;
+
+procedure TfResGroup.orderBy(ipIndex:string);
+begin
+  cdsRES_GRP_MSTR.IndexFieldNames := ipIndex;
+  actOrdByDesc.Checked := not actOrdByDesc.Checked;
+  actOrdByName.Checked := not actOrdByName.Checked;
 end;
 
 procedure TfResGroup.actPriorExecute(Sender: TObject);
@@ -589,7 +590,9 @@ var
   i:integer;
 begin
   seditOPER_COSTExit(self);
-  if dbeName.text = '' then
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').Value := trim(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString);
+  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_DESC').Value := trim(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_DESC').AsString);
+  if trim(dbeName.text) = '' then
   begin
     Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
     exit;
@@ -600,7 +603,7 @@ begin
     exit;
   end;
   cdsRES_GRP_MSTR_DUP.Close;
-  cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(dbeName.Text);
+  cdsRES_GRP_MSTR_DUP.CommandText := 'select * from RESOURCE_GROUP_MSTR where RESOURCE_GROUP_NAME = ' + QuotedStr(trim(dbeName.Text));
   cdsRES_GRP_MSTR_DUP.Open;
   if (cdsRES_GRP_MSTR_DUP.IsEmpty = False) and (cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_ID').AsInteger <> cdsRES_GRP_MSTR_DUP.FieldByName('RESOURCE_GROUP_ID').AsInteger) then
   begin

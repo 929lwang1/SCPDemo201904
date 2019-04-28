@@ -47,3 +47,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 46,ResourceGroupClient20190426-1516.exe,simply the code for time conversion
 47,ResourceGroupClient20190426-1713.exe,change if to case
 48,ResourceGroupClient-20190426-1717.exe,simply the code for AfterScroll event
+49,ResourceGroupClient-20190428-0901.exe,save name and desc without space
