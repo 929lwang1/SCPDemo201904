@@ -182,13 +182,13 @@ type
     procedure txtDAILY_CLEANUP_TIMEExit(Sender: TObject);
   private
     { Private declarations }
-    FallowMultiSelect: boolean;
-    OriginalOptions:TDBGridOptions;
+    FallowMultiSelect: Boolean;
+    OriginalOptions: TDBGridOptions;
     currentRec: Integer;
-    nextid:integer;
-    psHist: TStringList;
-    psText: String;
-    ptglHist: boolean;
+    nextid: Integer;
+    FHist: TStringList;
+    FText: String;
+    FColseOnGo: Boolean;
     procedure SaveBoolean;
     function calTime(ipTimeUm:integer; ipField : string):string;
     function txtOnChange(ipTime: string; ipTimeUm: integer):real;
@@ -208,11 +208,10 @@ type
     weeks = 604800;
   public
     { Public declarations }
-    property strHist: TStringList read psHist;
-    property strText: string read psText;
-    property tglHist: boolean read ptglHist;
-    property allowMultiSelect: boolean read FallowMultiSelect;
-     //procedure refreshrecord;
+    property strHist: TStringList read FHist;
+    property strText: String read FText;
+    property tglHist: Boolean read FColseOnGo;
+    property allowMultiSelect: Boolean read FallowMultiSelect;
     procedure RepRecs(ipResGrpID: Integer);
     procedure GetSearchHist;
     constructor Create(AOwner: TComponent); override;
@@ -313,9 +312,9 @@ end;
 
 procedure TfResGroup.GetSearchHist;
 begin
-  psHist := fResGrpSearch.strHist;
-  psText := fResGrpSearch.strText;
-  ptglHist := fResGrpSearch.tglHist;
+  FHist := fResGrpSearch.strHist;
+  FText := fResGrpSearch.strText;
+  FColseOnGo := fResGrpSearch.tglHist;
 end;
 
 procedure TfResGroup.actFirstExecute(Sender: TObject);

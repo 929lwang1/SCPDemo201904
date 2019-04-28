@@ -48,3 +48,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 47,ResourceGroupClient20190426-1713.exe,change if to case
 48,ResourceGroupClient-20190426-1717.exe,simply the code for AfterScroll event
 49,ResourceGroupClient-20190428-0901.exe,save name and desc without space
+50,ResourceGroupClient-20190428-1336.exe,coding standard enhancement - related to search form
