@@ -394,6 +394,7 @@ begin
   cdsRES_GRP_ID.Open;
   nextid := cdsRES_GRP_ID.FieldByName('RESOURCE_GROUP_ID').AsInteger + 1;
   cdsRES_GRP_MSTR.Append;
+  seditOPER_COST.Text := '0.00';
 end;
 
 procedure TfResGroup.actNewUpdate(Sender: TObject);
@@ -730,8 +731,7 @@ begin
   seditOPER_COST.OnChange :=nil;
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value = NULL then
   begin
-    seditOPER_COST.Value := 0;
-    seditOPER_COST.Text := '0.00';
+    seditOPER_COST.Text := '';
   end
   else
   begin
@@ -751,7 +751,6 @@ begin
   cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsInteger := 0;
   cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsInteger := 0;
   cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsInteger := 0;
-  seditOPER_COST.Text := '0.00';
 end;
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);
@@ -850,6 +849,11 @@ begin
       seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
       seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
     end;
+  end
+  else
+  begin
+    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
+      cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value := NULL;
   end;
 end;
 
