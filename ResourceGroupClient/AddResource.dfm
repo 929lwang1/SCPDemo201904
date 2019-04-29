@@ -28,6 +28,7 @@ object frmAddresource: TfrmAddresource
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnCellClick = dbgrdResourceCellClick
     OnDblClick = dbgrdResourceDblClick
     Columns = <
       item
@@ -187,8 +188,8 @@ object frmAddresource: TfrmAddresource
     Top = 248
     object actOK: TAction
       Caption = 'OK'
-      OnUpdate = actOKUpdate
       OnExecute = actOKExecute
+      OnUpdate = actOKUpdate
     end
     object actCancel: TAction
       Caption = 'Cancel'

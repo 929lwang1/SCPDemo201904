@@ -45,6 +45,7 @@ type
     procedure actOKUpdate(Sender: TObject);
     procedure dbgrdResourceDblClick(Sender: TObject);
     procedure AddResources;
+    procedure dbgrdResourceCellClick(Column: TColumn);
   private
     FResourceId: String;
     { Private declarations }
@@ -105,6 +106,11 @@ begin
     FResourceId := cdsAddResource.FieldByName('RESOURCE_ID').AsString;
   end;
   frmAddresource.Close;
+end;
+
+procedure TfrmAddresource.dbgrdResourceCellClick(Column: TColumn);
+begin
+  btnOk.SetFocus;
 end;
 
 procedure TfrmAddresource.dbgrdResourceDblClick(Sender: TObject);
