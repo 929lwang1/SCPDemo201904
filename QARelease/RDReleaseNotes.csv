@@ -56,3 +56,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 55,ResourceGroupClient-20190429-1343.exe,Clicking in the space of time input box move the cursor to the beginning
 56,ResourceGroupClient-20190429-1509.exe,Fix #34 also fix when click up down button and key
 57,ResourceGroupClient-20190429-1539.exe,fix #35 could save null cost
+57,ResourceGroupClient-20190429-1549.exe,fix #37 allow select when add resource

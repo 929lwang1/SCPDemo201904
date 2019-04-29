@@ -128,7 +128,7 @@ begin
   end
   else
   begin
-    dbgrdResource.Options:=dbgrdResource.Options - [dgMultiSelect];
+    dbgrdResource.Options:=dbgrdResource.Options - [dgMultiSelect] + [dgRowSelect];
     frmAddresource.btnOk.Enabled := True;
   end;
 end;
