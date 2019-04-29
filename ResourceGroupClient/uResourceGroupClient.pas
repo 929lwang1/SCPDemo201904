@@ -129,6 +129,8 @@ type
     cdsRES_MSTR: TClientDataSet;
     cdsRES_GRP_MSTR_DUP: TClientDataSet;
     spinButtonCost: TSpinButton;
+    upClick: TAction;
+    downClick: TAction;
     procedure actNewExecute(Sender: TObject);
     procedure actNewUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);

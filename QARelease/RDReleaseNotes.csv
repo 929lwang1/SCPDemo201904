@@ -50,3 +50,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 49,ResourceGroupClient-20190428-0901.exe,save name and desc without space
 50,ResourceGroupClient-20190428-1336.exe,coding standard enhancement - related to search form
 51,ResourceGroupClient-20190429-1041.exe,fix leaving cost enable button
+52,ResourceGroupClient-20190429-1106.exe,add up down arrow key action for cost

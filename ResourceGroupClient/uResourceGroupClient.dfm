@@ -238,6 +238,9 @@ object fResGroup: TfResGroup
       Align = alTop
       Caption = 'Defaults'
       TabOrder = 0
+      DesignSize = (
+        925
+        104)
       object lblOperCost: TLabel
         Left = 32
         Top = 26
@@ -320,6 +323,7 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 83
         Height = 21
+        Anchors = [akTop, akRight]
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 1
@@ -716,6 +720,16 @@ object fResGroup: TfResGroup
       Category = 'ResGrpEdit'
       Caption = '&Remove'
       OnExecute = actRemoveExecute
+    end
+    object upClick: TAction
+      Caption = 'upClick'
+      ShortCut = 38
+      OnExecute = spinButtonCostUpClick
+    end
+    object downClick: TAction
+      Caption = 'downClick'
+      ShortCut = 40
+      OnExecute = spinButtonCostDownClick
     end
   end
   object ImageEnable: TImageList
