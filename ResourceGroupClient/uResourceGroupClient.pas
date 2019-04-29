@@ -204,12 +204,7 @@ type
     procedure DispRec(ipResGrpID: Integer);
     procedure validateCost;
     procedure orderBy(ipIndex: string);
-  const
-    seconds = 1;
-    minutes = 60;
-    hours = 3600;
-    days = 86400;
-    weeks = 604800;
+
   public
     { Public declarations }
     property strHist: TStringList read FHist;
@@ -224,6 +219,12 @@ type
 
 var
   fResGroup: TfResGroup;
+  const
+    seconds = 1;
+    minutes = 60;
+    hours = 3600;
+    days = 86400;
+    weeks = 604800;
 implementation
 
 {$R *.dfm}

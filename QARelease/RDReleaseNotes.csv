@@ -53,3 +53,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 52,ResourceGroupClient-20190429-1106.exe,add up down arrow key action for cost
 53,ResourceGroupClient-20190429-1131.exe,fix issue #29 & #33: save updates properly in the main form
 54,ResourceGroupClient-20190429-1214.exe,Fix #34 and enhance #31 allow cost as null
+55,ResourceGroupClient-20190429-1343.exe,Clicking in the space of time input box move the cursor to the beginning

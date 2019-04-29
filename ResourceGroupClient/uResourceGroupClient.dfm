@@ -323,8 +323,8 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 83
         Height = 21
-        Anchors = [akTop, akRight]
-        BiDiMode = bdRightToLeft
+        Alignment = taRightJustify
+        BiDiMode = bdLeftToRight
         ParentBiDiMode = False
         TabOrder = 1
         OnChange = txtPREP_TIMEChange
@@ -353,7 +353,8 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 83
         Height = 21
-        BiDiMode = bdRightToLeft
+        Alignment = taRightJustify
+        BiDiMode = bdLeftToRight
         ParentBiDiMode = False
         TabOrder = 3
         OnChange = txtCLEANUP_TIMEChange
@@ -382,7 +383,8 @@ object fResGroup: TfResGroup
         Top = 56
         Width = 83
         Height = 21
-        BiDiMode = bdRightToLeft
+        Alignment = taRightJustify
+        BiDiMode = bdLeftToRight
         ParentBiDiMode = False
         TabOrder = 5
         OnChange = txtDAILY_STARTUP_TIMEChange
@@ -411,7 +413,8 @@ object fResGroup: TfResGroup
         Top = 83
         Width = 83
         Height = 21
-        BiDiMode = bdRightToLeft
+        Alignment = taRightJustify
+        BiDiMode = bdLeftToRight
         ParentBiDiMode = False
         TabOrder = 7
         OnChange = txtDAILY_CLEANUP_TIMEChange
