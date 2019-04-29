@@ -419,8 +419,8 @@ end;
 procedure TfResGroup.orderBy(ipIndex:string);
 begin
   cdsRES_GRP_MSTR.IndexFieldNames := ipIndex;
-  actOrdByDesc.Checked := not actOrdByDesc.Checked;
-  actOrdByName.Checked := not actOrdByName.Checked;
+  actOrdByDesc.Checked := (cdsRES_GRP_MSTR.IndexFieldNames = 'RESOURCE_GROUP_DESC');
+  actOrdByName.Checked := (cdsRES_GRP_MSTR.IndexFieldNames = 'RESOURCE_GROUP_NAME');
 end;
 
 procedure TfResGroup.actPriorExecute(Sender: TObject);
@@ -816,8 +816,18 @@ begin
   validateCost;
   if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
     cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
-  seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
-  seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+  if cdsRES_GRP_MSTR.State = dsBrowse then
+  begin
+    seditOPER_COST.OnChange :=nil;
+    seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+    seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+    seditOPER_COST.OnChange := seditOPER_COSTChange;
+  end
+  else
+  begin
+    seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+    seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+  end;
 end;
 
 procedure TfResGroup.spinButtonCostDownClick(Sender: TObject);
