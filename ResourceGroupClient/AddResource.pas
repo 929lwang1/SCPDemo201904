@@ -110,7 +110,8 @@ end;
 
 procedure TfrmAddresource.dbgrdResourceCellClick(Column: TColumn);
 begin
-  btnOk.SetFocus;
+  if fResGroup.allowMultiSelect then
+    btnOk.SetFocus;
 end;
 
 procedure TfrmAddresource.dbgrdResourceDblClick(Sender: TObject);

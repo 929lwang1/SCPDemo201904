@@ -58,3 +58,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 57,ResourceGroupClient-20190429-1539.exe,fix #35 could save null cost
 57,ResourceGroupClient-20190429-1549.exe,fix #37 allow select when add resource
 58,ResourceGroupClient-20190429-1636.exe,Fix #38 OK button will be selected when one or more records are selected
+58,ResourceGroupClient-20190429-1828.exe,Fix #38 OK button will be selected when one or more records are selected
