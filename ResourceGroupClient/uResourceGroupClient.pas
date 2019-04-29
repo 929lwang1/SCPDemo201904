@@ -182,6 +182,8 @@ type
     procedure txtDAILY_STARTUP_TIMEExit(Sender: TObject);
     procedure txtCLEANUP_TIMEExit(Sender: TObject);
     procedure txtDAILY_CLEANUP_TIMEExit(Sender: TObject);
+    procedure upClickExecute(Sender: TObject);
+    procedure downClickExecute(Sender: TObject);
   private
     { Private declarations }
     FallowMultiSelect: Boolean;
@@ -519,6 +521,15 @@ begin
   Key :=txtKeyPress(cbxPRE_TIME.Text, txtPREP_TIME.Text, Key);
 end;
 
+procedure TfResGroup.upClickExecute(Sender: TObject);
+begin
+  if seditOPER_COST.Focused then
+  begin
+    seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) + 1);
+    validateCost;
+  end;
+end;
+
 function TfResGroup.txtOnChange(ipTime:string; ipTimeUm: integer):real;
 begin
   if not (cdsRES_GRP_MSTR.State in [dsInsert, dsEdit]) then
@@ -737,6 +748,7 @@ begin
   cdsRES_GRP_MSTR.FieldByName('CLEANUP_TIME').AsInteger := 0;
   cdsRES_GRP_MSTR.FieldByName('DAILY_STARTUP_TIME').AsInteger := 0;
   cdsRES_GRP_MSTR.FieldByName('DAILY_CLEANUP_TIME').AsInteger := 0;
+  seditOPER_COST.Text := '0.00';
 end;
 
 procedure TfResGroup.dbgridResourceCellClick(Column: TColumn);
@@ -818,20 +830,23 @@ end;
 
 procedure TfResGroup.seditOPER_COSTExit(Sender: TObject);
 begin
-  validateCost;
-  if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
-    cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
-  if cdsRES_GRP_MSTR.State = dsBrowse then
+  if seditOPER_COST.Text <> '' then
   begin
-    seditOPER_COST.OnChange :=nil;
-    seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
-    seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
-    seditOPER_COST.OnChange := seditOPER_COSTChange;
-  end
-  else
-  begin
-    seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
-    seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+    validateCost;
+    if cdsRES_GRP_MSTR.State in [dsInsert, dsEdit] then
+      cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+    if cdsRES_GRP_MSTR.State = dsBrowse then
+    begin
+      seditOPER_COST.OnChange :=nil;
+      seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+      seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+      seditOPER_COST.OnChange := seditOPER_COSTChange;
+    end
+    else
+    begin
+      seditOPER_COST.Text := cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value;
+      seditOPER_COST.Text := FormatFloat('0.00', StrToFloat(seditOPER_COST.Text));
+    end;
   end;
 end;
 
@@ -865,6 +880,15 @@ end;
 procedure TfResGroup.DispRec(ipResGrpID: Integer);
 begin
   cdsRES_GRP_MSTR.Locate('RESOURCE_GROUP_ID',ipResGrpID,[]);
+end;
+
+procedure TfResGroup.downClickExecute(Sender: TObject);
+begin
+  if seditOPER_COST.Focused then
+  begin
+    seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) - 1);
+    validateCost;
+  end;
 end;
 
 end.

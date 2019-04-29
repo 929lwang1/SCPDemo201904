@@ -52,4 +52,4 @@ ReleaseSeq,ReleaseProjectName,RD Release Notes
 51,ResourceGroupClient-20190429-1041.exe,fix leaving cost enable button
 52,ResourceGroupClient-20190429-1106.exe,add up down arrow key action for cost
 53,ResourceGroupClient-20190429-1131.exe,fix issue #29 & #33: save updates properly in the main form
-
+54,ResourceGroupClient-20190429-1214.exe,Fix #34 and enhance #31 allow cost as null

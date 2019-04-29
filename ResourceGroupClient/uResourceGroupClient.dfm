@@ -724,12 +724,12 @@ object fResGroup: TfResGroup
     object upClick: TAction
       Caption = 'upClick'
       ShortCut = 38
-      OnExecute = spinButtonCostUpClick
+      OnExecute = upClickExecute
     end
     object downClick: TAction
       Caption = 'downClick'
       ShortCut = 40
-      OnExecute = spinButtonCostDownClick
+      OnExecute = downClickExecute
     end
   end
   object ImageEnable: TImageList
