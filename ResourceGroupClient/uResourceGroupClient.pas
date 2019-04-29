@@ -526,6 +526,8 @@ procedure TfResGroup.upClickExecute(Sender: TObject);
 begin
   if seditOPER_COST.Focused then
   begin
+    if seditOPER_COST.Text = '' then
+      seditOPER_COST.Text := '0';
     seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) + 1);
     validateCost;
   end;
@@ -729,7 +731,7 @@ begin
   if cdsRES_GRP_MSTR.FieldByName('OPERATION_COST').Value = NULL then
   begin
     seditOPER_COST.Value := 0;
-    seditOPER_COST.Text := FloattoStr(0.00);
+    seditOPER_COST.Text := '0.00';
   end
   else
   begin
@@ -853,6 +855,8 @@ end;
 
 procedure TfResGroup.spinButtonCostDownClick(Sender: TObject);
 begin
+  if seditOPER_COST.Text = '' then
+     seditOPER_COST.Text := '0';
   seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) - 1);
   validateCost;
 end;
@@ -865,6 +869,8 @@ begin
 end;
 procedure TfResGroup.spinButtonCostUpClick(Sender: TObject);
 begin
+  if seditOPER_COST.Text = '' then
+     seditOPER_COST.Text := '0';
   seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) + 1);
   validateCost;
 end;
@@ -887,6 +893,8 @@ procedure TfResGroup.downClickExecute(Sender: TObject);
 begin
   if seditOPER_COST.Focused then
   begin
+    if seditOPER_COST.Text = '' then
+      seditOPER_COST.Text := '0';
     seditOPER_COST.Text :=  FloatToStr(StrToFloat(seditOPER_COST.Text) - 1);
     validateCost;
   end;
