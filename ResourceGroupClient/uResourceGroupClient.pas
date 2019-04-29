@@ -591,8 +591,11 @@ var
   i:integer;
 begin
   seditOPER_COSTExit(self);
-  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').Value := trim(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').AsString);
-  cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_DESC').Value := trim(cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_DESC').AsString);
+  if cdsRES_GRP_MSTR.State in [dsEdit, dsInsert] then
+  begin
+    cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_NAME').Value := trim(dbeName.Text);
+    cdsRES_GRP_MSTR.FieldByName('RESOURCE_GROUP_DESC').Value := trim(dbeDesc.Text);
+  end;
   if trim(dbeName.text) = '' then
   begin
     Application.MessageBox('Field Name cannot be blank.','Error',MB_OK+MB_ICONHAND);
